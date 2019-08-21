@@ -35,7 +35,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2019-08-20T22:17:05-0500"
+		datePublished="2019-08-21T05:01:22-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -53,6 +53,8 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Pulled Servlet and JSP related utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
+					<li>Split HTTP-specific parts of <code>ServletUtil</code> into <code>HttpServletUtil</code>.</li>
+					<li>Updated dependencies.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

@@ -22,6 +22,7 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.LocalizedServletException;
 import static com.aoindustries.servlet.http.ApplicationResources.accessor;
 import com.aoindustries.util.AoCollections;
@@ -233,7 +234,7 @@ public class Dispatcher {
 		Map<String,?> args
 	) throws ServletException, IOException {
 		// Resolve the dispatcher
-		String contextRelativePath = ServletUtil.getAbsolutePath(getCurrentPagePath(request), page);
+		String contextRelativePath = URIResolver.getAbsolutePath(getCurrentPagePath(request), page);
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher(contextRelativePath);
 		if(dispatcher==null) throw new LocalizedServletException(accessor, "Dispatcher.dispatcherNotFound", contextRelativePath);
 		forward(contextRelativePath, dispatcher, request, response, args);
@@ -359,7 +360,7 @@ public class Dispatcher {
 					currentPagePath
 				}
 			);
-			contextRelativePath = ServletUtil.getAbsolutePath(currentPagePath, page);
+			contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
 			if(logger.isLoggable(Level.FINE)) logger.log(
 				Level.FINE,
 				"request={0}, contextRelativePath={1}",

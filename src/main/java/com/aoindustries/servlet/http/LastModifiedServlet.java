@@ -25,6 +25,7 @@ package com.aoindustries.servlet.http;
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
 import com.aoindustries.net.URIEncoder;
+import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletContextCache;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -230,7 +231,7 @@ public class LastModifiedServlet extends HttpServlet {
 						// Check for header disabling auto last modified
 						if(hap.header==null || hap.header) {
 							// Get the resource path relative to the CSS file
-							String resourcePath = ServletUtil.getAbsolutePath(hap.path, url);
+							String resourcePath = URIResolver.getAbsolutePath(hap.path, url);
 							if(resourcePath.startsWith("/")) {
 								// TODO: AO URI here?
 								URI resourcePathURI = new URI(resourcePath);
@@ -459,7 +460,7 @@ public class LastModifiedServlet extends HttpServlet {
 		// Never try to add if when==falsee
 		if(when != AddLastModifiedWhen.FALSE) {
 			// Get the context-relative path (resolves relative paths)
-			String resourcePath = ServletUtil.getAbsolutePath(
+			String resourcePath = URIResolver.getAbsolutePath(
 				servletPath,
 				url
 			);
