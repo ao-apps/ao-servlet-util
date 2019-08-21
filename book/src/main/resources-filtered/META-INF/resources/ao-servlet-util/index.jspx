@@ -39,9 +39,9 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		<header>
 			<ao:include
 				page="/ao-badges/badges.inc.jspx"
-				arg.projectStatus="current-stable"
-				arg.managementStatus="production"
-				arg.packagingStatus="active"
+				arg.projectStatus="alpha"
+				arg.managementStatus="preview"
+				arg.packagingStatus="developmental"
 				arg.javaVersion="@{documented.javaVersion}"
 				arg.javaeeVersion="6"
 				arg.semanticVersioning="2.0.0"

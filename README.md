@@ -1,13 +1,13 @@
 # [<img src="ao-logo.png" alt="AO Logo" width="35" height="40">](https://github.com/aoindustries) [AO Servlet Util](https://github.com/aoindustries/ao-servlet-util)
 <p>
-	<a href="https://aoindustries.com/life-cycle#project-current-stable">
-		<img src="https://aoindustries.com/ao-badges/project-current-stable.svg" alt="project: current stable" />
+	<a href="https://aoindustries.com/life-cycle#project-alpha">
+		<img src="https://aoindustries.com/ao-badges/project-alpha.svg" alt="project: alpha" />
 	</a>
-	<a href="https://aoindustries.com/life-cycle#management-production">
-		<img src="https://aoindustries.com/ao-badges/management-production.svg" alt="management: production" />
+	<a href="https://aoindustries.com/life-cycle#management-preview">
+		<img src="https://aoindustries.com/ao-badges/management-preview.svg" alt="management: preview" />
 	</a>
-	<a href="https://aoindustries.com/life-cycle#packaging-active">
-		<img src="https://aoindustries.com/ao-badges/packaging-active.svg" alt="packaging: active" />
+	<a href="https://aoindustries.com/life-cycle#packaging-developmental">
+		<img src="https://aoindustries.com/ao-badges/packaging-developmental.svg" alt="packaging: developmental" />
 	</a>
 	<br />
 	<a href="https://docs.oracle.com/javase/7/docs/api/">
