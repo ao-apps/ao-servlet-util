@@ -35,7 +35,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name} Changelog"
 		shortTitle="Changelog"
 		tocLevels="1"
-		datePublished="2019-08-21T05:01:22-0500"
+		datePublished="2019-08-21T05:09:52-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -54,7 +54,21 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				<ul>
 					<li>Pulled Servlet and JSP related utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
 					<li>Split HTTP-specific parts of <code>ServletUtil</code> into <code>HttpServletUtil</code>.</li>
-					<li>Updated dependencies.</li>
+					<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
+					<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
+					<li>New methods for URI encoding/decoding in a servlet environment:
+						<ol>
+							<li><code>ServletUtil.encodeURIComponent(…)</code> for encoding URI path components or fragments.</li>
+							<li><code>ServletUtil.decodeURIComponent(…)</code> for decoding URI path components or fragments.</li>
+							<li><code>ServletUtil.encodeURI(…)</code> for encoding an entire URI to <ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 ASCII format</ao:a>.</li>
+							<li><code>ServletUtil.decodeURI(…)</code> for decoding an entire URI to <ao:a href="https://tools.ietf.org/html/rfc3987">RFC 3987 Unicode format</ao:a>.</li>
+						</ol>
+					</li>
+					<li>
+						Deprecated <code>HttpServletUtil.getContextRequestUri()</code>: <code>HttpServletRequest.getContextPath()</code> sometimes comes
+						back percent encoded, but is usually decoded.  We've deprecated this method rather than creating a more advanced implementation
+						to deal with encoding discrepancies.
+					</li>
 				</ul>
 			</changelog:release>
 		</c:if>
