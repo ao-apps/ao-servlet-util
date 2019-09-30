@@ -23,7 +23,6 @@
 package com.aoindustries.servlet;
 
 import com.aoindustries.net.IRI;
-import com.aoindustries.net.URI;
 import com.aoindustries.net.URIParameters;
 import com.aoindustries.net.URIParametersUtils;
 import com.aoindustries.util.EnumerationIterator;
