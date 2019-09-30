@@ -29,6 +29,8 @@ import com.aoindustries.servlet.http.HttpServletUtil;
 import com.aoindustries.util.WrappedException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.jsp.SkipPageException;
@@ -65,20 +67,23 @@ public class ServletUtil {
 		}
 	};
 
-	private static final String DEFAULT_REQUEST_ENCODING = "ISO-8859-1";
+	private static final Charset DEFAULT_REQUEST_ENCODING = StandardCharsets.ISO_8859_1;
 
 	/**
 	 * Gets the request encoding or ISO-8859-1 when not available.
 	 */
 	public static String getRequestEncoding(ServletRequest request) {
 		String requestEncoding = request.getCharacterEncoding();
-		return requestEncoding != null ? requestEncoding : DEFAULT_REQUEST_ENCODING;
+		return requestEncoding != null ? requestEncoding : DEFAULT_REQUEST_ENCODING.name();
 	}
 
 	/**
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String)
 	 * @see  ServletResponse#getCharacterEncoding()
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, javax.servlet.ServletResponse)}
 	 */
+	@Deprecated
 	public static String encodeURIComponent(String uri, ServletResponse response) {
 		String responseEncoding = response.getCharacterEncoding();
 		try {
@@ -91,7 +96,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable)
 	 * @see  ServletResponse#getCharacterEncoding()
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, javax.servlet.ServletResponse, java.lang.Appendable)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String uri, ServletResponse response, Appendable out) throws IOException {
 		String responseEncoding = response.getCharacterEncoding();
 		try {
@@ -104,7 +112,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
 	 * @see  ServletResponse#getCharacterEncoding()
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, javax.servlet.ServletResponse, java.lang.Appendable, com.aoindustries.io.Encoder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String uri, ServletResponse response, Appendable out, Encoder encoder) throws IOException {
 		String responseEncoding = response.getCharacterEncoding();
 		try {
@@ -117,7 +128,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuilder)
 	 * @see  ServletResponse#getCharacterEncoding()
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, javax.servlet.ServletResponse, java.lang.StringBuilder)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String uri, ServletResponse response, StringBuilder sb) {
 		String responseEncoding = response.getCharacterEncoding();
 		try {
@@ -130,7 +144,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIEncoder#encodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuffer)
 	 * @see  ServletResponse#getCharacterEncoding()
+	 *
+	 * @deprecated  Please use {@link URIComponent#encode(java.lang.String, javax.servlet.ServletResponse, java.lang.StringBuffer)}
 	 */
+	@Deprecated
 	public static void encodeURIComponent(String uri, ServletResponse response, StringBuffer sb) {
 		String responseEncoding = response.getCharacterEncoding();
 		try {
@@ -143,7 +160,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIDecoder#decodeURIComponent(java.lang.String, java.lang.String)
 	 * @see  #getRequestEncoding(javax.servlet.ServletRequest)
+	 *
+	 * @deprecated  Please use {@link URIComponent#decode(java.lang.String, javax.servlet.ServletRequest)}
 	 */
+	@Deprecated
 	public static String decodeURIComponent(String uri, ServletRequest request) throws UnsupportedEncodingException {
 		return URIDecoder.decodeURIComponent(uri, getRequestEncoding(request));
 	}
@@ -151,7 +171,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIDecoder#decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable)
 	 * @see  #getRequestEncoding(javax.servlet.ServletRequest)
+	 *
+	 * @deprecated  Please use {@link URIComponent#decode(java.lang.String, javax.servlet.ServletRequest, java.lang.Appendable)}
 	 */
+	@Deprecated
 	public static void decodeURIComponent(String uri, ServletRequest request, Appendable out) throws UnsupportedEncodingException, IOException {
 		URIDecoder.decodeURIComponent(uri, getRequestEncoding(request), out);
 	}
@@ -159,7 +182,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIDecoder#decodeURIComponent(java.lang.String, java.lang.String, java.lang.Appendable, com.aoindustries.io.Encoder)
 	 * @see  #getRequestEncoding(javax.servlet.ServletRequest)
+	 *
+	 * @deprecated  Please use {@link URIComponent#decode(java.lang.String, javax.servlet.ServletRequest, java.lang.Appendable, com.aoindustries.io.Encoder)}
 	 */
+	@Deprecated
 	public static void decodeURIComponent(String uri, ServletRequest request, Appendable out, Encoder encoder) throws UnsupportedEncodingException, IOException {
 		URIDecoder.decodeURIComponent(uri, getRequestEncoding(request), out, encoder);
 	}
@@ -167,7 +193,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIDecoder#decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuilder)
 	 * @see  #getRequestEncoding(javax.servlet.ServletRequest)
+	 *
+	 * @deprecated  Please use {@link URIComponent#decode(java.lang.String, javax.servlet.ServletRequest, java.lang.StringBuilder)}
 	 */
+	@Deprecated
 	public static void decodeURIComponent(String uri, ServletRequest request, StringBuilder sb) throws UnsupportedEncodingException {
 		URIDecoder.decodeURIComponent(uri, getRequestEncoding(request), sb);
 	}
@@ -175,7 +204,10 @@ public class ServletUtil {
 	/**
 	 * @see  URIDecoder#decodeURIComponent(java.lang.String, java.lang.String, java.lang.StringBuffer)
 	 * @see  #getRequestEncoding(javax.servlet.ServletRequest)
+	 *
+	 * @deprecated  Please use {@link URIComponent#decode(java.lang.String, javax.servlet.ServletRequest, java.lang.StringBuffer)}
 	 */
+	@Deprecated
 	public static void decodeURIComponent(String uri, ServletRequest request, StringBuffer sb) throws UnsupportedEncodingException {
 		URIDecoder.decodeURIComponent(uri, getRequestEncoding(request), sb);
 	}

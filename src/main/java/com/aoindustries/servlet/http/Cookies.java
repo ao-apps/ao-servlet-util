@@ -22,8 +22,11 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.net.IRI;
+import com.aoindustries.net.URIComponent;
 import com.aoindustries.net.URIDecoder;
 import com.aoindustries.net.URIEncoder;
+import java.io.UnsupportedEncodingException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,96 +40,128 @@ public final class Cookies {
 	}
 
 	/**
-	 * Encodes the name of a cookie via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Encodes the name of a cookie in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded name
 	 *
 	 * @see Cookie#Cookie(java.lang.String, java.lang.String)
 	 */
 	public static String encodeName(String name) {
-		return URIEncoder.encodeURIComponent(name);
+		try {
+			return URIComponent.QUERY.encode(name, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Encodes the value of a cookie via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Encodes the value of a cookie in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded value
 	 *
 	 * @see Cookie#Cookie(java.lang.String, java.lang.String)
 	 */
 	public static String encodeValue(String value) {
-		return URIEncoder.encodeURIComponent(value);
+		try {
+			return URIComponent.QUERY.encode(value, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Encodes the comment of a cookie via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Encodes the comment of a cookie in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded comment
 	 *
 	 * @see Cookie#setComment(java.lang.String)
 	 */
 	public static String encodeComment(String comment) {
-		return URIEncoder.encodeURIComponent(comment);
+		try {
+			return URIComponent.QUERY.encode(comment, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Encodes the path of a cookie via {@link URIEncoder#encodeURI(java.lang.String)}.
+	 * Encodes the path of a cookie in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded path
 	 *
 	 * @see Cookie#setPath(java.lang.String)
 	 */
 	public static String encodePath(String path) {
-		return URIEncoder.encodeURI(path);
+		try {
+			return URIEncoder.encodeURI(path, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Gets the name of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the name of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded name
 	 *
 	 * @see Cookie#getName()
 	 */
 	public static String decodeName(String name) {
-		return URIDecoder.decodeURIComponent(name);
+		try {
+			return URIComponent.QUERY.decode(name, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Gets the value of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the value of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded value
 	 *
 	 * @see Cookie#getValue()
 	 */
 	public static String decodeValue(String value) {
-		return URIDecoder.decodeURIComponent(value);
+		try {
+			return URIComponent.QUERY.decode(value, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Gets the comment of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the comment of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded comment
 	 *
 	 * @see Cookie#getComment()
 	 */
 	public static String decodeComment(String comment) {
-		return URIDecoder.decodeURIComponent(comment);
+		try {
+			return URIComponent.QUERY.decode(comment, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
-	 * Gets the path of a cookie, decoded via {@link URIDecoder#decodeURI(java.lang.String)}.
+	 * Gets the path of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded path
 	 *
 	 * @see Cookie#getPath()
 	 */
 	public static String decodePath(String path) {
-		return URIDecoder.decodeURI(path);
+		try {
+			return URIDecoder.decodeURI(path, IRI.ENCODING.name());
+		} catch(UnsupportedEncodingException e) {
+			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
+		}
 	}
 
 	/**
 	 * Creates a new cookie, but does not add it to any response.
-	 * Encodes name and value via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Encodes name and value in {@link IRI#ENCODING}.
 	 *
 	 * @return  The new cookie
 	 *
@@ -140,7 +175,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Sets the comment of a cookie, encoded via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Sets the comment of a cookie, encoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded comment
 	 *
@@ -153,7 +188,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Sets the path of a cookie, encoded via {@link URIEncoder#encodeURI(java.lang.String)}.
+	 * Sets the path of a cookie, encoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The encoded path
 	 *
@@ -166,7 +201,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Gets the name of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the name of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded name
 	 *
@@ -177,7 +212,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Gets the value of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the value of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded value
 	 *
@@ -188,7 +223,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Gets the comment of a cookie, decoded via {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Gets the comment of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded comment
 	 *
@@ -199,7 +234,7 @@ public final class Cookies {
 	}
 
 	/**
-	 * Gets the path of a cookie, decoded via {@link URIDecoder#decodeURI(java.lang.String)}.
+	 * Gets the path of a cookie, decoded in {@link IRI#ENCODING}.
 	 *
 	 * @return  The decoded path
 	 *
@@ -211,8 +246,7 @@ public final class Cookies {
 
 	/**
 	 * Creates a new cookie, but does not add it to any response.
-	 * Encodes name, value, and comment via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
-	 * Encodes path via {@link URIEncoder#encodeURI(java.lang.String)}.
+	 * Encodes name, value, comment, and path in {@link IRI#ENCODING}.
 	 */
 	public static Cookie newCookie(
 		HttpServletRequest request,
@@ -240,8 +274,7 @@ public final class Cookies {
 
 	/**
 	 * Adds a new cookie to the response.
-	 * Encodes name, value, and comment via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
-	 * Encodes path via {@link URIEncoder#encodeURI(java.lang.String)}.
+	 * Encodes name, value, comment, and path in {@link IRI#ENCODING}.
 	 */
 	public static void addCookie(
 		HttpServletRequest request,
@@ -258,8 +291,8 @@ public final class Cookies {
 
 	/**
 	 * Gets a cookie value given its name or <code>null</code> if not found.
-	 * Encodes name via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
-	 * Decodes value value {@link URIDecoder#decodeURIComponent(java.lang.String)}.
+	 * Encodes name in {@link IRI#ENCODING}.
+	 * Decodes value in {@link IRI#ENCODING}.
 	 */
 	public static String getCookie(HttpServletRequest request, String name) {
 		Cookie[] cookies = request.getCookies();
@@ -274,7 +307,7 @@ public final class Cookies {
 
 	/**
 	 * Removes a cookie by adding it with maxAge of zero.
-	 * Encodes name via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
+	 * Encodes name in {@link IRI#ENCODING}.
 	 */
 	public static void removeCookie(
 		HttpServletRequest request,
