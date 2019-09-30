@@ -36,6 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
+		dateModified="2019-09-29T23:04:08-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -69,6 +70,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						back percent encoded, but is usually decoded.  We've deprecated this method rather than creating a more advanced implementation
 						to deal with encoding discrepancies.
 					</li>
+					<li>New enum <code>URIComponent</code> used to encode different types of URI components.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
