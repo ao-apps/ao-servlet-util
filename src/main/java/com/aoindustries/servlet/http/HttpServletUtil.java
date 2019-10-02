@@ -57,7 +57,7 @@ public class HttpServletUtil {
 	private static final boolean DEBUG = false;
 
 	/**
-	 * @see  #getAbsolutePath(java.lang.String, java.lang.String)
+	 * @see  URIResolver#getAbsolutePath(java.lang.String, java.lang.String)
 	 */
 	public static String getAbsolutePath(HttpServletRequest request, String path) throws MalformedURLException {
 		return URIResolver.getAbsolutePath(request.getServletPath(), path);
@@ -188,7 +188,7 @@ public class HttpServletUtil {
 	 *               The following actions are performed on the provided href:
 	 *               <ol>
 	 *                 <li>Convert page-relative paths to context-relative path, resolving ./ and ../</li>
-	 *                 <li>Encode URI to ASCII format via {@link #encodeURI(java.lang.String, javax.servlet.ServletResponse)}</li>
+	 *                 <li>Encode URI to ASCII format via {@link URIEncoder#encodeURI(java.lang.String)}</li>
 	 *                 <li>Perform URL rewriting {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
 	 *                 <li>Convert to absolute URL if needed.  This will also add the context path.</li>
 	 *               </ol>
