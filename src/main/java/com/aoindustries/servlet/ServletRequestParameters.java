@@ -22,11 +22,9 @@
  */
 package com.aoindustries.servlet;
 
-import com.aoindustries.net.IRI;
 import com.aoindustries.net.URIParameters;
 import com.aoindustries.net.URIParametersUtils;
 import com.aoindustries.util.EnumerationIterator;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -51,16 +49,7 @@ public class ServletRequestParameters implements URIParameters {
 
 	@Override
 	public String toString() {
-		try {
-			return toString(IRI.ENCODING.name());
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
-	}
-
-	@Override
-	public String toString(String documentEncoding) throws UnsupportedEncodingException {
-		return Objects.toString(URIParametersUtils.toQueryString(this, documentEncoding), "");
+		return Objects.toString(URIParametersUtils.toQueryString(this), "");
 	}
 
 	@Override

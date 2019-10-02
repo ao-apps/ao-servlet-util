@@ -25,7 +25,7 @@ package com.aoindustries.servlet.http;
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
 import com.aoindustries.net.IRI;
-import com.aoindustries.net.URIComponent;
+import com.aoindustries.net.URIEncoder;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletContextCache;
 import java.io.BufferedReader;
@@ -105,11 +105,7 @@ public class LastModifiedServlet extends HttpServlet {
 	 */
 	public static final String LAST_MODIFIED_PARAMETER_NAME = "lastModified";
 	static {
-		try {
-			assert LAST_MODIFIED_PARAMETER_NAME.equals(URIComponent.QUERY.encode(LAST_MODIFIED_PARAMETER_NAME, IRI.ENCODING.name())) : "The value is URL-safe and does not need to be encoded: " + LAST_MODIFIED_PARAMETER_NAME;
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
+		assert LAST_MODIFIED_PARAMETER_NAME.equals(URIEncoder.encodeURIComponent(LAST_MODIFIED_PARAMETER_NAME)) : "The value is URL-safe and does not need to be encoded: " + LAST_MODIFIED_PARAMETER_NAME;
 	}
 
 	/**
@@ -123,11 +119,7 @@ public class LastModifiedServlet extends HttpServlet {
 	 */
 	public static String encodeLastModified(long lastModified) {
 		String str = Long.toString(lastModified / 1000, 32);
-		try {
-			assert str.equals(URIComponent.QUERY.encode(str, IRI.ENCODING.name())) : "The value is URL-safe and does not need to be encoded: " + str;
-		} catch(UnsupportedEncodingException e) {
-			throw new AssertionError("Standard encoding (" + IRI.ENCODING + ") should always exist", e);
-		}
+		assert str.equals(URIEncoder.encodeURIComponent(str)) : "The value is URL-safe and does not need to be encoded: " + str;
 		return str;
 	}
 

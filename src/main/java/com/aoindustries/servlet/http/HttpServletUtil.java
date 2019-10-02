@@ -28,9 +28,7 @@ import com.aoindustries.net.URIParameters;
 import com.aoindustries.net.URIParametersUtils;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletUtil;
-import com.aoindustries.util.WrappedException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
@@ -207,7 +205,7 @@ public class HttpServletUtil {
 		href = URIResolver.getAbsolutePath(servletPath, href);
 
 		// Encode URI to ASCII format
-		href = ServletUtil.encodeURI(href, response);
+		href = URIEncoder.encodeURI(href);
 
 		// Perform URL rewriting
 		href = response.encodeRedirectURL(href);
@@ -401,22 +399,17 @@ public class HttpServletUtil {
 		boolean urlAbsolute,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
-		String responseEncoding = response.getCharacterEncoding();
-		try {
-			String servletPath = Dispatcher.getCurrentPagePath(request);
-			url = URIResolver.getAbsolutePath(servletPath, url);
-			url = URIParametersUtils.addParams(url, params, responseEncoding);
-			url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
-			if(!urlAbsolute && url.startsWith("/")) {
-				String contextPath = request.getContextPath();
-				if(!contextPath.isEmpty()) url = contextPath + url;
-			}
-			url = response.encodeURL(URIEncoder.encodeURI(url, responseEncoding));
-			if(urlAbsolute && url.startsWith("/")) url = getAbsoluteURL(request, url);
-			return url;
-		} catch(UnsupportedEncodingException e) {
-			throw new WrappedException("ServletResponse encoding (" + responseEncoding + ") is expected to always exist", e);
+		String servletPath = Dispatcher.getCurrentPagePath(request);
+		url = URIResolver.getAbsolutePath(servletPath, url);
+		url = URIParametersUtils.addParams(url, params);
+		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
+		if(!urlAbsolute && url.startsWith("/")) {
+			String contextPath = request.getContextPath();
+			if(!contextPath.isEmpty()) url = contextPath + url;
 		}
+		url = response.encodeURL(URIEncoder.encodeURI(url));
+		if(urlAbsolute && url.startsWith("/")) url = getAbsoluteURL(request, url);
+		return url;
 	}
 
 	/**
