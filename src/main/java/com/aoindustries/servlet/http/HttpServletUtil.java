@@ -136,10 +136,12 @@ public class HttpServletUtil {
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String relPath, boolean contextRelative, Appendable out) throws IOException {
 		out.append(request.isSecure() ? "https://" : "http://");
-		out.append(request.getServerName());
+		URIEncoder.encodeURI(request.getServerName(), out);
 		int port = request.getServerPort();
 		if(port!=(request.isSecure() ? 443 : 80)) out.append(':').append(Integer.toString(port));
-		if(contextRelative) out.append(request.getContextPath());
+		if(contextRelative) {
+			URIEncoder.encodeURI(request.getContextPath(), out);
+		}
 		out.append(relPath);
 	}
 
@@ -164,10 +166,12 @@ public class HttpServletUtil {
 			getAbsoluteURL(request, relPath, contextRelative, out);
 		} else {
 			encoder.append(request.isSecure() ? "https://" : "http://", out);
-			encoder.append(request.getServerName(), out);
+			URIEncoder.encodeURI(request.getServerName(), out, encoder);
 			int port = request.getServerPort();
 			if(port!=(request.isSecure() ? 443 : 80)) encoder.append(':', out).append(Integer.toString(port), out);
-			if(contextRelative) encoder.append(request.getContextPath(), out);
+			if(contextRelative) {
+				URIEncoder.encodeURI(request.getContextPath(), out, encoder);
+			}
 			encoder.append(relPath, out);
 		}
 	}
@@ -207,11 +211,11 @@ public class HttpServletUtil {
 		// Encode URI to ASCII format
 		href = URIEncoder.encodeURI(href);
 
-		// Perform URL rewriting
-		href = response.encodeRedirectURL(href);
-
 		// Convert to absolute URL if needed.  This will also add the context path.
 		if(href.startsWith("/")) href = getAbsoluteURL(request, href);
+
+		// Perform URL rewriting
+		href = response.encodeRedirectURL(href);
 
 		return href;
 	}
@@ -258,15 +262,10 @@ public class HttpServletUtil {
 
 	/**
 	 * Gets the current request URI in context-relative form.  The contextPath stripped.
-	 *
-	 * @deprecated  TODO: getContextPath sometimes comes back percent encoded, but is usually decoded.  Tomcat 7-only issue?
-	 *                    Deal with this here, and all other places where contextPath used for comparison.
-	 *                    Suggest encoding both then comparing.
 	 */
-	@Deprecated
 	public static String getContextRequestUri(HttpServletRequest request) {
 		String requestUri = request.getRequestURI();
-		String contextPath = request.getContextPath();
+		String contextPath = URIEncoder.encodeURI(request.getContextPath());
 		int cpLen = contextPath.length();
 		if(cpLen > 0) {
 			assert requestUri.startsWith(contextPath);
@@ -403,12 +402,18 @@ public class HttpServletUtil {
 		url = URIResolver.getAbsolutePath(servletPath, url);
 		url = URIParametersUtils.addParams(url, params);
 		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
-		if(!urlAbsolute && url.startsWith("/")) {
-			String contextPath = request.getContextPath();
-			if(!contextPath.isEmpty()) url = contextPath + url;
+		url = URIEncoder.encodeURI(url);
+		if(url.startsWith("/")) {
+			if(urlAbsolute) {
+				url = getAbsoluteURL(request, url);
+			} else {
+				String contextPath = request.getContextPath();
+				if(!contextPath.isEmpty()) {
+					url = URIEncoder.encodeURI(contextPath) + url;
+				}
+			}
 		}
-		url = response.encodeURL(URIEncoder.encodeURI(url));
-		if(urlAbsolute && url.startsWith("/")) url = getAbsoluteURL(request, url);
+		url = response.encodeURL(url);
 		return url;
 	}
 
