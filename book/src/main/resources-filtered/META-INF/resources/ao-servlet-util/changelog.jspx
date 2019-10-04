@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-03T19:11:20-0500"
+		dateModified="2019-10-03T20:20:52-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -58,9 +58,9 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
 					<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
 					<li>
-						Deprecated <code>HttpServletUtil.getContextRequestUri()</code>: <code>HttpServletRequest.getContextPath()</code> sometimes comes
-						back percent encoded, but is usually decoded.  We've deprecated this method rather than creating a more advanced implementation
-						to deal with encoding discrepancies.
+						<code>HttpServletUtil.getContextRequestUri()</code> now percent-encodes
+						result of <code>HttpServletRequest.getContextPath()</code>
+						because it sometimes comes back percent encoded, but is usually decoded.
 					</li>
 					<li>
 						Absolute URLs are now generated in <ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
