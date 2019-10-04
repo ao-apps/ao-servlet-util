@@ -24,7 +24,6 @@ package com.aoindustries.servlet.http;
 
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
-import com.aoindustries.net.IRI;
 import com.aoindustries.net.URIEncoder;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletContextCache;
@@ -34,7 +33,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
