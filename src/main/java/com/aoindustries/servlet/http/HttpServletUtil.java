@@ -166,11 +166,11 @@ public class HttpServletUtil {
 			getAbsoluteURL(request, relPath, contextRelative, out);
 		} else {
 			encoder.append(request.isSecure() ? "https://" : "http://", out);
-			URIEncoder.encodeURI(request.getServerName(), out, encoder);
+			URIEncoder.encodeURI(request.getServerName(), encoder, out);
 			int port = request.getServerPort();
 			if(port!=(request.isSecure() ? 443 : 80)) encoder.append(':', out).append(Integer.toString(port), out);
 			if(contextRelative) {
-				URIEncoder.encodeURI(request.getContextPath(), out, encoder);
+				URIEncoder.encodeURI(request.getContextPath(), encoder, out);
 			}
 			encoder.append(relPath, out);
 		}
