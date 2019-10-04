@@ -22,7 +22,9 @@
  */
 package com.aoindustries.util.i18n.servlet;
 
+import com.aoindustries.net.URIEncoder;
 import com.aoindustries.servlet.http.Cookies;
+import com.aoindustries.servlet.http.HttpServletUtil;
 import com.aoindustries.util.i18n.EditableResourceBundle;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -67,26 +69,22 @@ public class EditableResourceServletFilter implements Filter {
 			request.setAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE_KEY, Boolean.TRUE);
 			try {
 				HttpServletRequest httpRequest = (HttpServletRequest)request;
+				HttpServletResponse httpResponse = (HttpServletResponse)response;
 				if("*".equals(role) || httpRequest.isUserInRole(role)) {
 					try {
 						// Check for cookie
 						boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, EditableResourceBundle.VISIBILITY_COOKIE_NAME));
-						// Generate common URL prefix
-						StringBuilder url = new StringBuilder();
-						url
-							.append(httpRequest.isSecure() ? "https://" : "http://")
-							.append(httpRequest.getServerName());
-						int port = httpRequest.getServerPort();
-						if(httpRequest.isSecure() ? (port!=443) : (port!=80)) url.append(':').append(port);
-						url.append(httpRequest.getContextPath()).append('/');
-						int baseUrlLen = url.length();
-						// Generate value URL
-						url.append("SetResourceBundleValue");
-						String setValueUrl = url.toString();
 						// Setup request for editing
 						EditableResourceBundle.resetRequest(
 							true,
-							setValueUrl,
+							httpResponse.encodeURL(
+								URIEncoder.encodeURI(
+									HttpServletUtil.getAbsoluteURL(
+										httpRequest,
+										"/SetResourceBundleValue"
+									)
+								)
+							),
 							modifyAllText
 						);
 						chain.doFilter(request, response);
