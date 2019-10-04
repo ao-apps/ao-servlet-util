@@ -193,8 +193,8 @@ public class HttpServletUtil {
 	 *               <ol>
 	 *                 <li>Convert page-relative paths to context-relative path, resolving ./ and ../</li>
 	 *                 <li>Encode URI to ASCII format via {@link URIEncoder#encodeURI(java.lang.String)}</li>
-	 *                 <li>Perform URL rewriting {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
 	 *                 <li>Convert to absolute URL if needed.  This will also add the context path.</li>
+	 *                 <li>Perform URL rewriting {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
 	 *               </ol>
 	 *
 	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
@@ -222,7 +222,8 @@ public class HttpServletUtil {
 
 	/**
 	 * Sends a redirect to the provided absolute URL location.
-	 * 
+	 * Encodes the location to US-ASCII format.
+	 *
 	 * @see  #getRedirectLocation(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String) 
 	 */
 	public static void sendRedirect(
@@ -233,7 +234,7 @@ public class HttpServletUtil {
 		// Response must not be committed
 		if(response.isCommitted()) throw new IllegalStateException("Unable to redirect: Response already committed");
 
-		response.setHeader("Location", location);
+		response.setHeader("Location", URIEncoder.encodeURI(location));
 		response.sendError(status);
 	}
 
