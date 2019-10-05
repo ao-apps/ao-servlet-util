@@ -407,7 +407,7 @@ public class HttpServletUtil {
 		HttpServletResponse response,
 		String url,
 		URIParameters params,
-		boolean urlAbsolute,
+		boolean absolute,
 		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
@@ -417,7 +417,7 @@ public class HttpServletUtil {
 		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
 		url = URIEncoder.encodeURI(url);
 		if(url.startsWith("/")) {
-			if(urlAbsolute) {
+			if(absolute) {
 				url = getAbsoluteURL(request, url);
 			} else {
 				String contextPath = request.getContextPath();
@@ -439,7 +439,7 @@ public class HttpServletUtil {
 		PageContext pageContext,
 		String url,
 		URIParameters params,
-		boolean urlAbsolute,
+		boolean absolute,
 		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
@@ -449,7 +449,7 @@ public class HttpServletUtil {
 			(HttpServletResponse)pageContext.getResponse(),
 			url,
 			params,
-			urlAbsolute,
+			absolute,
 			canonical,
 			addLastModified
 		);
@@ -462,7 +462,7 @@ public class HttpServletUtil {
 		JspContext jspContext,
 		String url,
 		URIParameters params,
-		boolean srcAbsolute,
+		boolean absolute,
 		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
@@ -470,7 +470,7 @@ public class HttpServletUtil {
 			(PageContext)jspContext,
 			url,
 			params,
-			srcAbsolute,
+			absolute,
 			canonical,
 			addLastModified
 		);
