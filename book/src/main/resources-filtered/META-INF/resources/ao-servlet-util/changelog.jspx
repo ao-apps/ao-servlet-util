@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-05T00:26:22-0500"
+		dateModified="2019-10-05T09:18:07-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -73,7 +73,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					</li>
 					<li>
 						New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
-						coordinates when canonical URLs should be generated during response URL rewriting (such as
+						coordinates when canonical URLs should be generated <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a> (such as
 						information added when cookies are disabled).  These URLs without per-user settings are used in things like
 						<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
 						<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,

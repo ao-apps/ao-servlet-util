@@ -25,7 +25,7 @@ package com.aoindustries.servlet.http;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Coordinates when canonical URLs should be generated during response URL rewriting (such as
+ * Coordinates when canonical URLs should be generated during {@linkplain HttpServletResponse#encodeURL(java.lang.String) response URL rewriting} (such as
  * information added when cookies are disabled).  These URLs without per-user settings are used in things like
  * <a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</a>,
  * <a href="https://schema.org/BreadcrumbList">BreadcrumbList</a>,
@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
  * <p>
  * This is implemented as a {@linkplain ThreadLocal thread local}, so the state must be set by the thread
  * that will invoke {@link HttpServletResponse#encodeURL(java.lang.String)} (and related methods).
- * Thus, it would be inappropriate to set this in a broad, asynchronous scope, where the thread
+ * Thus, it would be inappropriate to set this in a broad, asynchronous scope where the thread
  * handling the request may change.
  * </p>
  */
