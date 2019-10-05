@@ -197,13 +197,17 @@ public class HttpServletUtil {
 	 *                 <li>Perform URL rewriting {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
 	 *               </ol>
 	 *
+	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}
+	 *
 	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
 	 */
+	@SuppressWarnings("try")
 	public static String getRedirectLocation(
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String servletPath,
-		String href
+		String href,
+		boolean canonical
 	) throws MalformedURLException {
 		// Convert page-relative paths to context-relative path, resolving ./ and ../
 		href = URIResolver.getAbsolutePath(servletPath, href);
@@ -215,7 +219,9 @@ public class HttpServletUtil {
 		if(href.startsWith("/")) href = getAbsoluteURL(request, href);
 
 		// Perform URL rewriting
-		href = response.encodeRedirectURL(href);
+		try (Canonical c = Canonical.set(canonical)) {
+			href = response.encodeRedirectURL(href);
+		}
 
 		return href;
 	}
@@ -247,6 +253,7 @@ public class HttpServletUtil {
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String href,
+		boolean canonical,
 		int status
 	) throws IllegalStateException, IOException {
 		sendRedirect(
@@ -255,7 +262,8 @@ public class HttpServletUtil {
 				request,
 				response,
 				request.getServletPath(),
-				href
+				href,
+				canonical
 			),
 			status
 		);
@@ -389,7 +397,10 @@ public class HttpServletUtil {
 	 *   <li>Rewrite with {@link HttpServletResponse#encodeURL(java.lang.String)}</li>
 	 *   <li>Optionally convert to an absolute URL: <code>http(s)://…</code></li>
 	 * </ol>
+	 *
+	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeURL(java.lang.String)}
 	 */
+	@SuppressWarnings("try")
 	public static String buildUrl(
 		ServletContext servletContext,
 		HttpServletRequest request,
@@ -397,6 +408,7 @@ public class HttpServletUtil {
 		String url,
 		URIParameters params,
 		boolean urlAbsolute,
+		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
 		String servletPath = Dispatcher.getCurrentPagePath(request);
@@ -414,18 +426,21 @@ public class HttpServletUtil {
 				}
 			}
 		}
-		url = response.encodeURL(url);
+		try (Canonical c = Canonical.set(canonical)) {
+			url = response.encodeURL(url);
+		}
 		return url;
 	}
 
 	/**
-	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
 	 */
 	public static String buildUrl(
 		PageContext pageContext,
 		String url,
 		URIParameters params,
 		boolean urlAbsolute,
+		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
 		return buildUrl(
@@ -435,18 +450,20 @@ public class HttpServletUtil {
 			url,
 			params,
 			urlAbsolute,
+			canonical,
 			addLastModified
 		);
 	}
 
 	/**
-	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
 	 */
 	public static String buildUrl(
 		JspContext jspContext,
 		String url,
 		URIParameters params,
 		boolean srcAbsolute,
+		boolean canonical,
 		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
 		return buildUrl(
@@ -454,6 +471,7 @@ public class HttpServletUtil {
 			url,
 			params,
 			srcAbsolute,
+			canonical,
 			addLastModified
 		);
 	}
