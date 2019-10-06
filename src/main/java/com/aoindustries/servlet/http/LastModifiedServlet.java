@@ -416,6 +416,7 @@ public class LastModifiedServlet extends HttpServlet {
 			// Java
 			"jar",
 			"class",
+			"jnlp",
 			// JavaScript
 			"js",
 			"spt",
