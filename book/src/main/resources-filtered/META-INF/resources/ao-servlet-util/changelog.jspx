@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-05T09:18:07-0500"
+		dateModified="2019-10-06T08:53:15-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -71,15 +71,23 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
 						<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
 					</li>
-					<li>
-						New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
-						coordinates when canonical URLs should be generated <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a> (such as
-						information added when cookies are disabled).  These URLs without per-user settings are used in things like
-						<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
-						<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
-						and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
+					<li>Added <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URL</ao:a> support:
+						<ol>
+							<li>
+								New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
+								coordinates when canonical URLs should be generated <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a> (such as
+								information added when cookies are disabled).  These URLs without per-user settings are used in things like
+								<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
+								<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
+								and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
+							</li>
+							<li><code>HttpServletUtil</code> updated with new <code>canonical</code> parameters.</li>
+							<li>
+								In auto mode, <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">last modified stamping</ao:a>
+								is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
+							</li>
+						</ol>
 					</li>
-					<li><code>HttpServletUtil</code> updated with <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> support.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

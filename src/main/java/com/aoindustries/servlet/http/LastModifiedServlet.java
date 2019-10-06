@@ -372,10 +372,11 @@ public class LastModifiedServlet extends HttpServlet {
 		 */
 		FALSE("false"),
 		/**
-		 * Only tries to add last modified time to URLs that match expected
-		 * static resource files, by extension.  This list is for the
-		 * paths generally used for distributing web content and may not
-		 * include every possible static file type.
+		 * Only tries to add last modified time to URLs that are both not
+		 * {@link Canonical} and match expected static resource files, by
+		 * extension.  This list is for the paths generally used for
+		 * distributing web content and may not include every possible static
+		 * file type.
 		 */
 		AUTO("auto");
 
@@ -453,7 +454,13 @@ public class LastModifiedServlet extends HttpServlet {
 	 * as a local resource.  Only applies to relative URLs (./, ../) or URLs that begin with a slash (/).
 	 * </p>
 	 * <p>
-	 * This implementation assume anchors (#) are always after the last question mark (?).
+	 * Will not modify when the request has header {@link #LAST_MODIFIED_HEADER_NAME} equal to "false".
+	 * </p>
+	 * <p>
+	 * Will not modify {@linkplain Canonical Canonical URLs}.
+	 * </p>
+	 * <p>
+	 * TODO: This implementation assume anchors (#) are always after the last question mark (?).
 	 * </p>
 	 */
 	public static String addLastModified(ServletContext servletContext, HttpServletRequest request, String servletPath, String url, AddLastModifiedWhen when) throws MalformedURLException {
@@ -478,8 +485,13 @@ public class LastModifiedServlet extends HttpServlet {
 					// Always try to add
 					doAdd = true;
 				} else {
-					// Check for header disabling auto last modified
-					if("false".equalsIgnoreCase(request.getHeader(LAST_MODIFIED_HEADER_NAME))) {
+					assert when == AddLastModifiedWhen.AUTO;
+					if(
+						// Check for header disabling auto last modified
+						"false".equalsIgnoreCase(request.getHeader(LAST_MODIFIED_HEADER_NAME))
+						// Will not modify Canonical URLs
+						|| Canonical.get()
+					) {
 						doAdd = false;
 					} else {
 						// Conditionally try to add based on file extension
