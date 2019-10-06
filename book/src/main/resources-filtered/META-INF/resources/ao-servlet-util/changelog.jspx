@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-06T11:18:33-0500"
+		dateModified="2019-10-06T14:58:03-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -88,7 +88,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 							</li>
 						</ol>
 					</li>
-					<li>Now adding last modified parameter to <code>*.jnlp</code> files, too.</li>
+					<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
 				</ul>
 			</changelog:release>
 		</c:if>

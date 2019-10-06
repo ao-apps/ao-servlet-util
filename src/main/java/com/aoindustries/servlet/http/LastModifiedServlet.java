@@ -417,6 +417,7 @@ public class LastModifiedServlet extends HttpServlet {
 			"jar",
 			"class",
 			"jnlp",
+			"tld",
 			// JavaScript
 			"js",
 			"spt",
@@ -445,6 +446,7 @@ public class LastModifiedServlet extends HttpServlet {
 			"pdf",
 			// XML document
 			"xml",
+			"xsd",
 			"rss"
 		)
 	);
