@@ -226,7 +226,7 @@ public class LastModifiedServlet extends HttpServlet {
 							addAfterUrl = "\"";
 						}
 						//System.err.println("url=" + url);
-						// TODO: Use SplitUrl, only write scheme + hier-part here?, allowing for additional parameters and optional anchor
+						// TODO: Use AnyURI, only write scheme + hier-part here?, allowing for additional parameters and optional anchor
 						newContent.append(url);
 						// Check for header disabling auto last modified
 						if(hap.header==null || hap.header) {
