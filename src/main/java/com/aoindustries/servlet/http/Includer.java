@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2017, 2019  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,6 +22,7 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.net.URIEncoder;
 import com.aoindustries.servlet.ServletUtil;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -95,7 +96,10 @@ public class Includer {
 			if(isOutmostInclude) {
 				// Set location header if set in attribute
 				String location = (String)request.getAttribute(LOCATION_REQUEST_ATTRIBUTE_NAME);
-				if(location != null) response.setHeader("Location", location);
+				if(location != null) {
+					assert location.equals(URIEncoder.encodeURI(location));
+					response.setHeader("Location", location);
+				}
 
 				// Call sendError from here if set in attributes
 				Integer status = (Integer)request.getAttribute(STATUS_REQUEST_ATTRIBUTE_NAME);
@@ -124,8 +128,10 @@ public class Includer {
 	/**
 	 * Sets a Location header.  When not in an included page, calls setHeader directly.
 	 * When inside of an include will set request attribute so outermost include can call setHeader.
+	 * Encodes the location to US-ASCII format.
 	 */
 	public static void setLocation(HttpServletRequest request, HttpServletResponse response, String location) {
+		location = URIEncoder.encodeURI(location);
 		if(request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME) == null) {
 			// Not included, setHeader directly
 			response.setHeader("Location", location);
