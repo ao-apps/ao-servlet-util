@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-06T14:58:03-0500"
+		dateModified="2019-10-07T01:01:43-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -54,7 +54,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			>
 				<ul>
 					<li>Pulled Servlet and JSP related utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
-					<li>Split HTTP-specific parts of <code>ServletUtil</code> into <code>HttpServletUtil</code>.</li>
+					<li>
+						Split HTTP-specific parts of <ao:a href="apidocs/com/aoindustries/servlet/ServletUtil.html">ServletUtil</ao:a>
+						into <ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
+					</li>
 					<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
 					<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
 					<li>
@@ -81,7 +84,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 								<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
 								and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
 							</li>
-							<li><code>HttpServletUtil</code> updated with new <code>canonical</code> parameters.</li>
+							<li>
+								<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+								updated with new <code>canonical</code> parameters.
+							</li>
 							<li>
 								In auto mode, <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">last modified stamping</ao:a>
 								is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
@@ -89,6 +95,11 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						</ol>
 					</li>
 					<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
+					<li>
+						<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+						cleaned-up significantly, with more consistent method names and more uniform
+						method overloads.
+					</li>
 				</ul>
 			</changelog:release>
 		</c:if>

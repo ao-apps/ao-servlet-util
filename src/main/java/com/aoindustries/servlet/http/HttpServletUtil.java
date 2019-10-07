@@ -57,13 +57,6 @@ public class HttpServletUtil {
 	private static final boolean DEBUG = false;
 
 	/**
-	 * @see  URIResolver#getAbsolutePath(java.lang.String, java.lang.String)
-	 */
-	public static String getAbsolutePath(HttpServletRequest request, String path) throws MalformedURLException {
-		return URIResolver.getAbsolutePath(request.getServletPath(), path);
-	}
-
-	/**
 	 * Determines if the requestor is Googlebot as described at:
 	 * http://www.google.com/support/webmasters/bin/answer.py?answer=80553
 	 */
@@ -101,16 +94,32 @@ public class HttpServletUtil {
 	}
 
 	/**
+	 * Resolves a possibly page-relative path to a context-absolute path.
+	 * 
+	 * @param  path  The absolute URL, context-absolute path, or page-relative path
+	 *
+	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
+	 * @see  URIResolver#getAbsolutePath(java.lang.String, java.lang.String)
+	 */
+	public static String getAbsolutePath(HttpServletRequest request, String path) throws MalformedURLException {
+		return URIResolver.getAbsolutePath(
+			Dispatcher.getCurrentPagePath(request),
+			path
+		);
+	}
+
+	/**
 	 * Gets an absolute URL for the given path.  This includes
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	public static String getAbsoluteURL(HttpServletRequest request, String relPath, boolean contextRelative) {
+	public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
 		try {
 			StringBuilder buffer = new StringBuilder();
-			getAbsoluteURL(request, relPath, contextRelative, buffer);
+			getAbsoluteURL(request, path, contextRelative, buffer);
 			return buffer.toString();
 		} catch(IOException e) {
 			// Should never get IOException from StringBuilder.
@@ -119,12 +128,14 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-relative path.  This includes
+	 * Gets an absolute URL for the given context-absolute path.  This includes
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
+	 *
+	 * @param  path  The absolute URL, context-absolute path, or page-relative path
 	 */
-	public static String getAbsoluteURL(HttpServletRequest request, String relPath) {
-		return getAbsoluteURL(request, relPath, true);
+	public static String getAbsoluteURL(HttpServletRequest request, String path) {
+		return getAbsoluteURL(request, path, true);
 	}
 
 	/**
@@ -132,9 +143,10 @@ public class HttpServletUtil {
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String relPath, boolean contextRelative, Appendable out) throws IOException {
+	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
 		out.append(request.isSecure() ? "https://" : "http://");
 		URIEncoder.encodeURI(request.getServerName(), out);
 		int port = request.getServerPort();
@@ -142,16 +154,18 @@ public class HttpServletUtil {
 		if(contextRelative) {
 			URIEncoder.encodeURI(request.getContextPath(), out);
 		}
-		out.append(relPath);
+		out.append(path);
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-relative path.  This includes
+	 * Gets an absolute URL for the given context-absolute path.  This includes
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
+	 *
+	 * @param  path  The absolute URL, context-absolute path, or page-relative path
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String relPath, Appendable out) throws IOException {
-		getAbsoluteURL(request, relPath, true, out);
+	public static void getAbsoluteURL(HttpServletRequest request, String path, Appendable out) throws IOException {
+		getAbsoluteURL(request, path, true, out);
 	}
 
 	/**
@@ -159,11 +173,12 @@ public class HttpServletUtil {
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String relPath, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
+	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
 		if(encoder==null) {
-			getAbsoluteURL(request, relPath, contextRelative, out);
+			getAbsoluteURL(request, path, contextRelative, out);
 		} else {
 			encoder.append(request.isSecure() ? "https://" : "http://", out);
 			URIEncoder.encodeURI(request.getServerName(), encoder, out);
@@ -172,65 +187,280 @@ public class HttpServletUtil {
 			if(contextRelative) {
 				URIEncoder.encodeURI(request.getContextPath(), encoder, out);
 			}
-			encoder.append(relPath, out);
+			encoder.append(path, out);
 		}
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-relative path.  This includes
+	 * Gets an absolute URL for the given context-absolute path.  This includes
 	 * protocol, port, context path, and relative path.
 	 * No URL rewriting is performed.
+	 *
+	 * @param  path  The absolute URL, context-absolute path, or page-relative path
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String relPath, Encoder encoder, Appendable out) throws IOException {
-		getAbsoluteURL(request, relPath, true, encoder, out);
+	public static void getAbsoluteURL(HttpServletRequest request, String path, Encoder encoder, Appendable out) throws IOException {
+		getAbsoluteURL(request, path, true, encoder, out);
 	}
 
 	/**
-	 * Gets the absolute URL that should be used for a redirect.
+	 * Builds a URL that should be used for a redirect location,
+	 * including all the proper URL conversions.  This includes:
+	 * <ol>
+	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
+	 *   <li>Adding any additional parameters</li>
+	 *   <li>Optionally adding lastModified parameter</li>
+	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
+	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
+	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
+	 *   <li>Rewrite with {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
+	 *   <li>Final US-ASCII encoding since Location must always be <a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></li>
+	 * </ol>
 	 * 
-	 * @param  href  The absolute, context-relative, or page-relative path to redirect to.
-	 *               The following actions are performed on the provided href:
-	 *               <ol>
-	 *                 <li>Convert page-relative paths to context-relative path, resolving ./ and ../</li>
-	 *                 <li>Encode URI to ASCII format via {@link URIEncoder#encodeURI(java.lang.String)}</li>
-	 *                 <li>Convert to absolute URL if needed.  This will also add the context path.</li>
-	 *                 <li>Perform URL rewriting {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
-	 *               </ol>
+	 * @param  href  The absolute URL, context-absolute path, or page-relative path
 	 *
 	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}
 	 *
-	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 * @see  #sendRedirect(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
 	 */
 	@SuppressWarnings("try")
-	public static String getRedirectLocation(
+	public static String buildRedirectURL(
+		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String servletPath,
 		String href,
-		boolean canonical
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
 	) throws MalformedURLException {
-		// Convert page-relative paths to context-relative path, resolving ./ and ../
 		href = URIResolver.getAbsolutePath(servletPath, href);
-
-		// Encode URI to ASCII format
+		href = URIParametersUtils.addParams(href, params);
+		href = LastModifiedServlet.addLastModified(servletContext, request, servletPath, href, addLastModified);
 		href = URIEncoder.encodeURI(href);
-
-		// Convert to absolute URL if needed.  This will also add the context path.
-		if(href.startsWith("/")) href = getAbsoluteURL(request, href);
-
-		// Perform URL rewriting
+		if(href.startsWith("/")) {
+			if(absolute) {
+				href = getAbsoluteURL(request, href, true);
+			} else {
+				String contextPath = request.getContextPath();
+				if(!contextPath.isEmpty()) {
+					href = URIEncoder.encodeURI(contextPath) + href;
+				}
+			}
+		}
 		try (Canonical c = Canonical.set(canonical)) {
 			href = response.encodeRedirectURL(href);
 		}
-
+		href = URIEncoder.encodeURI(href);
 		return href;
 	}
 
 	/**
-	 * Sends a redirect to the provided absolute URL location.
-	 * Encodes the location to US-ASCII format.
+	 * Builds a URL that should be used for a redirect location,
+	 * with path resolved relative to the given request.
 	 *
-	 * @see  #getRedirectLocation(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String) 
+	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
+	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 */
+	public static String buildRedirectURL(
+		ServletContext servletContext,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			servletContext,
+			request,
+			response,
+			Dispatcher.getCurrentPagePath(request),
+			href,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 */
+	public static String buildRedirectURL(
+		PageContext pageContext,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			pageContext.getServletContext(),
+			(HttpServletRequest)pageContext.getRequest(),
+			(HttpServletResponse)pageContext.getResponse(),
+			href,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 */
+	public static String buildRedirectURL(
+		JspContext jspContext,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			(PageContext)jspContext,
+			href,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * Builds a URL with all the proper URL conversions.  This includes:
+	 * <ol>
+	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
+	 *   <li>Adding any additional parameters</li>
+	 *   <li>Optionally adding lastModified parameter</li>
+	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
+	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
+	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
+	 *   <li>Rewrite with {@link HttpServletResponse#encodeURL(java.lang.String)}</li>
+	 * </ol>
+	 *
+	 * @param  url  The absolute URL, context-absolute path, or page-relative path
+	 *
+	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeURL(java.lang.String)}
+	 */
+	@SuppressWarnings("try")
+	public static String buildURL(
+		ServletContext servletContext,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String servletPath,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		url = URIResolver.getAbsolutePath(servletPath, url);
+		url = URIParametersUtils.addParams(url, params);
+		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
+		url = URIEncoder.encodeURI(url);
+		if(url.startsWith("/")) {
+			if(absolute) {
+				url = getAbsoluteURL(request, url, true);
+			} else {
+				String contextPath = request.getContextPath();
+				if(!contextPath.isEmpty()) {
+					url = URIEncoder.encodeURI(contextPath) + url;
+				}
+			}
+		}
+		try (Canonical c = Canonical.set(canonical)) {
+			url = response.encodeURL(url);
+		}
+		return url;
+	}
+
+	/**
+	 * Builds a URL with path resolved relative to the given request.
+	 *
+	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
+	 * @see  #buildURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)}
+	 */
+	public static String buildURL(
+		ServletContext servletContext,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildURL(
+			servletContext,
+			request,
+			response,
+			Dispatcher.getCurrentPagePath(request),
+			url,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * @see  #buildURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 */
+	public static String buildURL(
+		PageContext pageContext,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildURL(
+			pageContext.getServletContext(),
+			(HttpServletRequest)pageContext.getRequest(),
+			(HttpServletResponse)pageContext.getResponse(),
+			url,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 */
+	public static String buildURL(
+		JspContext jspContext,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified
+	) throws MalformedURLException {
+		return buildURL(
+			(PageContext)jspContext,
+			url,
+			params,
+			absolute,
+			canonical,
+			addLastModified
+		);
+	}
+
+	/**
+	 * Sends a redirect to the provided location.
+	 * Encodes the location to US-ASCII format.
+	 * Response must not be {@linkplain HttpServletResponse#isCommitted() committed}.
+	 *
+	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 *
+	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
 		HttpServletResponse response,
@@ -245,32 +475,130 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * Sends a redirect with relative paths determined from the request servlet path.
-	 * 
-	 * @see  #getRedirectLocation(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String)  for transformations applied to the href
+	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 *
+	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
+		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
+		String servletPath,
 		String href,
+		URIParameters params,
+		boolean absolute,
 		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified,
 		int status
-	) throws IllegalStateException, IOException {
+	) throws MalformedURLException, IllegalStateException, IOException {
 		sendRedirect(
 			response,
-			getRedirectLocation(
+			buildRedirectURL(
+				servletContext,
 				request,
 				response,
-				request.getServletPath(),
+				servletPath,
 				href,
-				canonical
+				params,
+				absolute,
+				canonical,
+				addLastModified
 			),
 			status
 		);
 	}
 
 	/**
-	 * Gets the current request URI in context-relative form.  The contextPath stripped.
+	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 *
+	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
+	 */
+	public static void sendRedirect(
+		ServletContext servletContext,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified,
+		int status
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			response,
+			buildRedirectURL(
+				servletContext,
+				request,
+				response,
+				href,
+				params,
+				absolute,
+				canonical,
+				addLastModified
+			),
+			status
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 *
+	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
+	 */
+	public static void sendRedirect(
+		PageContext pageContext,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified,
+		int status
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			(HttpServletResponse)pageContext.getResponse(),
+			buildRedirectURL(
+				pageContext,
+				href,
+				params,
+				absolute,
+				canonical,
+				addLastModified
+			),
+			status
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #sendRedirect(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 *
+	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
+	 */
+	public static void sendRedirect(
+		JspContext jspContext,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical,
+		LastModifiedServlet.AddLastModifiedWhen addLastModified,
+		int status
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			(PageContext)jspContext,
+			href,
+			params,
+			absolute,
+			canonical,
+			addLastModified,
+			status
+		);
+	}
+
+	/**
+	 * Gets the current request URI in context-absolute form.  The contextPath stripped.
 	 */
 	public static String getContextRequestUri(HttpServletRequest request) {
 		String requestUri = request.getRequestURI();
@@ -383,96 +711,5 @@ public class HttpServletUtil {
 			allow.append(METHOD_OPTIONS);
 		}
 		response.setHeader("Allow", allow.toString());
-	}
-
-	/**
-	 * Performs all the proper URL conversions along with optionally adding a lastModified parameter.
-	 * This includes:
-	 * <ol>
-	 *   <li>Converting any page-relative path to a context-relative path starting with a slash (/)</li>
-	 *   <li>Adding any additional parameters</li>
-	 *   <li>Optionally adding lastModified parameter</li>
-	 *   <li>Converting any context-relative path to a site-relative path by prefixing contextPath</li>
-	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
-	 *   <li>Rewrite with {@link HttpServletResponse#encodeURL(java.lang.String)}</li>
-	 *   <li>Optionally convert to an absolute URL: <code>http(s)://…</code></li>
-	 * </ol>
-	 *
-	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeURL(java.lang.String)}
-	 */
-	@SuppressWarnings("try")
-	public static String buildUrl(
-		ServletContext servletContext,
-		HttpServletRequest request,
-		HttpServletResponse response,
-		String url,
-		URIParameters params,
-		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
-	) throws MalformedURLException {
-		String servletPath = Dispatcher.getCurrentPagePath(request);
-		url = URIResolver.getAbsolutePath(servletPath, url);
-		url = URIParametersUtils.addParams(url, params);
-		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
-		url = URIEncoder.encodeURI(url);
-		if(url.startsWith("/")) {
-			if(absolute) {
-				url = getAbsoluteURL(request, url);
-			} else {
-				String contextPath = request.getContextPath();
-				if(!contextPath.isEmpty()) {
-					url = URIEncoder.encodeURI(contextPath) + url;
-				}
-			}
-		}
-		try (Canonical c = Canonical.set(canonical)) {
-			url = response.encodeURL(url);
-		}
-		return url;
-	}
-
-	/**
-	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 */
-	public static String buildUrl(
-		PageContext pageContext,
-		String url,
-		URIParameters params,
-		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
-	) throws MalformedURLException {
-		return buildUrl(
-			pageContext.getServletContext(),
-			(HttpServletRequest)pageContext.getRequest(),
-			(HttpServletResponse)pageContext.getResponse(),
-			url,
-			params,
-			absolute,
-			canonical,
-			addLastModified
-		);
-	}
-
-	/**
-	 * @see #buildUrl(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 */
-	public static String buildUrl(
-		JspContext jspContext,
-		String url,
-		URIParameters params,
-		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
-	) throws MalformedURLException {
-		return buildUrl(
-			(PageContext)jspContext,
-			url,
-			params,
-			absolute,
-			canonical,
-			addLastModified
-		);
 	}
 }
