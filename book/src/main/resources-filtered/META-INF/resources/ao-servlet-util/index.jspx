@@ -33,15 +33,16 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		title="@{documented.name}"
 		description="@{documented.description}"
 		datePublished="2019-08-20T22:16:17-0500"
+		dateModified="2019-10-08T01:06:22-0500"
 	>
 		<core:child page="changelog.jspx" />
 		<core:child page="apidocs/index.jspx" />
 		<header>
 			<ao:include
 				page="/ao-badges/badges.inc.jspx"
-				arg.projectStatus="alpha"
-				arg.managementStatus="preview"
-				arg.packagingStatus="developmental"
+				arg.projectStatus="current-stable"
+				arg.managementStatus="production"
+				arg.packagingStatus="active"
 				arg.javaVersion="@{documented.javaVersion}"
 				arg.javaeeVersion="6"
 				arg.semanticVersioning="2.0.0"
