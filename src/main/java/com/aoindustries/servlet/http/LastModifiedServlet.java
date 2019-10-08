@@ -24,7 +24,9 @@ package com.aoindustries.servlet.http;
 
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
+import com.aoindustries.net.AnyURI;
 import com.aoindustries.net.URIEncoder;
+import com.aoindustries.net.URIParser;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletContextCache;
 import java.io.BufferedReader;
@@ -213,28 +215,31 @@ public class LastModifiedServlet extends HttpServlet {
 						int start = matcher.start(1);
 						int end = matcher.end(1);
 						if(start!=lastEnd) newContent.append(cssContent, lastEnd, start);
-						// TODO: What to do about unicode URLs?  Should they always be ASCII here?  Assumed?  Decode back to Unicode?
-						String url = matcher.group(1);
-						// TODO: What about beginning quote?
-						// The regular expression leaves ' or " at end of URL, strip here: TODO: This still true?  I don't think so looking at regular expression
-						String addAfterUrl = null;
-						if(url.endsWith("'")) {
-							url = url.substring(0, url.length()-1);
-							addAfterUrl = "'";
-						} else if(url.endsWith("\"")) {
-							url = url.substring(0, url.length()-1);
-							addAfterUrl = "\"";
-						}
+						AnyURI uri = new AnyURI(matcher.group(1));
+						// The regular expression leaves ' or " at end of URL, strip here:
+						//String addAfterUrl = null;
+						//if(url.endsWith("'")) {
+						//	System.err.println("url ends ': " + url);
+						//	url = url.substring(0, url.length()-1);
+						//	addAfterUrl = "'";
+						//} else if(url.endsWith("\"")) {
+						//	System.err.println("url ends \": " + url);
+						//	url = url.substring(0, url.length()-1);
+						//	addAfterUrl = "\"";
+						//}
 						//System.err.println("url=" + url);
-						// TODO: Use AnyURI, only write scheme + hier-part here?, allowing for additional parameters and optional anchor
-						newContent.append(url);
+						AnyURI noFragmentUri = uri.setFragment(null);
+						newContent.append(noFragmentUri.toString());
 						// Check for header disabling auto last modified
 						if(hap.header==null || hap.header) {
 							// Get the resource path relative to the CSS file
-							String resourcePath = URIResolver.getAbsolutePath(hap.path, url);
+							String resourcePath = URIResolver.getAbsolutePath(hap.path, noFragmentUri.toString());
 							if(resourcePath.startsWith("/")) {
-								// TODO: AO URI here?
-								URI resourcePathURI = new URI(resourcePath);
+								URI resourcePathURI = new URI(
+									URIEncoder.encodeURI(
+										resourcePath
+									)
+								);
 								HeaderAndPath resourceHap = new HeaderAndPath(
 									hap.header,
 									resourcePathURI.getPath()
@@ -242,10 +247,8 @@ public class LastModifiedServlet extends HttpServlet {
 								long resourceModified = servletContextCache.getLastModified(resourceHap.path);
 								if(resourceModified != 0) {
 									referencedPaths.put(resourceHap, resourceModified);
-									int questionPos = url.indexOf('?');
-									// TODO: Look for '#', too
 									newContent
-										.append(questionPos==-1 ? '?' : '&')
+										.append(noFragmentUri.hasQuery() ? '&' : '?')
 										.append(LAST_MODIFIED_PARAMETER_NAME)
 										.append('=')
 										.append(encodeLastModified(resourceModified))
@@ -253,7 +256,10 @@ public class LastModifiedServlet extends HttpServlet {
 								}
 							}
 						}
-						if(addAfterUrl!=null) newContent.append(addAfterUrl);
+						if(uri.hasFragment()) {
+							newContent.append('#');
+							uri.appendFragment(newContent);
+						}
 						lastEnd = end;
 					}
 					if(lastEnd < cssContent.length()) newContent.append(cssContent, lastEnd, cssContent.length());
@@ -463,9 +469,6 @@ public class LastModifiedServlet extends HttpServlet {
 	 * <p>
 	 * Will not modify {@linkplain Canonical Canonical URLs}.
 	 * </p>
-	 * <p>
-	 * TODO: This implementation assume anchors (#) are always after the last question mark (?).
-	 * </p>
 	 */
 	public static String addLastModified(ServletContext servletContext, HttpServletRequest request, String servletPath, String url, AddLastModifiedWhen when) throws MalformedURLException {
 		// Never try to add if when==falsee
@@ -476,12 +479,20 @@ public class LastModifiedServlet extends HttpServlet {
 				url
 			);
 			if(resourcePath.startsWith("/")) {
-				// TODO: url decode path components except '/' to Unicode?
-				// Strip parameters from resourcePath
-				{
-					int questionPos = resourcePath.indexOf('?');
-					// TODO: Look for '#', too
-					resourcePath = questionPos==-1 ? resourcePath : resourcePath.substring(0, questionPos);
+				// Strip parameters and anchor from resourcePath
+				try {
+					resourcePath = new URI(
+						URIEncoder.encodeURI(
+							resourcePath.substring(
+								0,
+								URIParser.getPathEnd(resourcePath)
+							)
+						)
+					).getPath();
+				} catch(URISyntaxException e) {
+					MalformedURLException urlErr = new MalformedURLException(e.getMessage());
+					urlErr.initCause(e);
+					throw urlErr;
 				}
 				String extension = FileUtils.getExtension(resourcePath).toLowerCase(Locale.ROOT);
 				final boolean doAdd;
@@ -507,27 +518,9 @@ public class LastModifiedServlet extends HttpServlet {
 				if(doAdd) {
 					long lastModified = getLastModified(servletContext, request, resourcePath, extension);
 					if(lastModified != 0) {
-						int questionPos = url.indexOf('?');
-						int anchorStart = url.indexOf('#');
-						// TODO: Look for '?', too
-						if(anchorStart == -1) {
-							// No anchor
-							url =
-								url
-								+ (questionPos==-1 ? '?' : '&')
-								+ LAST_MODIFIED_PARAMETER_NAME + "="
-								+ encodeLastModified(lastModified)
-							;
-						} else {
-							// With anchor
-							url =
-								url.substring(0, anchorStart)
-								+ (questionPos==-1 ? '?' : '&')
-								+ LAST_MODIFIED_PARAMETER_NAME + "="
-								+ encodeLastModified(lastModified)
-								+ url.substring(anchorStart)
-							;
-						}
+						url = new AnyURI(url)
+							.addEncodedParameter(LAST_MODIFIED_PARAMETER_NAME, encodeLastModified(lastModified))
+							.toString();
 					}
 				}
 			}

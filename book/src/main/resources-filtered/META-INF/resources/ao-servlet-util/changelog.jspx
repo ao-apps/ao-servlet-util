@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-07T01:01:43-0500"
+		dateModified="2019-10-08T00:53:07-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -99,6 +99,14 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
 						cleaned-up significantly, with more consistent method names and more uniform
 						method overloads.
+					</li>
+					<li>Improved <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+						Unicode support:
+						<ol>
+							<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
+							<li>Parser supports fragments on URLs</li>
+							<li>Now properly decodes path components</li>
+						</ol>
 					</li>
 				</ul>
 			</changelog:release>
