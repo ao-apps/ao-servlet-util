@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-08T00:53:07-0500"
+		dateModified="2019-10-08T01:10:52-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -51,65 +51,74 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			>
-				<ul>
-					<li>Pulled Servlet and JSP related utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
-					<li>
-						Split HTTP-specific parts of <ao:a href="apidocs/com/aoindustries/servlet/ServletUtil.html">ServletUtil</ao:a>
-						into <ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
-					</li>
-					<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
-					<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
-					<li>
-						<code>HttpServletUtil.getContextRequestUri()</code> now percent-encodes
-						result of <code>HttpServletRequest.getContextPath()</code>
-						because it sometimes comes back percent encoded, but is usually decoded.
-					</li>
-					<li>
-						Absolute URLs are now generated in <ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
-						format, even when the context path has Unicode characters.
-					</li>
-					<li>Absolute URLs are generated first, then passed to response URL encoding.</li>
-					<li>
-						<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
-						<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
-					</li>
-					<li>Added <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URL</ao:a> support:
-						<ol>
-							<li>
-								New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
-								coordinates when canonical URLs should be generated <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a> (such as
-								information added when cookies are disabled).  These URLs without per-user settings are used in things like
-								<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
-								<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
-								and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
-							</li>
-							<li>
-								<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
-								updated with new <code>canonical</code> parameters.
-							</li>
-							<li>
-								In auto mode, <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">last modified stamping</ao:a>
-								is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
-							</li>
-						</ol>
-					</li>
-					<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
-					<li>
-						<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
-						cleaned-up significantly, with more consistent method names and more uniform
-						method overloads.
-					</li>
-					<li>Improved <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>
-						Unicode support:
-						<ol>
-							<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
-							<li>Parser supports fragments on URLs</li>
-							<li>Now properly decodes path components</li>
-						</ol>
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="1.0.0"
+			datePublished="2019-10-08T01:10:52-0500"
+			groupId="@{documented.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{documented.scm.url}"
+		>
+			<ul>
+				<li>Pulled Servlet and JSP related utilities out of <core:link book="/aocode-public" page="/index.jspx" />.</li>
+				<li>
+					Split HTTP-specific parts of <ao:a href="apidocs/com/aoindustries/servlet/ServletUtil.html">ServletUtil</ao:a>
+					into <ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
+				</li>
+				<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
+				<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
+				<li>
+					<code>HttpServletUtil.getContextRequestUri()</code> now percent-encodes
+					result of <code>HttpServletRequest.getContextPath()</code>
+					because it sometimes comes back percent encoded, but is usually decoded.
+				</li>
+				<li>
+					Absolute URLs are now generated in <ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
+					format, even when the context path has Unicode characters.
+				</li>
+				<li>Absolute URLs are generated first, then passed to response URL encoding.</li>
+				<li>
+					<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
+					<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
+				</li>
+				<li>Added <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URL</ao:a> support:
+					<ol>
+						<li>
+							New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
+							coordinates when canonical URLs should be generated <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a> (such as
+							information added when cookies are disabled).  These URLs without per-user settings are used in things like
+							<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
+							<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
+							and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
+						</li>
+						<li>
+							<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+							updated with new <code>canonical</code> parameters.
+						</li>
+						<li>
+							In auto mode, <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">last modified stamping</ao:a>
+							is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
+						</li>
+					</ol>
+				</li>
+				<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
+				<li>
+					<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+					cleaned-up significantly, with more consistent method names and more uniform
+					method overloads.
+				</li>
+				<li>Improved <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+					Unicode support:
+					<ol>
+						<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
+						<li>Parser supports fragments on URLs</li>
+						<li>Now properly decodes path components</li>
+					</ol>
+				</li>
+			</ul>
+		</changelog:release>
 	</core:page>
 </jsp:root>
