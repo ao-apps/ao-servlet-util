@@ -51,6 +51,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -98,6 +99,20 @@ public class LastModifiedServlet extends HttpServlet {
 	 * The extension that will be parsed as CSS file.
 	 */
 	private static final String CSS_EXTENSION = "css";
+
+	/**
+	 * The default, short-term, Cache-Control header value.
+	 */
+	// In order documented at https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+	public static final String DEFAULT_CACHE_CONTROL =
+		// Cacheability
+		"public"
+		// Expiration (5 minutes)
+		+ ",max-age=300"
+		//+ ",s-maxage=300" // Use same value for proxies
+		+ ",max-stale=300"
+		+ ",stale-while-revalidate=300"
+		+ ",stale-if-error=300";
 
 	/**
 	 * The name of the last modified parameter that is optionally added.
@@ -528,6 +543,20 @@ public class LastModifiedServlet extends HttpServlet {
 		return url;
 	}
 
+	private String cacheControl;
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		String cacheControlParam = config.getInitParameter("Cache-Control");
+		if(cacheControlParam != null) cacheControlParam = cacheControlParam.trim();
+		if(cacheControlParam == null || cacheControlParam.isEmpty()) {
+			this.cacheControl = DEFAULT_CACHE_CONTROL;
+		} else {
+			this.cacheControl = cacheControlParam;
+		}
+	}
+
 	@Override
 	protected long getLastModified(HttpServletRequest request) {
 		// Find the underlying file
@@ -547,6 +576,9 @@ public class LastModifiedServlet extends HttpServlet {
 				response.setContentType("text/css");
 				response.setCharacterEncoding(CSS_ENCODING.name());
 				response.setContentLength(rewrittenCss.length);
+				if(!response.containsHeader("Cache-Control")) {
+					response.setHeader("Cache-Control", cacheControl);
+				}
 				OutputStream out = response.getOutputStream();
 				out.write(rewrittenCss);
 			} else {

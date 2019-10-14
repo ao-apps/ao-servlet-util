@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-08T02:20:17-0500"
+		dateModified="2019-10-13T23:26:06-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -51,7 +51,18 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{documented.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{documented.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						Added <ao:a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</ao:a>
+						header to <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
+						Defaults to a short-term setting of public, five-minute, and allowing stale.
+						This will help performance when <code>*.css</code> files are accessed directly
+						(URLs not rewritten with <code><ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
+						parameter).
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release
