@@ -121,7 +121,7 @@ public class Html {
 		 * Context init parameter that may be used to configure the use of XHTML within an application.
 		 * Must be one of "html", "xhtml", or "auto" (the default).
 		 */
-		public static final String SELECT_INIT_PARAM = Serialization.class.getName() + ".select";
+		public static final String SELECT_INIT_PARAM = Serialization.class.getName() + ".default";
 
 		/**
 		 * Determine if the content may be served as <code>application/xhtml+xml</code> by the
