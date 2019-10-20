@@ -32,6 +32,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Locale;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
@@ -309,6 +310,26 @@ public class Html {
 				}
 			}
 			return html5;
+		}
+
+		/**
+		 * Registers the doctype in effect for the request.
+		 */
+		public static void set(ServletRequest request, DocType doctype) {
+			request.setAttribute(DocType.class.getName(), doctype);
+		}
+
+		/**
+		 * Gets the doctype in effect for the request, or {@linkplain #getDefault(javax.servlet.ServletContext) the default}
+		 * when not yet {@linkplain #set(javax.servlet.ServletRequest, com.aoindustries.servlet.http.Html.DocType) set}.
+		 */
+		public static DocType get(ServletContext servletContext, ServletRequest request) {
+			Object o = request.getAttribute(DocType.class.getName());
+			if(o != null) {
+				return (DocType)o;
+			} else {
+				return getDefault(servletContext);
+			}
 		}
 	}
 }
