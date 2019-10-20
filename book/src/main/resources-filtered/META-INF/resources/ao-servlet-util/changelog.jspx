@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-20T01:20:39-0500"
+		dateModified="2019-10-20T01:35:11-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -72,6 +72,13 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 									<li><code>xhtml</code> - Use XHTML always</li>
 									<li><code>auto</code> - (default) - Automatically chose based on the client's <code>Accept</code> header</li>
 								</ul>
+							</li>
+							<li>
+								New method <code>Html.DocType.getDefault(…)</code> that provides the default
+								doctype for an application.  First checks
+								<ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</ao:a>
+								<code>com.aoindustries.servlet.http.Html$DocType.default</code>,
+								then defaults to "html5" when not present, empty, or "default".
 							</li>
 						</ol>
 					</li>

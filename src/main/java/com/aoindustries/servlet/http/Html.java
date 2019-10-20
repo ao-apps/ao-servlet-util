@@ -30,6 +30,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -121,7 +122,7 @@ public class Html {
 		 * Context init parameter that may be used to configure the use of XHTML within an application.
 		 * Must be one of "html", "xhtml", or "auto" (the default).
 		 */
-		public static final String SELECT_INIT_PARAM = Serialization.class.getName() + ".default";
+		public static final String DEFAULT_INIT_PARAM = Serialization.class.getName() + ".default";
 
 		/**
 		 * Determine if the content may be served as <code>application/xhtml+xml</code> by the
@@ -130,7 +131,7 @@ public class Html {
 		 * <a href="https://web.archive.org/web/20080913043830/http://www.smackthemouse.com/xhtmlxml">http://www.smackthemouse.com/xhtmlxml</a>
 		 */
 		public static Serialization select(ServletContext servletContext, HttpServletRequest request) {
-			String initParam = servletContext.getInitParameter(SELECT_INIT_PARAM);
+			String initParam = servletContext.getInitParameter(DEFAULT_INIT_PARAM);
 			if(initParam != null) {
 				initParam = initParam.trim();
 				if(!initParam.isEmpty()) {
@@ -139,7 +140,7 @@ public class Html {
 					} else if("xhtml".equalsIgnoreCase(initParam)) {
 						return XHTML;
 					} else if(!"auto".equalsIgnoreCase(initParam)) {
-						throw new IllegalArgumentException("Unexpected value for " + SELECT_INIT_PARAM + ": Must be one of \"html\", \"xhtml\", or \"auto\": " + initParam);
+						throw new IllegalArgumentException("Unexpected value for " + DEFAULT_INIT_PARAM + ": Must be one of \"html\", \"xhtml\", or \"auto\": " + initParam);
 					}
 				}
 			}
@@ -289,5 +290,25 @@ public class Html {
 		 * See <a href="https://www.w3schools.com/tags/tag_doctype.asp">HTML doctype declaration</a>.
 		 */
 		public abstract String getDocTypeLine(Serialization serialization);
+
+		/**
+		 * Context init parameter that may be used to configure the default doctype within an application.
+		 */
+		public static final String DEFAULT_INIT_PARAM = DocType.class.getName() + ".default";
+
+		/**
+		 * Determines the default doctype by first checking for {@linkplain ServletContext#getInitParameter(java.lang.String) context-param}
+		 * of {@link #DEFAULT_INIT_PARAM}, the using {@link #html5} when unspecified or "default".
+		 */
+		public static DocType getDefault(ServletContext servletContext) {
+			String initParam = servletContext.getInitParameter(DEFAULT_INIT_PARAM);
+			if(initParam != null) {
+				initParam = initParam.trim();
+				if(!initParam.isEmpty() && !"default".equalsIgnoreCase(initParam)) {
+					return DocType.valueOf(initParam.toLowerCase(Locale.ROOT));
+				}
+			}
+			return html5;
+		}
 	}
 }
