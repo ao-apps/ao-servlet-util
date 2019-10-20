@@ -71,6 +71,11 @@ public class Html {
 			}
 
 			@Override
+			public String getSelfClose() {
+				return ">";
+			}
+
+			@Override
 			public void writeSelfClose(Appendable out) throws IOException {
 				out.append('>');
 			}
@@ -79,6 +84,11 @@ public class Html {
 			@Override
 			public String getContentType() {
 				return CONTENT_TYPE_XHTML;
+			}
+
+			@Override
+			public String getSelfClose() {
+				return " />";
 			}
 
 			@Override
@@ -91,6 +101,11 @@ public class Html {
 		 * Gets the content-type header to use for this serialization.
 		 */
 		abstract public String getContentType();
+
+		/**
+		 * Gets the self-closing tag characters.
+		 */
+		abstract public String getSelfClose();
 
 		/**
 		 * Writes the self-closing tag characters.
