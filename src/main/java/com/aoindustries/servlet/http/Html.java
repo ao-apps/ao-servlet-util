@@ -69,11 +69,21 @@ public class Html {
 			public String getContentType() {
 				return CONTENT_TYPE_HTML;
 			}
+
+			@Override
+			public void writeSelfClose(Appendable out) throws IOException {
+				out.append('>');
+			}
 		},
 		XHTML {
 			@Override
 			public String getContentType() {
 				return CONTENT_TYPE_XHTML;
+			}
+
+			@Override
+			public void writeSelfClose(Appendable out) throws IOException {
+				out.append(" />");
 			}
 		};
 
@@ -81,6 +91,11 @@ public class Html {
 		 * Gets the content-type header to use for this serialization.
 		 */
 		abstract public String getContentType();
+
+		/**
+		 * Writes the self-closing tag characters.
+		 */
+		abstract public void writeSelfClose(Appendable out) throws IOException;
 
 		private static boolean startsWithIgnoreCase(String value, String prefix) {
 			int prefixLen = prefix.length();
