@@ -58,6 +58,9 @@ public class Html {
 	 */
 	public static final String CONTENT_TYPE_XHTML = "application/xhtml+xml";
 
+	private static final String CONTENT_TYPE_XML = "application/xml";
+	private static final String CONTENT_TYPE_XML_OLD = "text/xml";
+
 	/**
 	 * The default, and recommended, encoding for (X)HTML.
 	 */
@@ -135,8 +138,12 @@ public class Html {
 		public static Serialization get(String contentType) throws IllegalArgumentException {
 			if(CONTENT_TYPE_HTML.equalsIgnoreCase(contentType)) return HTML;
 			if(CONTENT_TYPE_XHTML.equalsIgnoreCase(contentType)) return XHTML;
+			if(CONTENT_TYPE_XML.equalsIgnoreCase(contentType)) return XHTML;
+			if(CONTENT_TYPE_XML_OLD.equalsIgnoreCase(contentType)) return XHTML;
 			if(startsWithIgnoreCase(contentType, CONTENT_TYPE_HTML + ';')) return HTML;
 			if(startsWithIgnoreCase(contentType, CONTENT_TYPE_XHTML + ';')) return XHTML;
+			if(startsWithIgnoreCase(contentType, CONTENT_TYPE_XML + ';')) return XHTML;
+			if(startsWithIgnoreCase(contentType, CONTENT_TYPE_XML_OLD + ';')) return XHTML;
 			throw new IllegalArgumentException("Unexpected value for contentType: " + contentType);
 		}
 
