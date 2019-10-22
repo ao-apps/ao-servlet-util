@@ -25,7 +25,9 @@ package com.aoindustries.servlet;
 import com.aoindustries.servlet.http.HttpServletUtil;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.jsp.SkipPageException;
 
 /**
@@ -68,5 +70,32 @@ public class ServletUtil {
 	public static String getRequestEncoding(ServletRequest request) {
 		String requestEncoding = request.getCharacterEncoding();
 		return requestEncoding != null ? requestEncoding : DEFAULT_REQUEST_ENCODING.name();
+	}
+
+	/**
+	 * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
+	 * throws an exception when unable to set the content type.
+	 *
+	 * @throws ServletException when unable to change the content type
+	 */
+	public static void setContentType(ServletResponse response, String contentType, String characterEncoding) throws ServletException {
+		response.setContentType(contentType);
+		response.setCharacterEncoding(characterEncoding);
+		String actualContentType = response.getContentType();
+		if(actualContentType != null) {
+			int semiPos = actualContentType.indexOf(';');
+			if(semiPos != -1) actualContentType = actualContentType.substring(0, semiPos);
+		}
+		if(!contentType.equals(actualContentType)) throw new ServletException("Unable to set content type, response already committed? expectedContentType = " + contentType + ", actualContentType = " + actualContentType);
+	}
+
+	/**
+	 * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
+	 * throws an exception when unable to set the content type.
+	 *
+	 * @throws ServletException when unable to change the content type
+	 */
+	public static void setContentType(ServletResponse response, String contentType, Charset characterEncoding) throws ServletException {
+		setContentType(response, contentType, characterEncoding.name());
 	}
 }

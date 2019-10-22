@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2019-10-21T09:20:24-0500"
+		dateModified="2019-10-27T06:03:09-0500"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -57,10 +57,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						<ol>
 							<li>
 								New functionality derived from methods and constants moved from
-								<ao:a href="https://aoindustries.com/ao-taglib/apidocs/com/aoindustries/taglib/HtmlTag.html">HtmlTag</a>.
+								<ao:a href="https://aoindustries.com/ao-taglib/apidocs/com/aoindustries/taglib/HtmlTag.html">HtmlTag</ao:a>.
 							</li>
 							<li>New class <code>Serialization</code> representing HTML/XHTML differences.</li>
-							<li>Now supports writing XML declaration when both serving as XHTML and response encoding is not UTF-8.</li>
+							<li>Now supports writing XML declaration when both serving as XHTML and response encoding is not <code>UTF-8</code>.</li>
 							<li>Now selects HTML or XHTML doctype based on current <code>Serialization</code>.</li>
 							<li>
 								New <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</ao:a>
@@ -68,23 +68,32 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 								that allows an application to control the selection of HTML versus XHTML.
 								Supports three values:
 								<ul>
-									<li><code>html</code> - Use HTML always</li>
-									<li><code>xhtml</code> - Use XHTML always</li>
+									<li><code>SGML</code> - Use HTML always</li>
+									<li><code>XML</code> - Use XHTML always</li>
 									<li><code>auto</code> - (default) - Automatically choose based on the client's <code>Accept</code> header</li>
 								</ul>
 							</li>
 							<li>
-								New method <code>Html.DocType.getDefault(…)</code> that provides the default
-								doctype for an application.  First checks
-								<ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</ao:a>
-								<code>com.aoindustries.servlet.http.Html$DocType.default</code>,
-								then defaults to "html5" when not present, empty, or "default".
+								New methods <code>Html.Serialization.set(…)</code> and <code>Html.Serialization.get(…)</code> that allow
+								the registration of the serialization in effect on the request.
 							</li>
 							<li>
-								New methods <code>Html.DocType.set(…)</code> and <code>Html.DocType.get(…)</code> that allow
+								New method <code>Html.Doctype.getDefault(…)</code> that provides the default
+								doctype for an application.  First checks
+								<ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/ServletContext.html#getInitParameter(java.lang.String)">context-param</ao:a>
+								<code>com.aoindustries.servlet.http.Html$Doctype.default</code>,
+								then defaults to "HTML5" when not present, empty, or "default".
+							</li>
+							<li>
+								New methods <code>Html.Doctype.set(…)</code> and <code>Html.Doctype.get(…)</code> that allow
 								the registration of the doctype in effect on the request.
 							</li>
 						</ol>
+					</li>
+					<li>
+						<!-- Breaking change, bump to 2.0.0-SNAPSHOT -->
+						Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
+						class directly.
 					</li>
 				</ul>
 			</changelog:release>
