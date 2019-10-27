@@ -91,7 +91,6 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						</ol>
 					</li>
 					<li>
-						<!-- Breaking change, bump to 2.0.0-SNAPSHOT -->
 						Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
 						class directly.
 					</li>
