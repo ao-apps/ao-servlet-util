@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2014, 2016, 2017, 2019  AO Industries, Inc.
+ * Copyright (C) 2013, 2014, 2016, 2017, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,6 +29,7 @@ import com.aoindustries.net.URIEncoder;
 import com.aoindustries.net.URIParser;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.ServletContextCache;
+import com.aoindustries.util.StringUtility;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class LastModifiedServlet extends HttpServlet {
 	private static final String CSS_EXTENSION = "css";
 
 	/**
-	 * The default, short-term, Cache-Control header value.
+	 * The default, short-term, <code>cache-control</code> header value.
 	 */
 	// In order documented at https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
 	public static final String DEFAULT_CACHE_CONTROL =
@@ -548,13 +549,12 @@ public class LastModifiedServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
-		String cacheControlParam = config.getInitParameter("Cache-Control");
-		if(cacheControlParam != null) cacheControlParam = cacheControlParam.trim();
-		if(cacheControlParam == null || cacheControlParam.isEmpty()) {
-			this.cacheControl = DEFAULT_CACHE_CONTROL;
-		} else {
-			this.cacheControl = cacheControlParam;
+		String cacheControlParam = StringUtility.trimNullIfEmpty(config.getInitParameter("cache-control"));
+		if(cacheControlParam == null) {
+			// Compatibility with old parameter case
+			cacheControlParam = StringUtility.trimNullIfEmpty(config.getInitParameter("Cache-Control"));
 		}
+		this.cacheControl = (cacheControlParam == null) ? DEFAULT_CACHE_CONTROL : cacheControlParam;
 	}
 
 	@Override
@@ -576,8 +576,8 @@ public class LastModifiedServlet extends HttpServlet {
 				response.setContentType("text/css");
 				response.setCharacterEncoding(CSS_ENCODING.name());
 				response.setContentLength(rewrittenCss.length);
-				if(!response.containsHeader("Cache-Control")) {
-					response.setHeader("Cache-Control", cacheControl);
+				if(!response.containsHeader("cache-control")) {
+					response.setHeader("cache-control", cacheControl);
 				}
 				OutputStream out = response.getOutputStream();
 				out.write(rewrittenCss);
