@@ -22,6 +22,7 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.io.ContentType;
 import com.aoindustries.io.FileUtils;
 import com.aoindustries.io.IoUtils;
 import com.aoindustries.net.AnyURI;
@@ -573,7 +574,7 @@ public class LastModifiedServlet extends HttpServlet {
 			if(CSS_EXTENSION.equalsIgnoreCase(extension)) {
 				// Special case for CSS files
 				byte[] rewrittenCss = ParsedCssFile.parseCssFile(getServletContext(), hap).rewrittenCssFile;
-				response.setContentType("text/css");
+				response.setContentType(ContentType.CSS);
 				response.setCharacterEncoding(CSS_ENCODING.name());
 				response.setContentLength(rewrittenCss.length);
 				if(!response.containsHeader("cache-control")) {
