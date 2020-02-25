@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-02-24T14:52:46-0600"
+		dateModified="2020-02-24T18:58:10-0600"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -62,7 +62,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						Added a set of <![CDATA[&lt;mime-mapping&gt;]]> that we previously had installed to various projects.
 						These have an emphasis on serving content as <code>UTF-8</code>, including CSS, JavaScript, HTML, XML, …
 						These mappings are also required for consistency with the implementation of
-						<ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+						<ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
 					</li>
 				</ul>
 			</changelog:release>
@@ -79,10 +79,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			<ul>
 				<li>
 					Added <ao:a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</ao:a>
-					header to <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
+					header to <ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
 					Defaults to a short-term setting of public, five-minute, and allowing stale.
 					This will help performance when <code>*.css</code> files are accessed directly
-					(URLs not rewritten with <code><ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
+					(URLs not rewritten with <code><ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
 					parameter).
 				</li>
 			</ul>
@@ -134,7 +134,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 							updated with new <code>canonical</code> parameters.
 						</li>
 						<li>
-							When in auto mode, <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">last modified stamping</ao:a>
+							When in auto mode, <ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">last modified stamping</ao:a>
 							is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
 						</li>
 					</ol>
@@ -145,7 +145,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					cleaned-up significantly, with more consistent method names and more uniform
 					method overloads.
 				</li>
-				<li>Improved <ao:a href="apidocs/com/aoindustries/servlet/http/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+				<li>Improved <ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
 					Unicode support:
 					<ol>
 						<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>

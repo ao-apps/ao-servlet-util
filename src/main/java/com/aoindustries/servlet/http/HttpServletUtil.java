@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019  AO Industries, Inc.
+ * Copyright (C) 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -35,7 +35,6 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Enumeration;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -202,13 +201,22 @@ public class HttpServletUtil {
 		getAbsoluteURL(request, path, true, encoder, out);
 	}
 
+	@FunctionalInterface
+	public static interface UrlModifier {
+		/**
+		 * Modifies the URL that is being processed.  This is called
+		 * after the parameters are added, and before URI encoding.
+		 */
+		String modify(String url) throws MalformedURLException;
+	}
+
 	/**
 	 * Builds a URL that should be used for a redirect location,
 	 * including all the proper URL conversions.  This includes:
 	 * <ol>
 	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
 	 *   <li>Adding any additional parameters</li>
-	 *   <li>Optionally adding lastModified parameter</li>
+	 *   <li>Optionally {@linkplain UrlModifier modifying the URL}</li>
 	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
 	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
 	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
@@ -220,23 +228,22 @@ public class HttpServletUtil {
 	 *
 	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}
 	 *
-	 * @see  #sendRedirect(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	@SuppressWarnings("try")
 	public static String buildRedirectURL(
-		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String servletPath,
 		String href,
 		URIParameters params,
+		UrlModifier modifier,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		href = URIResolver.getAbsolutePath(servletPath, href);
 		href = URIParametersUtils.addParams(href, params);
-		href = LastModifiedServlet.addLastModified(servletContext, request, servletPath, href, addLastModified);
+		if(modifier != null) href = modifier.modify(href);
 		href = URIEncoder.encodeURI(href);
 		if(href.startsWith("/")) {
 			if(absolute) {
@@ -256,79 +263,162 @@ public class HttpServletUtil {
 	}
 
 	/**
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildRedirectURL(
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String servletPath,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			request,
+			response,
+			servletPath,
+			href,
+			params,
+			null,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
 	 * Builds a URL that should be used for a redirect location,
 	 * with path resolved relative to the given request.
 	 *
 	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
-	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildRedirectURL(
-		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String href,
 		URIParameters params,
+		UrlModifier modifier,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildRedirectURL(
-			servletContext,
 			request,
 			response,
 			Dispatcher.getCurrentPagePath(request),
 			href,
 			params,
+			modifier,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildRedirectURL(
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			request,
+			response,
+			href,
+			params,
+			null,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildRedirectURL(
+		PageContext pageContext,
+		String href,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			(HttpServletRequest)pageContext.getRequest(),
+			(HttpServletResponse)pageContext.getResponse(),
+			href,
+			params,
+			modifier,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildRedirectURL(
 		PageContext pageContext,
 		String href,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildRedirectURL(
-			pageContext.getServletContext(),
-			(HttpServletRequest)pageContext.getRequest(),
-			(HttpServletResponse)pageContext.getResponse(),
+			pageContext,
 			href,
 			params,
+			null,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildRedirectURL(
+		JspContext jspContext,
+		String href,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildRedirectURL(
+			(PageContext)jspContext,
+			href,
+			params,
+			modifier,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildRedirectURL(
 		JspContext jspContext,
 		String href,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildRedirectURL(
-			(PageContext)jspContext,
+			jspContext,
 			href,
 			params,
+			null,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
@@ -337,7 +427,7 @@ public class HttpServletUtil {
 	 * <ol>
 	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
 	 *   <li>Adding any additional parameters</li>
-	 *   <li>Optionally adding lastModified parameter</li>
+	 *   <li>Optionally {@linkplain UrlModifier modifying the URL}</li>
 	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
 	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
 	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
@@ -350,19 +440,18 @@ public class HttpServletUtil {
 	 */
 	@SuppressWarnings("try")
 	public static String buildURL(
-		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String servletPath,
 		String url,
 		URIParameters params,
+		UrlModifier modifier,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		url = URIResolver.getAbsolutePath(servletPath, url);
 		url = URIParametersUtils.addParams(url, params);
-		url = LastModifiedServlet.addLastModified(servletContext, request, servletPath, url, addLastModified);
+		if(modifier != null) url = modifier.modify(url);
 		url = URIEncoder.encodeURI(url);
 		if(url.startsWith("/")) {
 			if(absolute) {
@@ -381,75 +470,159 @@ public class HttpServletUtil {
 	}
 
 	/**
+	 * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildURL(
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String servletPath,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildURL(
+			request,
+			response,
+			servletPath,
+			url,
+			params,
+			null,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
 	 * Builds a URL with path resolved relative to the given request.
 	 *
 	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
-	 * @see  #buildURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildURL(
-		ServletContext servletContext,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String url,
 		URIParameters params,
+		UrlModifier modifier,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildURL(
-			servletContext,
 			request,
 			response,
 			Dispatcher.getCurrentPagePath(request),
 			url,
 			params,
+			modifier,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	// TODO: Deprecate all of these, linking to LastModifiedUtil?
+	public static String buildURL(
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String url,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildURL(
+			request,
+			response,
+			url,
+			params,
+			null,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildURL(
+		PageContext pageContext,
+		String url,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildURL(
+			(HttpServletRequest)pageContext.getRequest(),
+			(HttpServletResponse)pageContext.getResponse(),
+			url,
+			params,
+			modifier,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildURL(
 		PageContext pageContext,
 		String url,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildURL(
-			pageContext.getServletContext(),
-			(HttpServletRequest)pageContext.getRequest(),
-			(HttpServletResponse)pageContext.getResponse(),
+			pageContext,
 			url,
 			params,
+			null,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static String buildURL(
+		JspContext jspContext,
+		String url,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException {
+		return buildURL(
+			(PageContext)jspContext,
+			url,
+			params,
+			modifier,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
 	public static String buildURL(
 		JspContext jspContext,
 		String url,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified
+		boolean canonical
 	) throws MalformedURLException {
 		return buildURL(
-			(PageContext)jspContext,
+			jspContext,
 			url,
 			params,
+			null,
 			absolute,
-			canonical,
-			addLastModified
+			canonical
 		);
 	}
 
@@ -458,14 +631,14 @@ public class HttpServletUtil {
 	 * Encodes the location to US-ASCII format.
 	 * Response must not be {@linkplain HttpServletResponse#isCommitted() committed}.
 	 *
-	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 *
 	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
+		int status,
 		HttpServletResponse response,
-		String location,
-		int status
+		String location
 	) throws IllegalStateException, IOException {
 		// Response must not be committed
 		if(response.isCommitted()) throw new IllegalStateException("Unable to redirect: Response already committed");
@@ -475,125 +648,215 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletResponse, java.lang.String)
 	 *
 	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
-		ServletContext servletContext,
+		int status,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String servletPath,
+		String href,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			status,
+			response,
+			buildRedirectURL(
+				request,
+				response,
+				servletPath,
+				href,
+				params,
+				modifier,
+				absolute,
+				canonical
+			)
+		);
+	}
+
+	/**
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static void sendRedirect(
+		int status,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String servletPath,
 		String href,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified,
-		int status
+		boolean canonical
 	) throws MalformedURLException, IllegalStateException, IOException {
 		sendRedirect(
+			status,
+			request,
 			response,
-			buildRedirectURL(
-				servletContext,
-				request,
-				response,
-				servletPath,
-				href,
-				params,
-				absolute,
-				canonical,
-				addLastModified
-			),
-			status
+			servletPath,
+			href,
+			params,
+			null,
+			absolute,
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.ServletContext, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletResponse, java.lang.String)
 	 *
 	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
-		ServletContext servletContext,
+		int status,
+		HttpServletRequest request,
+		HttpServletResponse response,
+		String href,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			status,
+			response,
+			buildRedirectURL(
+				request,
+				response,
+				href,
+				params,
+				modifier,
+				absolute,
+				canonical
+			)
+		);
+	}
+
+	/**
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static void sendRedirect(
+		int status,
 		HttpServletRequest request,
 		HttpServletResponse response,
 		String href,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified,
-		int status
+		boolean canonical
 	) throws MalformedURLException, IllegalStateException, IOException {
 		sendRedirect(
+			status,
+			request,
 			response,
-			buildRedirectURL(
-				servletContext,
-				request,
-				response,
-				href,
-				params,
-				absolute,
-				canonical,
-				addLastModified
-			),
-			status
+			href,
+			params,
+			null,
+			absolute,
+			canonical
 		);
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.http.HttpServletResponse, java.lang.String, int)
+	 * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.http.HttpServletResponse, java.lang.String)
 	 *
 	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
+		int status,
 		PageContext pageContext,
 		String href,
 		URIParameters params,
+		UrlModifier modifier,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified,
-		int status
+		boolean canonical
 	) throws MalformedURLException, IllegalStateException, IOException {
 		sendRedirect(
+			status,
 			(HttpServletResponse)pageContext.getResponse(),
 			buildRedirectURL(
 				pageContext,
 				href,
 				params,
+				modifier,
 				absolute,
-				canonical,
-				addLastModified
-			),
-			status
+				canonical
+			)
 		);
 	}
 
 	/**
-	 * @see  #buildRedirectURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen)
-	 * @see  #sendRedirect(javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, boolean, boolean, com.aoindustries.servlet.http.LastModifiedServlet.AddLastModifiedWhen, int)
+	 * @see  #sendRedirect(int, javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static void sendRedirect(
+		int status,
+		PageContext pageContext,
+		String href,
+		URIParameters params,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			status,
+			pageContext,
+			href,
+			params,
+			null,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #buildRedirectURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 * @see  #sendRedirect(int, javax.servlet.jsp.PageContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 *
 	 * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
 	 */
 	public static void sendRedirect(
+		int status,
+		JspContext jspContext,
+		String href,
+		URIParameters params,
+		UrlModifier modifier,
+		boolean absolute,
+		boolean canonical
+	) throws MalformedURLException, IllegalStateException, IOException {
+		sendRedirect(
+			status,
+			(PageContext)jspContext,
+			href,
+			params,
+			modifier,
+			absolute,
+			canonical
+		);
+	}
+
+	/**
+	 * @see  #sendRedirect(int, javax.servlet.jsp.JspContext, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+	 */
+	public static void sendRedirect(
+		int status,
 		JspContext jspContext,
 		String href,
 		URIParameters params,
 		boolean absolute,
-		boolean canonical,
-		LastModifiedServlet.AddLastModifiedWhen addLastModified,
-		int status
+		boolean canonical
 	) throws MalformedURLException, IllegalStateException, IOException {
 		sendRedirect(
-			(PageContext)jspContext,
+			status,
+			jspContext,
 			href,
 			params,
+			null,
 			absolute,
-			canonical,
-			addLastModified,
-			status
+			canonical
 		);
 	}
 
