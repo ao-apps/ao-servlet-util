@@ -36,7 +36,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-02-24T18:58:10-0600"
+		dateModified="2020-02-24T23:12:44-0600"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -57,12 +57,6 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					<li>
 						Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
 						class directly.
-					</li>
-					<li>
-						Added a set of <![CDATA[&lt;mime-mapping&gt;]]> that we previously had installed to various projects.
-						These have an emphasis on serving content as <code>UTF-8</code>, including CSS, JavaScript, HTML, XML, …
-						These mappings are also required for consistency with the implementation of
-						<ao:a href="https://aoindustries.com/ao-servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
 					</li>
 				</ul>
 			</changelog:release>
