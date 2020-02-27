@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2017, 2019  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2017, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -52,22 +52,22 @@ public class Includer {
 	 * Since sendError does not work within included pages, the outermost include
 	 * sets the isIncluded flag to true.
 	 */
-	private static final String IS_INCLUDED_REQUEST_ATTRIBUTE_NAME = Includer.class.getName() + ".isIncluded";
+	private static final String IS_INCLUDED_REQUEST_ATTRIBUTE = Includer.class.getName() + ".isIncluded";
 
 	/**
 	 * The location header that should be set before calling sendError.
 	 */
-	private static final String LOCATION_REQUEST_ATTRIBUTE_NAME = Includer.class.getName() + ".location";
+	private static final String LOCATION_REQUEST_ATTRIBUTE = Includer.class.getName() + ".location";
 
 	/**
 	 * The status that should be sent to sendError.
 	 */
-	private static final String STATUS_REQUEST_ATTRIBUTE_NAME = Includer.class.getName() + ".sendError.status";
+	private static final String STATUS_REQUEST_ATTRIBUTE = Includer.class.getName() + ".sendError.status";
 
 	/**
 	 * The message that should be sent to sendError.
 	 */
-	private static final String MESSAGE_REQUEST_ATTRIBUTE_NAME = Includer.class.getName() + ".sendError.message";
+	private static final String MESSAGE_REQUEST_ATTRIBUTE = Includer.class.getName() + ".sendError.message";
 
 	/**
 	 * The request attribute name set to boolean true when the page should be skipped.
@@ -76,13 +76,13 @@ public class Includer {
 	 * lead to more intuitive results.  With this change a redirect may be
 	 * performed within an include.
 	 */
-	private static final String PAGE_SKIPPED_REQUEST_ATTRIBUTE_NAME = Includer.class.getName() + ".pageSkipped";
+	private static final String PAGE_SKIPPED_REQUEST_ATTRIBUTE = Includer.class.getName() + ".pageSkipped";
 
 	/**
 	 * Performs the actual include, supporting propagation of SkipPageException and sendError.
 	 */
 	public static void dispatchInclude(RequestDispatcher dispatcher, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SkipPageException {
-		final boolean isOutmostInclude = request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME) == null;
+		final boolean isOutmostInclude = request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE) == null;
 		if(logger.isLoggable(Level.FINE)) logger.log(
 			Level.FINE, "request={0}, isOutmostInclude={1}",
 			new Object[] {
@@ -91,20 +91,20 @@ public class Includer {
 			}
 		);
 		try {
-			if(isOutmostInclude) request.setAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME, true);
+			if(isOutmostInclude) request.setAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE, true);
 			dispatcher.include(request, response);
 			if(isOutmostInclude) {
 				// Set location header if set in attribute
-				String location = (String)request.getAttribute(LOCATION_REQUEST_ATTRIBUTE_NAME);
+				String location = (String)request.getAttribute(LOCATION_REQUEST_ATTRIBUTE);
 				if(location != null) {
 					assert location.equals(URIEncoder.encodeURI(location));
 					response.setHeader("Location", location);
 				}
 
 				// Call sendError from here if set in attributes
-				Integer status = (Integer)request.getAttribute(STATUS_REQUEST_ATTRIBUTE_NAME);
+				Integer status = (Integer)request.getAttribute(STATUS_REQUEST_ATTRIBUTE);
 				if(status != null) {
-					String message = (String)request.getAttribute(MESSAGE_REQUEST_ATTRIBUTE_NAME);
+					String message = (String)request.getAttribute(MESSAGE_REQUEST_ATTRIBUTE);
 					if(message == null) {
 						response.sendError(status);
 					} else {
@@ -113,14 +113,14 @@ public class Includer {
 				}
 			}
 			// Propagate effects of SkipPageException
-			if(request.getAttribute(PAGE_SKIPPED_REQUEST_ATTRIBUTE_NAME) != null) throw ServletUtil.SKIP_PAGE_EXCEPTION;
+			if(request.getAttribute(PAGE_SKIPPED_REQUEST_ATTRIBUTE) != null) throw ServletUtil.SKIP_PAGE_EXCEPTION;
 		} finally {
 			if(isOutmostInclude) {
-				request.removeAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME);
-				request.removeAttribute(LOCATION_REQUEST_ATTRIBUTE_NAME);
-				request.removeAttribute(STATUS_REQUEST_ATTRIBUTE_NAME);
-				request.removeAttribute(MESSAGE_REQUEST_ATTRIBUTE_NAME);
-				// PAGE_SKIPPED_REQUEST_ATTRIBUTE_NAME not removed to propagate fully up the stack
+				request.removeAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE);
+				request.removeAttribute(LOCATION_REQUEST_ATTRIBUTE);
+				request.removeAttribute(STATUS_REQUEST_ATTRIBUTE);
+				request.removeAttribute(MESSAGE_REQUEST_ATTRIBUTE);
+				// PAGE_SKIPPED_REQUEST_ATTRIBUTE not removed to propagate fully up the stack
 			}
 		}
 	}
@@ -132,12 +132,12 @@ public class Includer {
 	 */
 	public static void setLocation(HttpServletRequest request, HttpServletResponse response, String location) {
 		location = URIEncoder.encodeURI(location);
-		if(request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME) == null) {
+		if(request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE) == null) {
 			// Not included, setHeader directly
 			response.setHeader("Location", location);
 		} else {
 			// Is included, set attribute so top level tag can perform actual setHeader call
-			request.setAttribute(LOCATION_REQUEST_ATTRIBUTE_NAME, location);
+			request.setAttribute(LOCATION_REQUEST_ATTRIBUTE, location);
 		}
 	}
 
@@ -146,7 +146,7 @@ public class Includer {
 	 * When inside of an include will set request attribute so outermost include can call sendError.
 	 */
 	public static void sendError(HttpServletRequest request, HttpServletResponse response, int status, String message) throws IOException {
-		if(request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE_NAME) == null) {
+		if(request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE) == null) {
 			// Not included, sendError directly
 			if(message == null) {
 				response.sendError(status);
@@ -155,8 +155,8 @@ public class Includer {
 			}
 		} else {
 			// Is included, set attributes so top level tag can perform actual sendError call
-			request.setAttribute(STATUS_REQUEST_ATTRIBUTE_NAME, status);
-			request.setAttribute(MESSAGE_REQUEST_ATTRIBUTE_NAME, message);
+			request.setAttribute(STATUS_REQUEST_ATTRIBUTE, status);
+			request.setAttribute(MESSAGE_REQUEST_ATTRIBUTE, message);
 		}
 	}
 
@@ -168,6 +168,6 @@ public class Includer {
 	 * Sets the skip page flag.
 	 */
 	public static void setPageSkipped(ServletRequest request) {
-		request.setAttribute(PAGE_SKIPPED_REQUEST_ATTRIBUTE_NAME, true);
+		request.setAttribute(PAGE_SKIPPED_REQUEST_ATTRIBUTE, true);
 	}
 }

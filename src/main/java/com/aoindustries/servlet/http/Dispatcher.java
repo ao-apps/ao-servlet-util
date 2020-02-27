@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2018  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2018, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -50,7 +50,7 @@ public class Dispatcher {
 	/**
 	 * The name of the request-scope Map that will contain the arguments for the current page.
 	 */
-	public static final String ARG_MAP_REQUEST_ATTRIBUTE_NAME = "arg";
+	public static final String ARG_REQUEST_ATTRIBUTE = "arg";
 
 	private Dispatcher() {
 	}
@@ -183,18 +183,17 @@ public class Dispatcher {
 				// Store as new relative path source
 				setDispatchedPage(request, contextRelativePath);
 				// Keep old arguments to restore
-				final Object oldArgs = request.getAttribute(Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME);
+				final Object oldArgs = request.getAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE);
 				try {
 					// Set new arguments
-					request.setAttribute(
-						Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME,
+					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE,
 						args==null ? null : AoCollections.optimalUnmodifiableMap(args)
 					);
 					// Perform dispatch
 					dispatcher.forward(request, response);
 				} finally {
 					// Restore any previous args
-					request.setAttribute(Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME, oldArgs);
+					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE, oldArgs);
 				}
 			} finally {
 				setDispatchedPage(request, oldDispatchPage);
@@ -296,18 +295,17 @@ public class Dispatcher {
 				// Store as new relative path source
 				setDispatchedPage(request, contextRelativePath);
 				// Keep old arguments to restore
-				final Object oldArgs = request.getAttribute(Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME);
+				final Object oldArgs = request.getAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE);
 				try {
 					// Set new arguments
-					request.setAttribute(
-						Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME,
+					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE,
 						args==null ? null : AoCollections.optimalUnmodifiableMap(args)
 					);
 					// Perform dispatch
 					Includer.dispatchInclude(dispatcher, request, response);
 				} finally {
 					// Restore any previous args
-					request.setAttribute(Dispatcher.ARG_MAP_REQUEST_ATTRIBUTE_NAME, oldArgs);
+					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE, oldArgs);
 				}
 			} finally {
 				setDispatchedPage(request, oldDispatchPage);

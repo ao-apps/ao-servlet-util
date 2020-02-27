@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2016, 2017, 2019  AO Industries, Inc.
+ * Copyright (C) 2016, 2017, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -32,6 +32,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  * ServletContext methods can be somewhat slow, this offers a cache that refreshes
@@ -47,17 +50,40 @@ final public class ServletContextCache {
 
 	private static final long EXPIRATION_AGE = 60 * 1000;
 
-	static final String ATTRIBUTE_KEY = ServletContextCache.class.getName();
+	private static final String APPLICATION_ATTRIBUTE = ServletContextCache.class.getName();
+
+	@WebListener
+	public static class Initializer implements ServletContextListener {
+
+		// TODO: Use private field like this for other Initializers?
+		// TODO: It ensures stopping of resource even if something else removes the attribute.
+		private ServletContextCache cache;
+
+		@Override
+		public void contextInitialized(ServletContextEvent event) {
+			cache = getCache(event.getServletContext());
+		}
+
+		@Override
+		public void contextDestroyed(ServletContextEvent event) {
+			event.getServletContext().removeAttribute(APPLICATION_ATTRIBUTE);
+			if(cache != null) {
+				cache.stop();
+				cache = null;
+			}
+		}
+	}
 
 	/**
 	 * Gets or creates the cache for the provided servlet context.
 	 */
+	// TODO: Rename "getInstance" (and many others)?
 	public static ServletContextCache getCache(ServletContext servletContext) {
-		ServletContextCache cache = (ServletContextCache)servletContext.getAttribute(ATTRIBUTE_KEY);
+		ServletContextCache cache = (ServletContextCache)servletContext.getAttribute(APPLICATION_ATTRIBUTE);
 		if(cache == null) {
 			// It is possible this is called during context initialization before the listener
 			cache = new ServletContextCache(servletContext);
-			servletContext.setAttribute(ATTRIBUTE_KEY, cache);
+			servletContext.setAttribute(APPLICATION_ATTRIBUTE, cache);
 			//throw new IllegalStateException("ServletContextCache not active in the provided ServletContext.  Add context listener to web.xml?");
 		} else {
 			assert cache.servletContext == servletContext;
@@ -67,7 +93,7 @@ final public class ServletContextCache {
 
 	final ServletContext servletContext;
 
-	ServletContextCache(ServletContext servletContext) {
+	private ServletContextCache(ServletContext servletContext) {
 		this.servletContext = servletContext;
 	}
 
@@ -158,37 +184,34 @@ final public class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String,Long,RuntimeException> getLastModifiedRefresher = new Refresher<String,Long,RuntimeException>() {
-		@Override
-		public Long call(String path) {
-			long lastModified = 0;
-			String realPath = getRealPath(path);
-			if(realPath != null) {
-				// Use File first
-				lastModified = new File(realPath).lastModified();
-			}
-			if(lastModified == 0) {
-				// Try URL
-				try {
-					URL resourceUrl = getResource(path);
-					if(resourceUrl != null) {
-						URLConnection conn = resourceUrl.openConnection();
-						conn.setAllowUserInteraction(false);
-						// Are these timeouts appropriate to web-resource URLs?
-						// Would they be different for background refresh versus interactive?
-						// conn.setConnectTimeout(10);
-						// conn.setReadTimeout(10);
-						conn.setDoInput(false);
-						conn.setDoOutput(false);
-						conn.setUseCaches(false);
-						lastModified = conn.getLastModified();
-					}
-				} catch(IOException e) {
-					// lastModified stays unmodified
-				}
-			}
-			return lastModified;
+	private final Refresher<String,Long,RuntimeException> getLastModifiedRefresher = (String path) -> {
+		long lastModified = 0;
+		String realPath = getRealPath(path);
+		if(realPath != null) {
+			// Use File first
+			lastModified = new File(realPath).lastModified();
 		}
+		if(lastModified == 0) {
+			// Try URL
+			try {
+				URL resourceUrl = getResource(path);
+				if(resourceUrl != null) {
+					URLConnection conn = resourceUrl.openConnection();
+					conn.setAllowUserInteraction(false);
+					// Are these timeouts appropriate to web-resource URLs?
+					// Would they be different for background refresh versus interactive?
+					// conn.setConnectTimeout(10);
+					// conn.setReadTimeout(10);
+					conn.setDoInput(false);
+					conn.setDoOutput(false);
+					conn.setUseCaches(false);
+					lastModified = conn.getLastModified();
+				}
+			} catch(IOException e) {
+				// lastModified stays unmodified
+			}
+		}
+		return lastModified;
 	};
 
 	/**

@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2016, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -45,7 +45,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditableResourceServletFilter implements Filter {
 
-	private static final String FILTER_ENABLED_REQUEST_ATTRIBUTE_KEY = EditableResourceServletFilter.class.getName()+".enabled";
+	private static final String FILTER_ENABLED_REQUEST_ATTRIBUTE = EditableResourceServletFilter.class.getName()+" . enabled";
 
 	private String role;
 
@@ -62,11 +62,11 @@ public class EditableResourceServletFilter implements Filter {
 	) throws IOException, ServletException {
 		// Makes sure only one locale filter is applied per request
 		if(
-			request.getAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE_KEY)==null
+			request.getAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE)==null
 			&& (request instanceof HttpServletRequest)
 			&& (response instanceof HttpServletResponse)
 		) {
-			request.setAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE_KEY, Boolean.TRUE);
+			request.setAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE, Boolean.TRUE);
 			try {
 				HttpServletRequest httpRequest = (HttpServletRequest)request;
 				HttpServletResponse httpResponse = (HttpServletResponse)response;
@@ -97,7 +97,7 @@ public class EditableResourceServletFilter implements Filter {
 					chain.doFilter(request, response);
 				}
 			} finally {
-				request.removeAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE_KEY);
+				request.removeAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE);
 			}
 		} else {
 			chain.doFilter(request, response);

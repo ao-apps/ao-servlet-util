@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-02-24T23:12:44-0600"
+		dateModified="2020-02-26T20:09:57-0600"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -59,6 +59,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 						Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
 						class directly.
 					</li>
+					<li>Optimized ServletContext attribute initialization and concurrency.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
