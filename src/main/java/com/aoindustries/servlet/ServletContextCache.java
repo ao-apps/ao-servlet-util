@@ -61,7 +61,7 @@ final public class ServletContextCache {
 
 		@Override
 		public void contextInitialized(ServletContextEvent event) {
-			cache = getCache(event.getServletContext());
+			cache = getInstance(event.getServletContext());
 		}
 
 		@Override
@@ -77,8 +77,7 @@ final public class ServletContextCache {
 	/**
 	 * Gets or creates the cache for the provided servlet context.
 	 */
-	// TODO: Rename "getInstance" (and many others)?
-	public static ServletContextCache getCache(ServletContext servletContext) {
+	public static ServletContextCache getInstance(ServletContext servletContext) {
 		ServletContextCache cache = (ServletContextCache)servletContext.getAttribute(APPLICATION_ATTRIBUTE);
 		if(cache == null) {
 			// It is possible this is called during context initialization before the listener
@@ -89,6 +88,14 @@ final public class ServletContextCache {
 			assert cache.servletContext == servletContext;
 		}
 		return cache;
+	}
+
+	/**
+	 * @deprecated  Please use {@link #getInstance(javax.servlet.ServletContext)}.
+	 */
+	@Deprecated
+	public static ServletContextCache getCache(ServletContext servletContext) {
+		return getInstance(servletContext);
 	}
 
 	final ServletContext servletContext;
@@ -135,7 +142,7 @@ final public class ServletContextCache {
 	 * @see  #getResource(java.lang.String)
 	 */
 	public static URL getResource(ServletContext servletContext, String path) throws MalformedURLException {
-		return getCache(servletContext).getResource(path);
+		return getInstance(servletContext).getResource(path);
 	}
 	// </editor-fold>
 
@@ -171,7 +178,7 @@ final public class ServletContextCache {
 	 * @see  #getRealPath(java.lang.String)
 	 */
 	public static String getRealPath(ServletContext servletContext, String path) {
-		return getCache(servletContext).getRealPath(path);
+		return getInstance(servletContext).getRealPath(path);
 	}
 	// </editor-fold>
 
@@ -235,7 +242,7 @@ final public class ServletContextCache {
 	 * @see  #getLastModified(java.lang.String)
 	 */
 	public static long getLastModified(ServletContext servletContext, String path) {
-		return getCache(servletContext).getLastModified(path);
+		return getInstance(servletContext).getLastModified(path);
 	}
 	// </editor-fold>
 }
