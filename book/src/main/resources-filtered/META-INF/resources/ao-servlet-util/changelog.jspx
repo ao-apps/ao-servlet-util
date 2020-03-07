@@ -122,7 +122,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					<ol>
 						<li>
 							New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
-							coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javac.link.javaeeApi.6}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
+							coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
 							(such as not adding per-user information when cookies are disabled).
 							These canonical URLs, without per-user settings, are used for things like
 							<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
