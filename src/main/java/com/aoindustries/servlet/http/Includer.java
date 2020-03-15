@@ -83,8 +83,8 @@ public class Includer {
 	 */
 	public static void dispatchInclude(RequestDispatcher dispatcher, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SkipPageException {
 		final boolean isOutmostInclude = request.getAttribute(IS_INCLUDED_REQUEST_ATTRIBUTE) == null;
-		if(logger.isLoggable(Level.FINE)) logger.log(
-			Level.FINE, "request={0}, isOutmostInclude={1}",
+		if(logger.isLoggable(Level.FINER)) logger.log(
+			Level.FINER, "request={0}, isOutmostInclude={1}",
 			new Object[] {
 				request,
 				isOutmostInclude
