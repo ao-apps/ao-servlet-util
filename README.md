@@ -30,7 +30,7 @@ Miscellaneous Servlet and JSP utilities.
 * [Project Home](https://aoindustries.com/ao-servlet-util/)
 * [Changelog](https://aoindustries.com/ao-servlet-util/changelog)
 * [API Docs](https://aoindustries.com/ao-servlet-util/apidocs/)
-* [Maven Central Repository](https://search.maven.org/#search%7Cgav%7C1%7Cg:%22com.aoindustries%22%20AND%20a:%22ao-servlet-util%22)
+* [Maven Central Repository](https://search.maven.org/artifact/com.aoindustries/ao-servlet-util)
 * [GitHub](https://github.com/aoindustries/ao-servlet-util)
 
 ## Contact Us
