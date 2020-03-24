@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2013, 2016, 2019  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,9 +22,9 @@
  */
 package com.aoindustries.servlet;
 
+import com.aoindustries.collections.EnumerationIterator;
 import com.aoindustries.net.URIParameters;
 import com.aoindustries.net.URIParametersUtils;
-import com.aoindustries.util.EnumerationIterator;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;

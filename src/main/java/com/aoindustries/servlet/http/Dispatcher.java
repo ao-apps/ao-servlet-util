@@ -22,10 +22,10 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.collections.AoCollections;
 import com.aoindustries.net.URIResolver;
 import com.aoindustries.servlet.LocalizedServletException;
 import static com.aoindustries.servlet.http.ApplicationResources.accessor;
-import com.aoindustries.util.AoCollections;
 import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Level;

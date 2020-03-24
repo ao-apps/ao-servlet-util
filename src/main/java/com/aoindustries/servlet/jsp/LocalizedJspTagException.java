@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,7 @@
  */
 package com.aoindustries.servlet.jsp;
 
-import com.aoindustries.util.AoArrays;
+import com.aoindustries.lang.EmptyArrays;
 import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import java.io.Serializable;
 import javax.servlet.jsp.JspTagException;
@@ -44,7 +44,7 @@ public class LocalizedJspTagException extends JspTagException {
 		super(accessor.getMessage(key));
 		this.accessor = accessor;
 		this.key = key;
-		this.args = AoArrays.EMPTY_SERIALIZABLE_ARRAY;
+		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
 	public LocalizedJspTagException(ApplicationResourcesAccessor accessor, String key, Serializable... args) {
@@ -58,7 +58,7 @@ public class LocalizedJspTagException extends JspTagException {
 		super(accessor.getMessage(key), cause);
 		this.accessor = accessor;
 		this.key = key;
-		this.args = AoArrays.EMPTY_SERIALIZABLE_ARRAY;
+		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
 	public LocalizedJspTagException(Throwable cause, ApplicationResourcesAccessor accessor, String key, Serializable... args) {
