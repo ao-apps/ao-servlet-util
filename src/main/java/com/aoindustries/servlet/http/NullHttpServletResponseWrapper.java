@@ -27,6 +27,7 @@ import java.io.PrintWriter;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
+import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Discards all output.
@@ -45,8 +46,7 @@ public class NullHttpServletResponseWrapper extends HttpServletResponseWrapper {
 	}
 
 	@Override
-	@SuppressWarnings("deprecation")
 	public ServletOutputStream getOutputStream() {
-		throw new com.aoindustries.exception.NotImplementedException();
+		throw new NotImplementedException("getOutputStream not expected");
 	}
 }
