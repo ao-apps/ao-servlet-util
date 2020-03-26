@@ -523,7 +523,6 @@ public class HttpServletUtil {
 	/**
 	 * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoindustries.net.URIParameters, com.aoindustries.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
 	 */
-	// TODO: Deprecate all of these, linking to LastModifiedUtil?
 	public static String buildURL(
 		HttpServletRequest request,
 		HttpServletResponse response,
