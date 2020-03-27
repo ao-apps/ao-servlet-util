@@ -144,7 +144,7 @@ final public class ServletContextCache {
 	}
 	// </editor-fold>
 
-	// TODO: getRequestDispatcher?
+	// TODO: getRequestDispatcher? (Only if profiling shows it might help)
 
 	// <editor-fold defaultstate="collapsed" desc="getRealPath">
 	private final BackgroundCache<String,String,RuntimeException> getRealPathCache = new BackgroundCache<>(
