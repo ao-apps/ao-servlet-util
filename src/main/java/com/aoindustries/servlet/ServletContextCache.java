@@ -55,8 +55,6 @@ final public class ServletContextCache {
 	@WebListener
 	public static class Initializer implements ServletContextListener {
 
-		// TODO: Use private field like this for other Initializers?
-		// TODO: It ensures stopping of resource even if something else removes the attribute.
 		private ServletContextCache cache;
 
 		@Override
