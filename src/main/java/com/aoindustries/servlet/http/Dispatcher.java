@@ -64,9 +64,24 @@ public class Dispatcher {
 	 * Gets the current request original page or null if not set.
 	 *
 	 * @see  #getOriginalPagePath(javax.servlet.http.HttpServletRequest) for the version that uses current request as a default.
+	 * @see  RequestDispatcher#FORWARD_SERVLET_PATH
+	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  HttpServletRequest#getServletPath()
 	 */
 	public static String getOriginalPage(ServletRequest request) {
-		return (String)request.getAttribute(ORIGINAL_PAGE_REQUEST_ATTRIBUTE);
+		String originalPage = (String)request.getAttribute(ORIGINAL_PAGE_REQUEST_ATTRIBUTE);
+		if(originalPage == null) {
+			originalPage = (String)request.getAttribute(RequestDispatcher.FORWARD_SERVLET_PATH);
+			if(originalPage == null) {
+				if(
+					request.getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH) != null
+					&& (request instanceof HttpServletRequest)
+				) {
+					originalPage = ((HttpServletRequest)request).getServletPath();
+				}
+			}
+		}
+		return originalPage;
 	}
 
 	/**
@@ -78,10 +93,12 @@ public class Dispatcher {
 
 	/**
 	 * Gets the original page path corresponding to the original request before any forward/include.
-	 * Assumes all forward/include done with ao taglib.
 	 * If no original page available, uses the servlet path from the provided request.
 	 * 
 	 * @see  #getOriginalPage(javax.servlet.ServletRequest)
+	 * @see  RequestDispatcher#FORWARD_SERVLET_PATH
+	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  HttpServletRequest#getServletPath()
 	 */
 	public static String getOriginalPagePath(HttpServletRequest request) {
 		String original = getOriginalPage(request);
@@ -94,25 +111,40 @@ public class Dispatcher {
 	private static final String DISPATCHED_PAGE_REQUEST_ATTRIBUTE = Dispatcher.class.getName() + ".dispatchedPage";
 
 	/**
-	 * Gets the current-thread dispatched page or null if not set.
+	 * Gets the current request dispatched page or null if not set.
 	 *
 	 * @see  #getCurrentPagePath(javax.servlet.http.HttpServletRequest) for the version that uses current request as a default.
+	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
 	 */
 	public static String getDispatchedPage(ServletRequest request) {
 		String dispatchedPage = (String)request.getAttribute(DISPATCHED_PAGE_REQUEST_ATTRIBUTE);
-		if(logger.isLoggable(Level.FINE)) logger.log(
-			Level.FINE,
-			"request={0}, dispatchedPage={1}",
-			new Object[] {
-				request,
-				dispatchedPage
+		if(dispatchedPage != null) {
+			if(logger.isLoggable(Level.FINE)) logger.log(
+				Level.FINE,
+				"request={0}, dispatchedPage={1}",
+				new Object[] {
+					request,
+					dispatchedPage
+				}
+			);
+		} else {
+			dispatchedPage = (String)request.getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH);
+			if(dispatchedPage != null) {
+				if(logger.isLoggable(Level.FINE)) logger.log(
+					Level.FINE,
+					"request={0}, " + RequestDispatcher.INCLUDE_SERVLET_PATH + "={1}",
+					new Object[] {
+						request,
+						dispatchedPage
+					}
+				);
 			}
-		);
+		}
 		return dispatchedPage;
 	}
 
 	/**
-	 * Sets the current-thread dispatched page.
+	 * Sets the current request dispatched page.
 	 */
 	public static void setDispatchedPage(ServletRequest request, String dispatchedPage) {
 		if(logger.isLoggable(Level.FINE)) logger.log(
@@ -129,8 +161,10 @@ public class Dispatcher {
 	/**
 	 * Gets the current page path, including any effects from include/forward.
 	 * This will be the path of the current page on forward or include.
-	 * Assumes all forward/include done with ao taglib.
 	 * This may be used as a substitute for HttpServletRequest.getServletPath() when the current page is needed instead of the originally requested servlet.
+	 *
+	 * @see  #getDispatchedPage(javax.servlet.ServletRequest)
+	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
 	 */
 	public static String getCurrentPagePath(HttpServletRequest request) {
 		String dispatched = getDispatchedPage(request);

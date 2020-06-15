@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-03-26T19:14:55-05:00"
+		dateModified="2020-06-15T16:14:19-05:00"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -52,7 +52,16 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						Improved platform compatibility by falling back to
+						<ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#FORWARD_SERVLET_PATH">RequestDispatcher.FORWARD_SERVLET_PATH</ao:a>
+						and <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#INCLUDE_SERVLET_PATH">RequestDispatcher.INCLUDE_SERVLET_PATH</ao:a>
+						where appropriate.
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release
