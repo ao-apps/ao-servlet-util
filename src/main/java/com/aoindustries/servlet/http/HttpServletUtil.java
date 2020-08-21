@@ -149,6 +149,7 @@ public class HttpServletUtil {
 	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
+		// TODO: Use request.getScheme() instead?
 		out.append(request.isSecure() ? "https://" : "http://");
 		URIEncoder.encodeURI(request.getServerName(), out);
 		int port = request.getServerPort();
@@ -184,6 +185,7 @@ public class HttpServletUtil {
 		if(encoder==null) {
 			getAbsoluteURL(request, path, contextRelative, out);
 		} else {
+			// TODO: Use request.getScheme() instead?
 			encoder.append(request.isSecure() ? "https://" : "http://", out);
 			URIEncoder.encodeURI(request.getServerName(), encoder, out);
 			int port = request.getServerPort();
