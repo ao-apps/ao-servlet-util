@@ -109,10 +109,11 @@ public class HttpServletUtil {
 
 	/**
 	 * Gets an absolute URL for the given path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
 	public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
@@ -127,11 +128,12 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-absolute path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * Gets an absolute URL for the given path.  This includes
+	 * protocol, port, context path, and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static String getAbsoluteURL(HttpServletRequest request, String path) {
 		return getAbsoluteURL(request, path, true);
@@ -139,10 +141,11 @@ public class HttpServletUtil {
 
 	/**
 	 * Gets an absolute URL for the given path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
@@ -157,11 +160,12 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-absolute path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * Gets an absolute URL for the given path.  This includes
+	 * protocol, port, context path, and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, Appendable out) throws IOException {
 		getAbsoluteURL(request, path, true, out);
@@ -169,10 +173,11 @@ public class HttpServletUtil {
 
 	/**
 	 * Gets an absolute URL for the given path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, site/context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
@@ -191,11 +196,12 @@ public class HttpServletUtil {
 	}
 
 	/**
-	 * Gets an absolute URL for the given context-absolute path.  This includes
-	 * protocol, port, context path, and relative path.
+	 * Gets an absolute URL for the given path.  This includes
+	 * protocol, port, context path, and path.
 	 * No URL rewriting is performed.
 	 *
-	 * @param  path  The absolute URL, context-absolute path, or page-relative path
+	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
+	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, Encoder encoder, Appendable out) throws IOException {
 		getAbsoluteURL(request, path, true, encoder, out);
