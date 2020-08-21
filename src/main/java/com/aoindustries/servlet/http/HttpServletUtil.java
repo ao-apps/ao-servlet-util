@@ -116,6 +116,7 @@ public class HttpServletUtil {
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
+	// TODO: Put contextRelative before path, since that is they order they go into the URL
 	public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
 		try {
 			StringBuilder buffer = new StringBuilder();
