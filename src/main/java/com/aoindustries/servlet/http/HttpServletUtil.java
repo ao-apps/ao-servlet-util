@@ -35,6 +35,8 @@ import java.net.MalformedURLException;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +55,7 @@ public class HttpServletUtil {
 	private HttpServletUtil() {
 	}
 
-	private static final boolean DEBUG = false;
+	private static final Logger logger = Logger.getLogger(HttpServletUtil.class.getName());
 
 	/**
 	 * Determines if the requestor is Googlebot as described at:
@@ -76,15 +78,15 @@ public class HttpServletUtil {
 					if(remoteHost.endsWith(".googlebot.com") || remoteHost.endsWith(".googlebot.com.")) {
 						// Forward DNS must resolve back to the original IP
 						for(InetAddress actualIp : InetAddress.getAllByName(remoteHost)) {
-							if(DEBUG) System.err.println("DEBUG: ServletUtil: Googlebot verified: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+							if(logger.isLoggable(Level.FINER)) logger.finer("DEBUG: ServletUtil: Googlebot verified: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
 							if(actualIp.equals(remoteIp)) return true;
 						}
-						if(DEBUG) System.err.println("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+						if(logger.isLoggable(Level.FINE)) logger.fine("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
 					}
-					if(DEBUG) System.err.println("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+					if(logger.isLoggable(Level.FINE)) logger.fine("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
 				} catch(UnknownHostException exception) {
 					// Ignored
-					if(DEBUG) System.err.println("DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\", exception=\""+exception+"\"");
+					if(logger.isLoggable(Level.FINE)) logger.log(Level.FINE, "DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"", exception);
 				}
 				break; // Only check the first Googlebot User-Agent header (there should normally only be one anyway)
 			}
