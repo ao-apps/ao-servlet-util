@@ -22,13 +22,13 @@
  */
 package com.aoindustries.servlet;
 
+import com.aoindustries.collections.AoCollections;
 import com.aoindustries.collections.EnumerationIterator;
 import com.aoindustries.net.URIParameters;
 import com.aoindustries.net.URIParametersUtils;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -72,7 +72,7 @@ public class ServletRequestParameters implements URIParameters {
 	@Override
 	public Map<String, List<String>> getParameterMap() {
 		@SuppressWarnings("unchecked") Map<String,String[]> requestMap = request.getParameterMap();
-		Map<String,List<String>> map = new LinkedHashMap<>(requestMap.size()*4/3+1);
+		Map<String,List<String>> map = AoCollections.newLinkedHashMap(requestMap.size());
 		for(Map.Entry<String,String[]> entry : requestMap.entrySet()) {
 			map.put(
 				entry.getKey(),
