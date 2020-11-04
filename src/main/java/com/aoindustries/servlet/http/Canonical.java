@@ -22,6 +22,7 @@
  */
 package com.aoindustries.servlet.http;
 
+import com.aoindustries.lang.AutoCloseableE;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -37,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  * handling the request may change.
  * </p>
  */
-abstract public class Canonical implements AutoCloseable {
+abstract public class Canonical implements AutoCloseableE<RuntimeException> {
 
 	private Canonical() {
 	}
