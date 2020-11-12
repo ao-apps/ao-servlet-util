@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2019  AO Industries, Inc.
+ * Copyright (C) 2019, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,7 +22,6 @@
  */
 package com.aoindustries.servlet.http;
 
-import com.aoindustries.lang.AutoCloseableE;
 import javax.servlet.http.HttpServletResponse;
 
 /**
@@ -38,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * handling the request may change.
  * </p>
  */
-abstract public class Canonical implements AutoCloseableE<RuntimeException> {
+abstract public class Canonical implements AutoCloseable {
 
 	private Canonical() {
 	}
