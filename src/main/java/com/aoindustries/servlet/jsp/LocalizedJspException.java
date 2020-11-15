@@ -23,6 +23,7 @@
 package com.aoindustries.servlet.jsp;
 
 import com.aoindustries.lang.EmptyArrays;
+import com.aoindustries.lang.Throwables;
 import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import java.io.Serializable;
 import javax.servlet.jsp.JspException;
@@ -36,9 +37,9 @@ public class LocalizedJspException extends JspException {
 
 	private static final long serialVersionUID = 1L;
 
-	private final ApplicationResourcesAccessor accessor;
-	private final String key;
-	private final Serializable[] args;
+	protected final ApplicationResourcesAccessor accessor;
+	protected final String key;
+	protected final Serializable[] args;
 
 	public LocalizedJspException(ApplicationResourcesAccessor accessor, String key) {
 		super(accessor.getMessage(key));
@@ -71,5 +72,11 @@ public class LocalizedJspException extends JspException {
 	@Override
 	public String getLocalizedMessage() {
 		return accessor.getMessage(key, (Object[])args);
+	}
+
+	static {
+		Throwables.registerSurrogateFactory(LocalizedJspException.class, (template, cause) ->
+			new LocalizedJspException(cause, template.accessor, template.key, template.args)
+		);
 	}
 }

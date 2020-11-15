@@ -23,6 +23,7 @@
 package com.aoindustries.servlet;
 
 import com.aoindustries.lang.EmptyArrays;
+import com.aoindustries.lang.Throwables;
 import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import java.io.Serializable;
 import javax.servlet.ServletException;
@@ -36,9 +37,9 @@ public class LocalizedServletException extends ServletException {
 
 	private static final long serialVersionUID = 1L;
 
-	private final ApplicationResourcesAccessor accessor;
-	private final String key;
-	private final Serializable[] args;
+	protected final ApplicationResourcesAccessor accessor;
+	protected final String key;
+	protected final Serializable[] args;
 
 	public LocalizedServletException(ApplicationResourcesAccessor accessor, String key) {
 		super(accessor.getMessage(key));
@@ -71,5 +72,11 @@ public class LocalizedServletException extends ServletException {
 	@Override
 	public String getLocalizedMessage() {
 		return accessor.getMessage(key, (Object[])args);
+	}
+
+	static {
+		Throwables.registerSurrogateFactory(LocalizedServletException.class, (template, cause) ->
+			new LocalizedServletException(cause, template.accessor, template.key, template.args)
+		);
 	}
 }
