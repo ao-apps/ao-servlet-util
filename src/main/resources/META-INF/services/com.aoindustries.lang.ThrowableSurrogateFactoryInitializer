@@ -21,4 +21,4 @@
 # along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-com.aoindustries.servlet.JavaeeWebSetStackTraceInitializer
+com.aoindustries.servlet.JavaeeWebSurrogateFactoryInitializer
