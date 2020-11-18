@@ -125,8 +125,7 @@ public class HttpServletUtil {
 			getAbsoluteURL(request, path, contextRelative, buffer);
 			return buffer.toString();
 		} catch(IOException e) {
-			// Should never get IOException from StringBuilder.
-			throw new RuntimeException(e);
+			throw new AssertionError("Should never get IOException from StringBuilder.", e);
 		}
 	}
 
