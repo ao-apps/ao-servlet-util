@@ -42,7 +42,7 @@ public class JavaeeWebSurrogateFactoryInitializer implements ThrowableSurrogateF
 		// Would add a dependency, not doing
 
 		// javax.el:javax.el-api:2.2.5
-		// Added by ao-taglib project
+		// Added by ao-encoding-taglib project
 
 		// javax.servlet:javax.servlet-api:3.0.1
 		Throwables.registerSurrogateFactory(javax.servlet.ServletException.class, (template, cause) ->
