@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-11-18T00:26:41-06:00"
+		dateModified="2020-11-23T13:48:11-06:00"
 	>
 		<!-- The current snapshot, unreleased version -->
 		<c:set var="version" value="@{com.aoindustries:ao-servlet-util:pom.version}" />
@@ -52,7 +52,18 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						<code>JspTagUtils.findAncestor(…)</code> now returns <code><![CDATA[Optional&lt;T&gt;]]></code>,
+						allowing for parent to not be found.
+					</li>
+					<li>
+						New methods <code>JspTagUtils.requireAncestor(…)</code> that throw an exception when the parent
+						is not found.
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release
