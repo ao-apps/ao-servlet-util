@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2013, 2016  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -62,7 +62,7 @@ public class SetResourceBundleValue extends HttpServlet {
 			String key = request.getParameter("key");
 			String value = request.getParameter("value");
 			//for(int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
-			boolean modified = "true".equals(request.getParameter("modified"));
+			boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
 
 			// Find the bundle
 			ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
