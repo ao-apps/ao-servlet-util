@@ -114,19 +114,27 @@ public class HttpServletUtil {
 	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 *
 	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
-	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	// TODO: Put contextRelative before path, since that is they order they go into the URL
-	public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
+	public static String getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path) {
 		try {
 			StringBuilder buffer = new StringBuilder();
-			getAbsoluteURL(request, path, contextRelative, buffer);
+			getAbsoluteURL(request, contextRelative, path, buffer);
 			return buffer.toString();
 		} catch(IOException e) {
 			throw new AssertionError("Should never get IOException from StringBuilder.", e);
 		}
+	}
+
+	/**
+	 * @deprecated  Please use {@link #getAbsoluteURL(javax.servlet.http.HttpServletRequest, boolean, java.lang.String)} instead.
+	 */
+	@Deprecated
+	public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
+		return getAbsoluteURL(request, contextRelative, path);
 	}
 
 	/**
@@ -138,7 +146,7 @@ public class HttpServletUtil {
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static String getAbsoluteURL(HttpServletRequest request, String path) {
-		return getAbsoluteURL(request, path, true);
+		return getAbsoluteURL(request, true, path);
 	}
 
 	/**
@@ -146,11 +154,12 @@ public class HttpServletUtil {
 	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 *
 	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
-	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
+	public static void getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path, Appendable out) throws IOException {
 		// TODO: Use request.getScheme() instead?
 		out.append(request.isSecure() ? "https://" : "http://");
 		URIEncoder.encodeURI(request.getServerName(), out);
@@ -163,6 +172,14 @@ public class HttpServletUtil {
 	}
 
 	/**
+	 * @deprecated  Please use {@link #getAbsoluteURL(javax.servlet.http.HttpServletRequest, boolean, java.lang.String, java.lang.Appendable)} instead.
+	 */
+	@Deprecated
+	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
+		getAbsoluteURL(request, contextRelative, path, out);
+	}
+
+	/**
 	 * Gets an absolute URL for the given path.  This includes
 	 * protocol, port, context path, and path.
 	 * No URL rewriting is performed.
@@ -171,7 +188,7 @@ public class HttpServletUtil {
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, Appendable out) throws IOException {
-		getAbsoluteURL(request, path, true, out);
+		getAbsoluteURL(request, true, path, out);
 	}
 
 	/**
@@ -179,13 +196,14 @@ public class HttpServletUtil {
 	 * protocol, port, context path (optional), and path.
 	 * No URL rewriting is performed.
 	 *
+	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
+	 *
 	 * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
-	 * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
 	 */
-	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
+	public static void getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path, Encoder encoder, Appendable out) throws IOException {
 		if(encoder==null) {
-			getAbsoluteURL(request, path, contextRelative, out);
+			getAbsoluteURL(request, contextRelative, path, out);
 		} else {
 			// TODO: Use request.getScheme() instead?
 			encoder.append(request.isSecure() ? "https://" : "http://", out);
@@ -200,6 +218,14 @@ public class HttpServletUtil {
 	}
 
 	/**
+	 * @deprecated  Please use {@link #getAbsoluteURL(javax.servlet.http.HttpServletRequest, boolean, java.lang.String, com.aoindustries.io.Encoder, java.lang.Appendable)} instead.
+	 */
+	@Deprecated
+	public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
+		getAbsoluteURL(request, contextRelative, path, encoder, out);
+	}
+
+	/**
 	 * Gets an absolute URL for the given path.  This includes
 	 * protocol, port, context path, and path.
 	 * No URL rewriting is performed.
@@ -208,7 +234,7 @@ public class HttpServletUtil {
 	 *               {@link #getAbsolutePath(javax.servlet.http.HttpServletRequest, java.lang.String)}
 	 */
 	public static void getAbsoluteURL(HttpServletRequest request, String path, Encoder encoder, Appendable out) throws IOException {
-		getAbsoluteURL(request, path, true, encoder, out);
+		getAbsoluteURL(request, true, path, encoder, out);
 	}
 
 	@FunctionalInterface
@@ -257,7 +283,7 @@ public class HttpServletUtil {
 		href = URIEncoder.encodeURI(href);
 		if(href.startsWith("/")) {
 			if(absolute) {
-				href = getAbsoluteURL(request, href, true);
+				href = getAbsoluteURL(request, true, href);
 			} else {
 				String contextPath = request.getContextPath();
 				if(!contextPath.isEmpty()) {
@@ -465,7 +491,7 @@ public class HttpServletUtil {
 		url = URIEncoder.encodeURI(url);
 		if(url.startsWith("/")) {
 			if(absolute) {
-				url = getAbsoluteURL(request, url, true);
+				url = getAbsoluteURL(request, true, url);
 			} else {
 				String contextPath = request.getContextPath();
 				if(!contextPath.isEmpty()) {
