@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2015, 2016, 2017  AO Industries, Inc.
+ * Copyright (C) 2013, 2015, 2016, 2017, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,7 @@
 package com.aoindustries.servlet;
 
 import com.aoindustries.io.LocalizedIOException;
-import static com.aoindustries.util.ApplicationResourcesAccessor.accessor;
+import static com.aoindustries.util.PropertiesUtils.RESOURCES;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -47,7 +47,7 @@ final public class PropertiesUtils {
 	public static Properties loadFromResource(ServletContext servletContext, String resource) throws IOException {
 		Properties props = new Properties();
 		InputStream in = servletContext.getResourceAsStream(resource);
-		if(in==null) throw new LocalizedIOException(accessor, "PropertiesUtils.readProperties.resourceNotFound", resource);
+		if(in==null) throw new LocalizedIOException(RESOURCES, "PropertiesUtils.readProperties.resourceNotFound", resource);
 		try {
 			props.load(in);
 		} finally {

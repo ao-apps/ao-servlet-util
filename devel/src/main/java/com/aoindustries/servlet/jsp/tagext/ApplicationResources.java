@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,25 +23,26 @@
 package com.aoindustries.servlet.jsp.tagext;
 
 import com.aoindustries.util.i18n.EditableResourceBundle;
-import com.aoindustries.util.i18n.Locales;
+import com.aoindustries.util.i18n.EditableResourceBundleSet;
 import java.io.File;
+import java.util.Locale;
 
 /**
- * Provides a simplified interface for obtaining localized values from the ApplicationResources.properties files.
- * Is also an editable resource bundle.
- *
  * @author  AO Industries, Inc.
  */
-public final class ApplicationResources_ja extends EditableResourceBundle {
+public final class ApplicationResources extends EditableResourceBundle {
 
-	/**
-	 * Do not use directly.
-	 */
-	public ApplicationResources_ja() {
-		super(
-			Locales.JAPANESE,
-			ApplicationResources.bundleSet,
-			new File(System.getProperty("user.home")+"/maven2/ao/ao-servlet-util/src/main/resources/com/aoindustries/servlet/jsp/tagext/ApplicationResources_ja.properties")
-		);
+	static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+		ApplicationResources.class,
+		Locale.ROOT,
+		Locale.JAPANESE
+	);
+
+	static File getSourceFile(String filename) {
+		return new File(System.getProperty("user.home") + "/maven2/ao/ao-servlet-util/src/main/resources/com/aoindustries/servlet/jsp/tagext", filename);
+	}
+
+	public ApplicationResources() {
+		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
 	}
 }

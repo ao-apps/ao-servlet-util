@@ -22,9 +22,9 @@
  */
 package com.aoindustries.servlet;
 
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.lang.EmptyArrays;
 import com.aoindustries.lang.Throwables;
-import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import java.io.Serializable;
 import javax.servlet.ServletException;
 
@@ -35,48 +35,89 @@ import javax.servlet.ServletException;
  */
 public class LocalizedServletException extends ServletException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
-	protected final ApplicationResourcesAccessor accessor;
+	/**
+	 * @deprecated  Please use {@link #resources} directly.
+	 */
+	@Deprecated
+	protected final com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor;
+	protected final Resources resources;
 	protected final String key;
 	protected final Serializable[] args;
 
-	public LocalizedServletException(ApplicationResourcesAccessor accessor, String key) {
-		super(accessor.getMessage(key));
-		this.accessor = accessor;
+	public LocalizedServletException(Resources resources, String key) {
+		super(resources.getMessage(key));
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
-	public LocalizedServletException(ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		super(accessor.getMessage(key, (Object[])args));
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedServletException(com.aoindustries.i18n.Resources, java.lang.String)} directly.
+	 */
+	@Deprecated
+	public LocalizedServletException(com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key) {
+		this((Resources)accessor, key);
+	}
+
+	public LocalizedServletException(Resources resources, String key, Serializable... args) {
+		super(resources.getMessage(key, (Object[])args));
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = args;
 	}
 
-	public LocalizedServletException(Throwable cause, ApplicationResourcesAccessor accessor, String key) {
-		super(accessor.getMessage(key), cause);
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedServletException(com.aoindustries.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
+	 */
+	@Deprecated
+	public LocalizedServletException(com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
+		this((Resources)accessor, key, args);
+	}
+
+	public LocalizedServletException(Throwable cause, Resources resources, String key) {
+		super(resources.getMessage(key), cause);
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
-	public LocalizedServletException(Throwable cause, ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		super(accessor.getMessage(key, (Object[])args), cause);
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedServletException(java.lang.Throwable, com.aoindustries.i18n.Resources, java.lang.String)} directly.
+	 */
+	@Deprecated
+	public LocalizedServletException(Throwable cause, com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key) {
+		this(cause, (Resources)accessor, key);
+	}
+
+	public LocalizedServletException(Throwable cause, Resources resources, String key, Serializable... args) {
+		super(resources.getMessage(key, (Object[])args), cause);
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = args;
+	}
+
+	/**
+	 * @deprecated  Please use {@link #LocalizedServletException(java.lang.Throwable, com.aoindustries.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
+	 */
+	@Deprecated
+	public LocalizedServletException(Throwable cause, com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
+		this(cause, (Resources)accessor, key, args);
 	}
 
 	@Override
 	public String getLocalizedMessage() {
-		return accessor.getMessage(key, (Object[])args);
+		return resources.getMessage(key, (Object[])args);
 	}
 
 	static {
 		Throwables.registerSurrogateFactory(LocalizedServletException.class, (template, cause) ->
-			new LocalizedServletException(cause, template.accessor, template.key, template.args)
+			new LocalizedServletException(cause, template.resources, template.key, template.args)
 		);
 	}
 }

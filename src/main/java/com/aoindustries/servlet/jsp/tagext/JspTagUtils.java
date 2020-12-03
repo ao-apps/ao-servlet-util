@@ -23,7 +23,7 @@
 package com.aoindustries.servlet.jsp.tagext;
 
 import com.aoindustries.servlet.jsp.LocalizedJspTagException;
-import static com.aoindustries.servlet.jsp.tagext.ApplicationResources.accessor;
+import com.aoindustries.i18n.Resources;
 import java.util.Optional;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspTag;
@@ -35,6 +35,8 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  * @author  AO Industries, Inc.
  */
 public final class JspTagUtils {
+
+	private static final Resources RESOURCES = Resources.getResources(JspTagUtils.class.getPackage());
 
 	/**
 	 * Generates a tag name based on the class name (without package) for the given class, in the form
@@ -79,7 +81,7 @@ public final class JspTagUtils {
 	 */
 	public static <T> T requireAncestor(String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws JspTagException {
 		return findAncestor(from, ancestorClass).orElseThrow(
-			() -> new LocalizedJspTagException(accessor, "JspTagUtils.findAncestor.notFound", fromName, ancestorName)
+			() -> new LocalizedJspTagException(RESOURCES, "JspTagUtils.findAncestor.notFound", fromName, ancestorName)
 		);
 	}
 
@@ -97,7 +99,7 @@ public final class JspTagUtils {
 	@Deprecated
 	public static <T> T requireAncestor(JspTag from, Class<? extends T> ancestorClass) throws JspTagException {
 		return findAncestor(from, ancestorClass).orElseThrow(
-			() -> new LocalizedJspTagException(accessor, "JspTagUtils.findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
+			() -> new LocalizedJspTagException(RESOURCES, "JspTagUtils.findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
 		);
 	}
 

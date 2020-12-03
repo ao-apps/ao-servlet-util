@@ -22,9 +22,9 @@
  */
 package com.aoindustries.servlet.jsp;
 
+import com.aoindustries.i18n.Resources;
 import com.aoindustries.lang.EmptyArrays;
 import com.aoindustries.lang.Throwables;
-import com.aoindustries.util.i18n.ApplicationResourcesAccessor;
 import java.io.Serializable;
 import javax.servlet.jsp.JspException;
 
@@ -35,48 +35,89 @@ import javax.servlet.jsp.JspException;
  */
 public class LocalizedJspException extends JspException {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 2L;
 
-	protected final ApplicationResourcesAccessor accessor;
+	/**
+	 * @deprecated  Please use {@link #resources} directly.
+	 */
+	@Deprecated
+	protected final com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor;
+	protected final Resources resources;
 	protected final String key;
 	protected final Serializable[] args;
 
-	public LocalizedJspException(ApplicationResourcesAccessor accessor, String key) {
-		super(accessor.getMessage(key));
-		this.accessor = accessor;
+	public LocalizedJspException(Resources resources, String key) {
+		super(resources.getMessage(key));
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
-	public LocalizedJspException(ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		super(accessor.getMessage(key, (Object[])args));
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedJspException(com.aoindustries.i18n.Resources, java.lang.String)} directly.
+	 */
+	@Deprecated
+	public LocalizedJspException(com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key) {
+		this((Resources)accessor, key);
+	}
+
+	public LocalizedJspException(Resources resources, String key, Serializable... args) {
+		super(resources.getMessage(key, (Object[])args));
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = args;
 	}
 
-	public LocalizedJspException(Throwable cause, ApplicationResourcesAccessor accessor, String key) {
-		super(accessor.getMessage(key), cause);
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedJspException(com.aoindustries.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
+	 */
+	@Deprecated
+	public LocalizedJspException(com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
+		this((Resources)accessor, key, args);
+	}
+
+	public LocalizedJspException(Throwable cause, Resources resources, String key) {
+		super(resources.getMessage(key), cause);
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
-	public LocalizedJspException(Throwable cause, ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		super(accessor.getMessage(key, (Object[])args), cause);
-		this.accessor = accessor;
+	/**
+	 * @deprecated  Please use {@link #LocalizedJspException(java.lang.Throwable, com.aoindustries.i18n.Resources, java.lang.String)} directly.
+	 */
+	@Deprecated
+	public LocalizedJspException(Throwable cause, com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key) {
+		this(cause, (Resources)accessor, key);
+	}
+
+	public LocalizedJspException(Throwable cause, Resources resources, String key, Serializable... args) {
+		super(resources.getMessage(key, (Object[])args), cause);
+		this.accessor = resources;
+		this.resources = resources;
 		this.key = key;
 		this.args = args;
+	}
+
+	/**
+	 * @deprecated  Please use {@link #LocalizedJspException(java.lang.Throwable, com.aoindustries.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
+	 */
+	@Deprecated
+	public LocalizedJspException(Throwable cause, com.aoindustries.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
+		this(cause, (Resources)accessor, key, args);
 	}
 
 	@Override
 	public String getLocalizedMessage() {
-		return accessor.getMessage(key, (Object[])args);
+		return resources.getMessage(key, (Object[])args);
 	}
 
 	static {
 		Throwables.registerSurrogateFactory(LocalizedJspException.class, (template, cause) ->
-			new LocalizedJspException(cause, template.accessor, template.key, template.args)
+			new LocalizedJspException(cause, template.resources, template.key, template.args)
 		);
 	}
 }
