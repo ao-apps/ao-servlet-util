@@ -47,7 +47,7 @@ public class Dispatcher {
 
 	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
 
-	private static final Resources RESOURCES = Resources.getResources(Dispatcher.class.getPackage());
+	private static final Resources RESOURCES = Resources.getResources(Dispatcher.class);
 
 	/**
 	 * The name of the request-scope Map that will contain the arguments for the current page.
@@ -271,7 +271,7 @@ public class Dispatcher {
 		// Resolve the dispatcher
 		String contextRelativePath = URIResolver.getAbsolutePath(getCurrentPagePath(request), page);
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher(contextRelativePath);
-		if(dispatcher==null) throw new LocalizedServletException(RESOURCES, "Dispatcher.dispatcherNotFound", contextRelativePath);
+		if(dispatcher==null) throw new LocalizedServletException(RESOURCES, "dispatcherNotFound", contextRelativePath);
 		forward(contextRelativePath, dispatcher, request, response, args);
 	}
 
@@ -405,7 +405,7 @@ public class Dispatcher {
 			);
 		}
 		RequestDispatcher dispatcher = servletContext.getRequestDispatcher(contextRelativePath);
-		if(dispatcher==null) throw new LocalizedServletException(RESOURCES, "Dispatcher.dispatcherNotFound", contextRelativePath);
+		if(dispatcher==null) throw new LocalizedServletException(RESOURCES, "dispatcherNotFound", contextRelativePath);
 		include(contextRelativePath, dispatcher, request, response, args);
 	}
 
