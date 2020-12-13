@@ -91,11 +91,11 @@ public class EditableResourceServletFilter implements Filter {
 						);
 						chain.doFilter(request, response);
 					} finally {
-						EditableResourceBundle.removeThreadSettings();
+						EditableResourceBundle.resetThreadSettings();
 					}
 				} else {
 					// Not allowed to translate
-					EditableResourceBundle.removeThreadSettings();
+					EditableResourceBundle.resetThreadSettings();
 					chain.doFilter(request, response);
 				}
 			} finally {
