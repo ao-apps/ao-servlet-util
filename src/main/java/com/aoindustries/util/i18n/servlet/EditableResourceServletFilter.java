@@ -75,25 +75,27 @@ public class EditableResourceServletFilter implements Filter {
 						// Check for cookie
 						boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, EditableResourceBundle.VISIBILITY_COOKIE_NAME));
 						// Setup request for editing
-						EditableResourceBundle.resetRequest(
-							true,
-							httpResponse.encodeURL(
-								URIEncoder.encodeURI(
-									HttpServletUtil.getAbsoluteURL(
-										httpRequest,
-										"/SetResourceBundleValue"
+						EditableResourceBundle.setThreadSettings(
+							new EditableResourceBundle.ThreadSettings(
+								httpResponse.encodeURL(
+									URIEncoder.encodeURI(
+										HttpServletUtil.getAbsoluteURL(
+											httpRequest,
+											"/SetResourceBundleValue"
+										)
 									)
-								)
-							),
-							modifyAllText
+								),
+								EditableResourceBundle.ThreadSettings.Mode.MARKUP,
+								modifyAllText
+							)
 						);
 						chain.doFilter(request, response);
 					} finally {
-						EditableResourceBundle.resetRequest(false, null, false);
+						EditableResourceBundle.removeThreadSettings();
 					}
 				} else {
 					// Not allowed to translate
-					EditableResourceBundle.resetRequest(false, null, false);
+					EditableResourceBundle.removeThreadSettings();
 					chain.doFilter(request, response);
 				}
 			} finally {
