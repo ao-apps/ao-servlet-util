@@ -33,13 +33,16 @@ import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 import java.net.UnknownHostException;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import javax.servlet.jsp.JspContext;
 import javax.servlet.jsp.PageContext;
 
@@ -1009,5 +1012,50 @@ public class HttpServletUtil {
 			allow.append(METHOD_OPTIONS);
 		}
 		response.setHeader("Allow", allow.toString());
+	}
+
+	/**
+	 * Gets the submitted filename for a file upload or {@code null} when unknown.  See:
+	 * <ol>
+	 * <li><a href="https://stackoverflow.com/a/2424824">How to upload files to server using JSP/Servlet?</a></li>
+	 * <li><a href="https://www.journaldev.com/2122/servlet-3-file-upload-multipartconfig-part">Servlet 3 File Upload - @MultipartConfig, Part</a></li>
+	 * </ol>
+	 */
+	// Java EE 7: getSubmittedFileName(), with Path MSIE fix: https://stackoverflow.com/a/2424824
+	public static String getSubmittedFileName(Part part) {
+		if(part != null) {
+			String disposition = part.getHeader("content-disposition");
+			if(disposition != null) {
+				StringTokenizer tokenizer = new StringTokenizer(disposition, ";");
+				while(tokenizer.hasMoreTokens()) {
+					String token = tokenizer.nextToken().trim();
+					if(token.startsWith("filename")) {
+						int pos = token.indexOf('=', "filename".length());
+						if(pos != -1) {
+							// TODO: What type of encoding is done when the filename contains a double-quote?
+							// TODO: Are there other encoding issues not handled here?
+							// TODO: This is a stop-gap, pending Java EE 7, so maybe good enough.
+							String filename = token.substring(pos + 1).trim();
+							int len = filename.length();
+							if(len >= 2 && filename.charAt(0) == '"' && filename.charAt(len - 1) == '"') {
+								filename = filename.substring(1, len - 1);
+							}
+							if(!filename.isEmpty()) {
+								filename = Paths.get(filename).getFileName().toString(); // MSIE fix: https://stackoverflow.com/a/2424824
+								if(
+									!filename.isEmpty()
+									// Servers have POSIX filesystem, make sure absolutely no '/' or NULL characters
+									&& filename.indexOf('/') == -1
+									&& filename.indexOf((char)0) == -1
+								) {
+									return filename;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return null;
 	}
 }
