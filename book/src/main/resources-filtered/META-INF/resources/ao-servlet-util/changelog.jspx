@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-12-16T22:14:08-06:00"
+		dateModified="2020-12-16T22:43:15-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,16 +46,25 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						New method <code>HttpServletUtil.getSubmittedFileName(Part)</code>, which fills in the gap in
-						Java EE 6.  Applications that are Java EE 7 should use <code>Part.getSubmittedFileName()</code>
-						directly.
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="3.3.0"
+			datePublished="2020-12-16T22:43:15-06:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					New method <code>HttpServletUtil.getSubmittedFileName(Part)</code>, which fills in the gap in
+					Java EE 6.  Applications that are Java EE 7 should use <code>Part.getSubmittedFileName()</code>
+					directly.
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
