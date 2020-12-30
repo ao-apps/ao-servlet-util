@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-0500"
-		dateModified="2020-12-29T20:50:49-06:00"
+		dateModified="2020-12-29T21:38:48-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -46,18 +46,27 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				groupId="@{project.groupId}"
 				artifactId="@{documented.artifactId}"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						Now implementing <code>ServletUtil.SKIP_PAGE_EXCEPTION</code> as a private inner class with a
-						detailed message.  Previously, an uncaught instance of <code>SKIP_PAGE_EXCEPTION</code> would
-						produce the rather short, cryptic error message:
+			/>
+		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="3.3.1"
+			datePublished="2020-12-29T21:38:48-06:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					Now implementing <code>ServletUtil.SKIP_PAGE_EXCEPTION</code> as a private inner class with a
+					detailed message.  Previously, an uncaught instance of <code>SKIP_PAGE_EXCEPTION</code> would
+					produce the rather short, cryptic error message:
 <pre><![CDATA[com.aoindustries.servlet.ServletUtil$1
         at com.aoindustries.servlet.ServletUtil.&lt;clinit&gt;(ServletUtil.java:49)]]></pre>
-					</li>
-				</ul>
-			</changelog:release>
-		</c:if>
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
