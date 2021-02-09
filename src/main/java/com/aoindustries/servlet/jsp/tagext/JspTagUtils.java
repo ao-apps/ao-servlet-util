@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016, 2020  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,6 +22,7 @@
  */
 package com.aoindustries.servlet.jsp.tagext;
 
+import com.aoindustries.i18n.LocalizedSupplier;
 import com.aoindustries.i18n.Resources;
 import com.aoindustries.servlet.jsp.LocalizedJspTagException;
 import java.util.Optional;
@@ -75,13 +76,50 @@ public final class JspTagUtils {
 	 *
 	 * @return  the parent tag, never {@code null}
 	 *
+	 * @throws  E  if parent not found
+	 *
+	 * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+	 */
+	public static <T,E extends Throwable> T requireAncestor(LocalizedSupplier<E> exceptionSupplier, String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws E {
+		return findAncestor(from, ancestorClass).orElseThrow(
+			() -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", fromName, ancestorName)
+		);
+	}
+
+	/**
+	 * Finds the first parent tag of the provided class (or subclass) or implementing the provided interface.
+	 *
+	 * @param  fromName      The name of the tag searching from, used in generating the exception message,
+	 *                       will typically be in the form {@code "<prefix:name>"} or {@code "<name>"}.
+	 *
+	 * @param  ancestorName  The name of the tag searching for, used in generating the exception message,
+	 *                       will typically be in the form {@code "<prefix:name>"} or {@code "<name>"}.
+	 *
+	 * @return  the parent tag, never {@code null}
+	 *
 	 * @throws  JspTagException  if parent not found
 	 *
 	 * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
 	 */
 	public static <T> T requireAncestor(String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws JspTagException {
+		return requireAncestor(LocalizedJspTagException::new, fromName, from, ancestorName, ancestorClass);
+	}
+
+	/**
+	 * Finds the first parent tag of the provided class (or subclass) or implementing the provided interface.
+	 *
+	 * @return  the parent tag, never {@code null}
+	 *
+	 * @throws  E  if parent not found
+	 *
+	 * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+	 *
+	 * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
+	 */
+	@Deprecated
+	public static <T,E extends Throwable> T requireAncestor(LocalizedSupplier<E> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws E {
 		return findAncestor(from, ancestorClass).orElseThrow(
-			() -> new LocalizedJspTagException(RESOURCES, "findAncestor.notFound", fromName, ancestorName)
+			() -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
 		);
 	}
 
@@ -98,9 +136,7 @@ public final class JspTagUtils {
 	 */
 	@Deprecated
 	public static <T> T requireAncestor(JspTag from, Class<? extends T> ancestorClass) throws JspTagException {
-		return findAncestor(from, ancestorClass).orElseThrow(
-			() -> new LocalizedJspTagException(RESOURCES, "findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
-		);
+		return requireAncestor(LocalizedJspTagException::new, from, ancestorClass);
 	}
 
 	/**
