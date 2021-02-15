@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2013, 2016, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -42,14 +42,20 @@ import javax.servlet.ServletRequest;
 public class ServletRequestParameters implements URIParameters {
 
 	private final ServletRequest request;
+	private String toString;
 
 	public ServletRequestParameters(ServletRequest request) {
 		this.request = request;
 	}
 
+	/**
+	 * @see  URIParameters#toString()
+	 */
 	@Override
 	public String toString() {
-		return Objects.toString(URIParametersUtils.toQueryString(this), "");
+		String s = toString;
+		if(s == null) toString = s = Objects.toString(URIParametersUtils.toQueryString(this), "");
+		return s;
 	}
 
 	@Override
@@ -82,5 +88,10 @@ public class ServletRequestParameters implements URIParameters {
 			);
 		}
 		return Collections.unmodifiableMap(map);
+	}
+
+	@Override
+	public boolean isFastToString() {
+		return toString != null;
 	}
 }
