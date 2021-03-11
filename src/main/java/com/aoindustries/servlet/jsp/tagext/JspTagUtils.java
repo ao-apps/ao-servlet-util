@@ -76,11 +76,11 @@ public final class JspTagUtils {
 	 *
 	 * @return  the parent tag, never {@code null}
 	 *
-	 * @throws  E  if parent not found
+	 * @throws  Ex  if parent not found
 	 *
 	 * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
 	 */
-	public static <T,E extends Throwable> T requireAncestor(LocalizedSupplier<E> exceptionSupplier, String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws E {
+	public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws Ex {
 		return findAncestor(from, ancestorClass).orElseThrow(
 			() -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", fromName, ancestorName)
 		);
@@ -110,14 +110,14 @@ public final class JspTagUtils {
 	 *
 	 * @return  the parent tag, never {@code null}
 	 *
-	 * @throws  E  if parent not found
+	 * @throws  Ex  if parent not found
 	 *
 	 * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
 	 *
 	 * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
 	 */
 	@Deprecated
-	public static <T,E extends Throwable> T requireAncestor(LocalizedSupplier<E> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws E {
+	public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws Ex {
 		return findAncestor(from, ancestorClass).orElseThrow(
 			() -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
 		);

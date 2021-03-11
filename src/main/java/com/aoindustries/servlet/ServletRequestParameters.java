@@ -77,9 +77,9 @@ public class ServletRequestParameters implements URIParameters {
 
 	@Override
 	public Map<String, List<String>> getParameterMap() {
-		@SuppressWarnings("unchecked") Map<String,String[]> requestMap = request.getParameterMap();
-		Map<String,List<String>> map = AoCollections.newLinkedHashMap(requestMap.size());
-		for(Map.Entry<String,String[]> entry : requestMap.entrySet()) {
+		@SuppressWarnings("unchecked") Map<String, String[]> requestMap = request.getParameterMap();
+		Map<String, List<String>> map = AoCollections.newLinkedHashMap(requestMap.size());
+		for(Map.Entry<String, String[]> entry : requestMap.entrySet()) {
 			map.put(
 				entry.getKey(),
 				Collections.unmodifiableList(

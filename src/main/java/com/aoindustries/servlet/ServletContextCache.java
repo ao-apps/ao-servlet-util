@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2016, 2017, 2019, 2020  AO Industries, Inc.
+ * Copyright (C) 2016, 2017, 2019, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -108,7 +108,7 @@ final public class ServletContextCache {
 	}
 
 	// <editor-fold defaultstate="collapsed" desc="getResource">
-	private final BackgroundCache<String,URL,MalformedURLException> getResourceCache = new BackgroundCache<>(
+	private final BackgroundCache<String, URL, MalformedURLException> getResourceCache = new BackgroundCache<>(
 		ServletContextCache.class.getName() + ".getResource",
 		MalformedURLException.class,
 		REFRESH_INTERVAL,
@@ -116,7 +116,7 @@ final public class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String,URL,MalformedURLException> getResourceRefresher = new Refresher<String,URL,MalformedURLException>() {
+	private final Refresher<String, URL, MalformedURLException> getResourceRefresher = new Refresher<String, URL, MalformedURLException>() {
 		@Override
 		public URL call(String path) throws MalformedURLException {
 			return servletContext.getResource(path);
@@ -130,7 +130,7 @@ final public class ServletContextCache {
 	 * @see  ServletContext#getResource(java.lang.String)
 	 */
 	public URL getResource(String path) throws MalformedURLException {
-		Result<URL,MalformedURLException> result = getResourceCache.get(path, getResourceRefresher);
+		Result<URL, MalformedURLException> result = getResourceCache.get(path, getResourceRefresher);
 		MalformedURLException exception = result.getException();
 		if(exception != null) throw exception;
 		return result.getValue();
@@ -147,7 +147,7 @@ final public class ServletContextCache {
 	// TODO: getRequestDispatcher? (Only if profiling shows it might help)
 
 	// <editor-fold defaultstate="collapsed" desc="getRealPath">
-	private final BackgroundCache<String,String,RuntimeException> getRealPathCache = new BackgroundCache<>(
+	private final BackgroundCache<String, String, RuntimeException> getRealPathCache = new BackgroundCache<>(
 		ServletContextCache.class.getName() + ".getRealPath",
 		RuntimeException.class,
 		REFRESH_INTERVAL,
@@ -155,7 +155,7 @@ final public class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String,String,RuntimeException> getRealPathRefresher = new Refresher<String,String,RuntimeException>() {
+	private final Refresher<String, String, RuntimeException> getRealPathRefresher = new Refresher<String, String, RuntimeException>() {
 		@Override
 		public String call(String path) {
 			return servletContext.getRealPath(path);
@@ -166,7 +166,7 @@ final public class ServletContextCache {
 	 * @see  ServletContext#getRealPath(java.lang.String)
 	 */
 	public String getRealPath(String path) {
-		Result<String,RuntimeException> result = getRealPathCache.get(path, getRealPathRefresher);
+		Result<String, RuntimeException> result = getRealPathCache.get(path, getRealPathRefresher);
 		RuntimeException exception = result.getException();
 		if(exception != null) throw exception;
 		return result.getValue();
@@ -181,7 +181,7 @@ final public class ServletContextCache {
 	// </editor-fold>
 
 	// <editor-fold defaultstate="collapsed" desc="getLastModified">
-	private final BackgroundCache<String,Long,RuntimeException> getLastModifiedCache = new BackgroundCache<>(
+	private final BackgroundCache<String, Long, RuntimeException> getLastModifiedCache = new BackgroundCache<>(
 		ServletContextCache.class.getName() + ".getLastModified",
 		RuntimeException.class,
 		REFRESH_INTERVAL,
@@ -189,7 +189,7 @@ final public class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String,Long,RuntimeException> getLastModifiedRefresher = (String path) -> {
+	private final Refresher<String, Long, RuntimeException> getLastModifiedRefresher = (String path) -> {
 		long lastModified = 0;
 		String realPath = getRealPath(path);
 		if(realPath != null) {
@@ -230,7 +230,7 @@ final public class ServletContextCache {
 	 * @see  URLConnection#getLastModified()
 	 */
 	public long getLastModified(String path) {
-		Result<Long,RuntimeException> result = getLastModifiedCache.get(path, getLastModifiedRefresher);
+		Result<Long, RuntimeException> result = getLastModifiedCache.get(path, getLastModifiedRefresher);
 		RuntimeException exception = result.getException();
 		if(exception != null) throw exception;
 		return result.getValue();
