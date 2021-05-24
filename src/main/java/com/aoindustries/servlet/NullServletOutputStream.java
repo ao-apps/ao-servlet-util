@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2014  AO Industries, Inc.
+ * Copyright (C) 2013, 2014, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,7 +23,7 @@
 package com.aoindustries.servlet;
 
 import javax.servlet.ServletOutputStream;
-// Java EE 7: import javax.servlet.WriteListener;
+import javax.servlet.WriteListener;
 
 /**
  * Discards all data.
@@ -119,20 +119,19 @@ public final class NullServletOutputStream extends ServletOutputStream {
 	public void println(double d) {
 	}
 
-// Java EE 7:
-//	@Override
-//	public boolean isReady() {
-//		return true;
-//	}
-//
-//	@Override
-//	public void setWriteListener(WriteListener wl) {
-//		throw new IllegalStateException("Implement when first required");
-//		/*
-//		try {
-//			wl.onWritePossible();
-//		} catch(IOException e) {
-//			wl.onError(e);
-//		}*/
-//	}
+	@Override
+	public boolean isReady() {
+		return true;
+	}
+
+	@Override
+	public void setWriteListener(WriteListener wl) {
+		throw new IllegalStateException("Implement when first required");
+		/*
+		try {
+			wl.onWritePossible();
+		} catch(IOException e) {
+			wl.onError(e);
+		}*/
+	}
 }

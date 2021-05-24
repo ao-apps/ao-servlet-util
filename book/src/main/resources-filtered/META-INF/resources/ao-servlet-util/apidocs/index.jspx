@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-servlet-util - Miscellaneous Servlet and JSP utilities.
-Copyright (C) 2019, 2020  AO Industries, Inc.
+Copyright (C) 2019, 2020, 2021  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 	<core:page
 		title="@{documented.name} ${ao:getProjectVersion('./', 'com.aoindustries', 'ao-servlet-util', '¿@{project.version}?')} API Docs"
 		shortTitle="API Docs"
-		datePublished="2019-08-20T22:14:49-0500"
+		datePublished="2019-08-20T22:14:49-05:00"
 		dateModified="${ao:getLastModified('index.html')}"
 	/>
 </jsp:root>
