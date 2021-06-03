@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2020  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -39,7 +39,7 @@ public final class ApplicationResources extends EditableResourceBundle {
 	);
 
 	static File getSourceFile(String filename) {
-		return new File(System.getProperty("user.home") + "/maven2/ao/ao-servlet-util/src/main/resources/com/aoindustries/servlet/http", filename);
+		return new File(System.getProperty("user.home") + "/maven2/ao/oss/servlet-util/src/main/resources/com/aoindustries/servlet/http", filename);
 	}
 
 	public ApplicationResources() {
