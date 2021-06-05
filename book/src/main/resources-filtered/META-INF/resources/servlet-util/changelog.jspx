@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-05:00"
-		dateModified="2021-05-31T01:04:26-05:00"
+		dateModified="2021-06-03T22:53:21-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -51,6 +51,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				<ul>
 					<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
 					<li>Maven artifact relocated from <code>com.aoindustries:ao-servlet-util</code> to <code>com.aoapps:ao-servlet-util</code>.</li>
+					<li>Packages renamed from <code>com.aoindustries.servlet.*</code> to <code>com.aoapps.servlet.*</code>.</li>
 				</ul>
 			</changelog:release>
 		</c:if>
@@ -286,10 +287,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			<ul>
 				<li>
 					Added <ao:a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</ao:a>
-					header to <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
+					header to <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
 					Defaults to a short-term setting of public, five-minute, and allowing stale.
 					This will help performance when <code>*.css</code> files are accessed directly
-					(URLs not rewritten with <code><ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
+					(URLs not rewritten with <code><ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoapps/servlet/lastmodified/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
 					parameter).
 				</li>
 			</ul>
@@ -306,8 +307,8 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			<ul>
 				<li>Pulled Servlet and JSP related utilities out of <core:link book="/hodgepodge" page="/index.jspx" />.</li>
 				<li>
-					Split HTTP-specific parts of <ao:a href="apidocs/com/aoindustries/servlet/ServletUtil.html">ServletUtil</ao:a>
-					into <ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
+					Split HTTP-specific parts of <ao:a href="apidocs/com/aoapps/servlet/ServletUtil.html">ServletUtil</ao:a>
+					into <ao:a href="apidocs/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
 				</li>
 				<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
 				<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
@@ -325,10 +326,10 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
 					<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
 				</li>
-				<li>Added <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URL</ao:a> support:
+				<li>Added <ao:a href="apidocs/com/aoapps/servlet/http/Canonical.html">Canonical URL</ao:a> support:
 					<ol>
 						<li>
-							New class <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical</ao:a> that
+							New class <ao:a href="apidocs/com/aoapps/servlet/http/Canonical.html">Canonical</ao:a> that
 							coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
 							(such as not adding per-user information when cookies are disabled).
 							These canonical URLs, without per-user settings, are used for things like
@@ -337,22 +338,22 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 							and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
 						</li>
 						<li>
-							<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+							<ao:a href="apidocs/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
 							updated with new <code>canonical</code> parameters.
 						</li>
 						<li>
-							When in auto mode, <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">last modified stamping</ao:a>
-							is not performed on <ao:a href="apidocs/com/aoindustries/servlet/http/Canonical.html">Canonical URLs</ao:a>.
+							When in auto mode, <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">last modified stamping</ao:a>
+							is not performed on <ao:a href="apidocs/com/aoapps/servlet/http/Canonical.html">Canonical URLs</ao:a>.
 						</li>
 					</ol>
 				</li>
 				<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
 				<li>
-					<ao:a href="apidocs/com/aoindustries/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+					<ao:a href="apidocs/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
 					cleaned-up significantly, with more consistent method names and more uniform
 					method overloads.
 				</li>
-				<li>Improved <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoindustries/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+				<li>Improved <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
 					Unicode support:
 					<ol>
 						<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
