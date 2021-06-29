@@ -20,21 +20,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoapps.servlet.jsp.tagext;
+package com.aoapps.servlet.jsp.tagext.i18n;
 
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
+import com.aoapps.hodgepodge.i18n.EditableResourceBundleSet;
+import java.io.File;
 import java.util.Locale;
 
 /**
  * @author  AO Industries, Inc.
  */
-public final class ApplicationResources_ja extends EditableResourceBundle {
+public final class ApplicationResources extends EditableResourceBundle {
 
-	public ApplicationResources_ja() {
-		super(
-			Locale.JAPANESE,
-			ApplicationResources.bundleSet,
-			ApplicationResources.getSourceFile("ApplicationResources_ja.properties")
-		);
+	static final EditableResourceBundleSet bundleSet = new EditableResourceBundleSet(
+		ApplicationResources.class,
+		Locale.ROOT,
+		Locale.JAPANESE
+	);
+
+	static File getSourceFile(String filename) {
+		return new File(System.getProperty("user.home") + "/maven2/ao/oss/servlet-util/src/main/resources/com/aoapps/servlet/jsp/tagext/i18n", filename);
+	}
+
+	public ApplicationResources() {
+		super(Locale.ROOT, bundleSet, getSourceFile("ApplicationResources.properties"));
 	}
 }

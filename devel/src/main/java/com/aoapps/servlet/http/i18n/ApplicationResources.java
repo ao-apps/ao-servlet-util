@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2020, 2021  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.aoapps.servlet.jsp.tagext;
+package com.aoapps.servlet.http.i18n;
 
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundleSet;
@@ -39,7 +39,7 @@ public final class ApplicationResources extends EditableResourceBundle {
 	);
 
 	static File getSourceFile(String filename) {
-		return new File(System.getProperty("user.home") + "/maven2/ao/oss/servlet-util/src/main/resources/com/aoapps/servlet/jsp/tagext", filename);
+		return new File(System.getProperty("user.home") + "/maven2/ao/oss/servlet-util/src/main/resources/com/aoapps/servlet/http/i18n", filename);
 	}
 
 	public ApplicationResources() {

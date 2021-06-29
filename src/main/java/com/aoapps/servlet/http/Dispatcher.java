@@ -28,6 +28,7 @@ import com.aoapps.net.URIResolver;
 import com.aoapps.servlet.LocalizedServletException;
 import java.io.IOException;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -47,7 +48,7 @@ public class Dispatcher {
 
 	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
 
-	private static final Resources RESOURCES = Resources.getResources(Dispatcher.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Dispatcher.class);
 
 	/**
 	 * The name of the request-scope Map that will contain the arguments for the current page.
@@ -96,7 +97,7 @@ public class Dispatcher {
 	/**
 	 * Gets the original page path corresponding to the original request before any forward/include.
 	 * If no original page available, uses the servlet path from the provided request.
-	 * 
+	 *
 	 * @see  #getOriginalPage(javax.servlet.ServletRequest)
 	 * @see  RequestDispatcher#FORWARD_SERVLET_PATH
 	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
@@ -291,7 +292,7 @@ public class Dispatcher {
 	 * Performs a forward with the provided servlet path and associated dispatcher.
 	 *
 	 * @param  args  The arguments for the page, make unmodifiable and accessible as request-scope var "arg"
-	 * 
+	 *
 	 * @throws SkipPageException when the included page has been skipped due to a redirect.
 	 */
 	public static void include(
@@ -370,7 +371,7 @@ public class Dispatcher {
 	 * compatible with &lt;ao:include&gt; tag.
 	 *
 	 * @param  args  The arguments for the page, make unmodifiable and accessible as request-scope var "arg"
-	 * 
+	 *
 	 * @throws SkipPageException when the included page has been skipped due to a redirect.
 	 *
 	 * @see  #include(java.lang.String, javax.servlet.RequestDispatcher, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)

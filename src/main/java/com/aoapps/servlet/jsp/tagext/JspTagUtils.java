@@ -26,6 +26,7 @@ import com.aoapps.lang.i18n.LocalizedSupplier;
 import com.aoapps.lang.i18n.Resources;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
 import java.util.Optional;
+import java.util.ResourceBundle;
 import javax.servlet.jsp.JspTagException;
 import javax.servlet.jsp.tagext.JspTag;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -37,7 +38,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public final class JspTagUtils {
 
-	private static final Resources RESOURCES = Resources.getResources(JspTagUtils.class);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, JspTagUtils.class);
 
 	/**
 	 * Generates a tag name based on the class name (without package) for the given class, in the form

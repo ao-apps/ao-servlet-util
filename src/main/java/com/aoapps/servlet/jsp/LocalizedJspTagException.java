@@ -35,79 +35,38 @@ import javax.servlet.jsp.JspTagException;
  */
 public class LocalizedJspTagException extends JspTagException {
 
-	private static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 3L;
 
-	/**
-	 * @deprecated  Please use {@link #resources} directly.
-	 */
-	@Deprecated
-	protected final com.aoapps.util.i18n.ApplicationResourcesAccessor accessor;
 	protected final Resources resources;
 	protected final String key;
 	protected final Serializable[] args;
 
 	public LocalizedJspTagException(Resources resources, String key) {
 		super(resources.getMessage(key));
-		this.accessor = resources;
 		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
-	}
-
-	/**
-	 * @deprecated  Please use {@link #LocalizedJspTagException(com.aoapps.lang.i18n.Resources, java.lang.String)} directly.
-	 */
-	@Deprecated
-	public LocalizedJspTagException(com.aoapps.util.i18n.ApplicationResourcesAccessor accessor, String key) {
-		this((Resources)accessor, key);
 	}
 
 	public LocalizedJspTagException(Resources resources, String key, Serializable... args) {
 		super(resources.getMessage(key, (Object[])args));
-		this.accessor = resources;
 		this.resources = resources;
 		this.key = key;
 		this.args = args;
 	}
 
-	/**
-	 * @deprecated  Please use {@link #LocalizedJspTagException(com.aoapps.lang.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
-	 */
-	@Deprecated
-	public LocalizedJspTagException(com.aoapps.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		this((Resources)accessor, key, args);
-	}
-
 	public LocalizedJspTagException(Throwable cause, Resources resources, String key) {
 		super(resources.getMessage(key), cause);
-		this.accessor = resources;
 		this.resources = resources;
 		this.key = key;
 		this.args = EmptyArrays.EMPTY_SERIALIZABLE_ARRAY;
 	}
 
-	/**
-	 * @deprecated  Please use {@link #LocalizedJspTagException(java.lang.Throwable, com.aoapps.lang.i18n.Resources, java.lang.String)} directly.
-	 */
-	@Deprecated
-	public LocalizedJspTagException(Throwable cause, com.aoapps.util.i18n.ApplicationResourcesAccessor accessor, String key) {
-		this(cause, (Resources)accessor, key);
-	}
-
 	public LocalizedJspTagException(Throwable cause, Resources resources, String key, Serializable... args) {
 		super(resources.getMessage(key, (Object[])args), cause);
-		this.accessor = resources;
 		this.resources = resources;
 		this.key = key;
 		this.args = args;
-	}
-
-	/**
-	 * @deprecated  Please use {@link #LocalizedJspTagException(java.lang.Throwable, com.aoapps.lang.i18n.Resources, java.lang.String, java.io.Serializable...)} directly.
-	 */
-	@Deprecated
-	public LocalizedJspTagException(Throwable cause, com.aoapps.util.i18n.ApplicationResourcesAccessor accessor, String key, Serializable... args) {
-		this(cause, (Resources)accessor, key, args);
 	}
 
 	@Override

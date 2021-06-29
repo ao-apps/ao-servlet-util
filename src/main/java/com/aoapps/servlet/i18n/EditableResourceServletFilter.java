@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
  * Allows any user with the role of translator to edit the translation of the site.
  * This is used in conjunction with the ResourceEditorTag.
  * <p>
- * See <a href="https://oss.aoapps.com/taglib/apidocs/com/aoapps/taglib/ResourceEditorTag.html">ResourceEditorTag</a>
+ * See <a href="https://oss.aoapps.com/taglib/apidocs/com.aoapps.taglib/com/aoapps/taglib/ResourceEditorTag.html">ResourceEditorTag</a>
  * </p>
  */
 public class EditableResourceServletFilter implements Filter {
