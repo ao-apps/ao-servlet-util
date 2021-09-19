@@ -38,7 +38,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  */
 public final class JspTagUtils {
 
-	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, JspTagUtils.class);
+	private static final Resources RESOURCES = Resources.getResources(JspTagUtils.class, ResourceBundle::getBundle);
 
 	/**
 	 * Generates a tag name based on the class name (without package) for the given class, in the form
