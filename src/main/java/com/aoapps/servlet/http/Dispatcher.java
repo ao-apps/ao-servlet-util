@@ -48,7 +48,7 @@ public class Dispatcher {
 
 	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
 
-	private static final Resources RESOURCES = Resources.getResources(Dispatcher.class, ResourceBundle::getBundle);
+	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, Dispatcher.class);
 
 	/**
 	 * The name of the request-scope Map that will contain the arguments for the current page.
