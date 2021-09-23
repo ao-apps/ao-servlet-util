@@ -25,4 +25,6 @@ module com.aoapps.servlet.util.devel {
 	exports com.aoapps.servlet.jsp.tagext.i18n;
 	// Direct
 	requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
+	// Java SE
+	requires java.logging;
 }
