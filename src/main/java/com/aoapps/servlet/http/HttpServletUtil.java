@@ -255,11 +255,11 @@ public class HttpServletUtil {
 	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
 	 *   <li>Adding any additional parameters</li>
 	 *   <li>Optionally {@linkplain UrlModifier modifying the URL}</li>
-	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
+	 *   <li>Encoding any URL path characters not defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
 	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
 	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
 	 *   <li>Rewrite with {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
-	 *   <li>Final US-ASCII encoding since Location must always be <a href="https://tools.ietf.org/html/rfc3986">RFC 3986</a></li>
+	 *   <li>Final US-ASCII encoding since Location must always be <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a></li>
 	 * </ol>
 	 * 
 	 * @param  href  The absolute URL, context-absolute path, or page-relative path
@@ -466,7 +466,7 @@ public class HttpServletUtil {
 	 *   <li>Converting a page-relative path to a context-absolute path starting with a slash (/), resolving ./ and ../</li>
 	 *   <li>Adding any additional parameters</li>
 	 *   <li>Optionally {@linkplain UrlModifier modifying the URL}</li>
-	 *   <li>Encoding any URL path characters not defined in <a href="https://tools.ietf.org/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
+	 *   <li>Encoding any URL path characters not defined in <a href="https://datatracker.ietf.org/doc/html/rfc3986#section-2.2">RFC 3986: Reserved Characters</a></li>
 	 *   <li>Converting any context-absolute path to a site-absolute path by prefixing {@linkplain HttpServletRequest#getContextPath() contextPath}</li>
 	 *   <li>Optionally convert to an absolute URL: <code>http[s]://…</code></li>
 	 *   <li>Rewrite with {@link HttpServletResponse#encodeURL(java.lang.String)}</li>

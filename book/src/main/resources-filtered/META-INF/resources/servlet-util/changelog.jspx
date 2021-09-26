@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-05:00"
-		dateModified="2021-07-04T23:51:07-05:00"
+		dateModified="2021-09-25T23:27:50-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -333,13 +333,13 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					because it sometimes comes back percent encoded, but is usually decoded.
 				</li>
 				<li>
-					Absolute URLs are now generated in <ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
+					Absolute URLs are now generated in <ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
 					format, even when the context path has Unicode characters.
 				</li>
 				<li>Absolute URLs are generated first, then passed to response URL encoding.</li>
 				<li>
 					<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
-					<ao:a href="https://tools.ietf.org/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
+					<ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
 				</li>
 				<li>Added <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URL</ao:a> support:
 					<ol>
