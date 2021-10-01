@@ -25,6 +25,7 @@ package com.aoapps.servlet;
 import com.aoapps.hodgepodge.cache.BackgroundCache;
 import com.aoapps.hodgepodge.cache.BackgroundCache.Refresher;
 import com.aoapps.hodgepodge.cache.BackgroundCache.Result;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -42,7 +43,7 @@ import javax.servlet.annotation.WebListener;
  *
  * @author  AO Industries, Inc.
  */
-final public class ServletContextCache {
+public final class ServletContextCache {
 
 	private static final Logger logger = Logger.getLogger(ServletContextCache.class.getName());
 
@@ -50,7 +51,8 @@ final public class ServletContextCache {
 
 	private static final long EXPIRATION_AGE = 60 * 1000;
 
-	private static final String APPLICATION_ATTRIBUTE = ServletContextCache.class.getName();
+	private static final ScopeEE.Application.Attribute<ServletContextCache> APPLICATION_ATTRIBUTE =
+		ScopeEE.APPLICATION.attribute(ServletContextCache.class.getName());
 
 	@WebListener
 	public static class Initializer implements ServletContextListener {
@@ -64,7 +66,7 @@ final public class ServletContextCache {
 
 		@Override
 		public void contextDestroyed(ServletContextEvent event) {
-			event.getServletContext().removeAttribute(APPLICATION_ATTRIBUTE);
+			APPLICATION_ATTRIBUTE.context(event.getServletContext()).remove();
 			if(cache != null) {
 				cache.stop();
 				cache = null;
@@ -76,15 +78,10 @@ final public class ServletContextCache {
 	 * Gets or creates the cache for the provided servlet context.
 	 */
 	public static ServletContextCache getInstance(ServletContext servletContext) {
-		ServletContextCache cache = (ServletContextCache)servletContext.getAttribute(APPLICATION_ATTRIBUTE);
-		if(cache == null) {
+		ServletContextCache cache = APPLICATION_ATTRIBUTE.context(servletContext)
 			// It is possible this is called during context initialization before the listener
-			cache = new ServletContextCache(servletContext);
-			servletContext.setAttribute(APPLICATION_ATTRIBUTE, cache);
-			//throw new IllegalStateException("ServletContextCache not active in the provided ServletContext.  Add context listener to web.xml?");
-		} else {
-			assert cache.servletContext == servletContext;
-		}
+			.computeIfAbsent(__ -> new ServletContextCache(servletContext));
+		assert cache.servletContext == servletContext;
 		return cache;
 	}
 

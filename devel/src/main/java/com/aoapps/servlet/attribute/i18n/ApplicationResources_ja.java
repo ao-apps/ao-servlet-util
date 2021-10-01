@@ -20,12 +20,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses/>.
  */
-module com.aoapps.servlet.util.devel {
-	exports com.aoapps.servlet.attribute.i18n;
-	exports com.aoapps.servlet.http.i18n;
-	exports com.aoapps.servlet.jsp.tagext.i18n;
-	// Direct
-	requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
-	// Java SE
-	requires java.logging;
+package com.aoapps.servlet.attribute.i18n;
+
+import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
+import java.util.Locale;
+
+/**
+ * @author  AO Industries, Inc.
+ */
+public final class ApplicationResources_ja extends EditableResourceBundle {
+
+	public ApplicationResources_ja() {
+		super(
+			Locale.JAPANESE,
+			ApplicationResources.bundleSet,
+			ApplicationResources.getSourceFile("ApplicationResources_ja.properties")
+		);
+	}
 }

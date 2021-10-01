@@ -25,11 +25,11 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.2-POST-SNAPSHOT</version>
+		<groupId>com.aoapps</groupId><artifactId>ao-oss-parent</artifactId><version>1.17.3-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
 
-	<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>4.0.0-POST-SNAPSHOT</version>
+	<groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>5.0.0-SNAPSHOT</version>
 	<packaging>bundle</packaging>
 
 	<properties>
@@ -145,6 +145,15 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 					<release>11</release>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
+				<configuration>
+					<usedDependencies>
+						<!-- Javadoc-only -->
+						<dependency>org.apache.taglibs:taglibs-standard-impl</dependency>
+					</usedDependencies>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -188,6 +197,12 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 										</artifactItem>
 										<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
 										<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
+										<artifactItem>
+											<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId><classifier>javadoc</classifier>
+											<includes>element-list, package-list</includes>
+											<outputDirectory>${project.build.directory}/offlineLinks/org.apache.taglibs/taglibs-standard-impl</outputDirectory>
+										</artifactItem>
+										<!-- ao-javadoc-offline: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 									</artifactItems>
 								</configuration>
 							</execution>
@@ -220,6 +235,11 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 								</offlineLink>
 								<!-- ao-javadoc-offline: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
 								<!-- ao-javadoc-offline: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
+								<offlineLink>
+									<url>https://tomcat.apache.org/taglibs/standard/apidocs/</url>
+									<location>${project.build.directory}/offlineLinks/org.apache.taglibs/taglibs-standard-impl</location>
+								</offlineLink>
+								<!-- ao-javadoc-offline: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 							</offlineLinks>
 						</configuration>
 					</plugin>
@@ -252,22 +272,24 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		<dependencies>
 			<!-- Direct -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>2.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId><version>3.0.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId><version>5.0.0${POST-SNAPSHOT}</version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId><version>5.1.0-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.1${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId><version>2.0.2-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId><artifactId>commons-lang3</artifactId><version>${commons-lang3.version}</version>
 			</dependency>
 			<!-- javaee-web-api-bom: <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId> -->
 			<!-- javaee-web-api-bom: <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId> -->
+			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId> -->
+			<!-- javaee-web-api-bom: <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId> -->
 			<!-- Transitive -->
 			<dependency>
 				<groupId>com.aoapps</groupId><artifactId>ao-tempfiles</artifactId><version>3.0.0${POST-SNAPSHOT}</version>
@@ -277,7 +299,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 			</dependency>
 			<!-- BOM -->
 			<dependency>
-				<groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.0${POST-SNAPSHOT}</version>
+				<groupId>com.aoapps</groupId><artifactId>javaee-web-api-bom</artifactId><version>7.0.1-SNAPSHOT<!-- ${POST-SNAPSHOT} --></version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -306,6 +328,17 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>
+			<scope>compile</scope>
+			<!-- Only needed for compile-time constants and Javadoc links -->
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-spec</artifactId>
+			<!-- Javadoc-only -->
+			<optional>true</optional>
 		</dependency>
 	</dependencies>
 </project>

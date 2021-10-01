@@ -37,7 +37,7 @@ import javax.servlet.http.HttpServletResponse;
  * handling the request may change.
  * </p>
  */
-abstract public class Canonical implements AutoCloseable {
+public abstract class Canonical implements AutoCloseable {
 
 	private Canonical() {
 	}

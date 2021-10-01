@@ -23,9 +23,11 @@
 package com.aoapps.servlet.http;
 
 import com.aoapps.collections.AoCollections;
+import com.aoapps.lang.attribute.Attribute;
 import com.aoapps.lang.i18n.Resources;
 import com.aoapps.net.URIResolver;
 import com.aoapps.servlet.LocalizedServletException;
+import com.aoapps.servlet.attribute.ScopeEE;
 import java.io.IOException;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -53,7 +55,8 @@ public class Dispatcher {
 	/**
 	 * The name of the request-scope Map that will contain the arguments for the current page.
 	 */
-	public static final String ARG_REQUEST_ATTRIBUTE = "arg";
+	public static final ScopeEE.Request.Attribute<Map<String, ?>> ARG_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute("arg");
 
 	private Dispatcher() {
 	}
@@ -61,23 +64,24 @@ public class Dispatcher {
 	/**
 	 * Tracks the first servlet path seen, before any include/forward.
 	 */
-	private static final String ORIGINAL_PAGE_REQUEST_ATTRIBUTE = Dispatcher.class.getName() + ".originalPage";
+	private static final ScopeEE.Request.Attribute<String> ORIGINAL_PAGE_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".originalPage");
 
 	/**
 	 * Gets the current request original page or null if not set.
 	 *
 	 * @see  #getOriginalPagePath(javax.servlet.http.HttpServletRequest) for the version that uses current request as a default.
-	 * @see  RequestDispatcher#FORWARD_SERVLET_PATH
-	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#FORWARD_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
 	 * @see  HttpServletRequest#getServletPath()
 	 */
 	public static String getOriginalPage(ServletRequest request) {
-		String originalPage = (String)request.getAttribute(ORIGINAL_PAGE_REQUEST_ATTRIBUTE);
+		String originalPage = ORIGINAL_PAGE_REQUEST_ATTRIBUTE.context(request).get();
 		if(originalPage == null) {
-			originalPage = (String)request.getAttribute(RequestDispatcher.FORWARD_SERVLET_PATH);
+			originalPage = ScopeEE.Request.FORWARD_SERVLET_PATH.context(request).get();
 			if(originalPage == null) {
 				if(
-					request.getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH) != null
+					ScopeEE.Request.INCLUDE_SERVLET_PATH.context(request).get() != null
 					&& (request instanceof HttpServletRequest)
 				) {
 					originalPage = ((HttpServletRequest)request).getServletPath();
@@ -91,7 +95,7 @@ public class Dispatcher {
 	 * Sets the current request original page.
 	 */
 	public static void setOriginalPage(ServletRequest request, String page) {
-		request.setAttribute(ORIGINAL_PAGE_REQUEST_ATTRIBUTE, page);
+		ORIGINAL_PAGE_REQUEST_ATTRIBUTE.context(request).set(page);
 	}
 
 	/**
@@ -99,8 +103,8 @@ public class Dispatcher {
 	 * If no original page available, uses the servlet path from the provided request.
 	 *
 	 * @see  #getOriginalPage(javax.servlet.ServletRequest)
-	 * @see  RequestDispatcher#FORWARD_SERVLET_PATH
-	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#FORWARD_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
 	 * @see  HttpServletRequest#getServletPath()
 	 */
 	public static String getOriginalPagePath(HttpServletRequest request) {
@@ -111,16 +115,17 @@ public class Dispatcher {
 	/**
 	 * Tracks the current dispatch page for correct page-relative paths.
 	 */
-	private static final String DISPATCHED_PAGE_REQUEST_ATTRIBUTE = Dispatcher.class.getName() + ".dispatchedPage";
+	private static final ScopeEE.Request.Attribute<String> DISPATCHED_PAGE_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".dispatchedPage");
 
 	/**
 	 * Gets the current request dispatched page or null if not set.
 	 *
 	 * @see  #getCurrentPagePath(javax.servlet.http.HttpServletRequest) for the version that uses current request as a default.
-	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
 	 */
 	public static String getDispatchedPage(ServletRequest request) {
-		String dispatchedPage = (String)request.getAttribute(DISPATCHED_PAGE_REQUEST_ATTRIBUTE);
+		String dispatchedPage = DISPATCHED_PAGE_REQUEST_ATTRIBUTE.context(request).get();
 		if(dispatchedPage != null) {
 			if(logger.isLoggable(Level.FINE)) logger.log(
 				Level.FINE,
@@ -131,11 +136,11 @@ public class Dispatcher {
 				}
 			);
 		} else {
-			dispatchedPage = (String)request.getAttribute(RequestDispatcher.INCLUDE_SERVLET_PATH);
+			dispatchedPage = ScopeEE.Request.INCLUDE_SERVLET_PATH.context(request).get();
 			if(dispatchedPage != null) {
 				if(logger.isLoggable(Level.FINE)) logger.log(
 					Level.FINE,
-					"request={0}, " + RequestDispatcher.INCLUDE_SERVLET_PATH + "={1}",
+					"request={0}, " + ScopeEE.Request.INCLUDE_SERVLET_PATH.getName() + "={1}",
 					new Object[] {
 						request,
 						dispatchedPage
@@ -158,7 +163,7 @@ public class Dispatcher {
 				dispatchedPage
 			}
 		);
-		request.setAttribute(DISPATCHED_PAGE_REQUEST_ATTRIBUTE, dispatchedPage);
+		DISPATCHED_PAGE_REQUEST_ATTRIBUTE.context(request).set(dispatchedPage);
 	}
 
 	/**
@@ -167,7 +172,7 @@ public class Dispatcher {
 	 * This may be used as a substitute for HttpServletRequest.getServletPath() when the current page is needed instead of the originally requested servlet.
 	 *
 	 * @see  #getDispatchedPage(javax.servlet.ServletRequest)
-	 * @see  RequestDispatcher#INCLUDE_SERVLET_PATH
+	 * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
 	 */
 	public static String getCurrentPagePath(HttpServletRequest request) {
 		String dispatched = getDispatchedPage(request);
@@ -219,18 +224,13 @@ public class Dispatcher {
 			try {
 				// Store as new relative path source
 				setDispatchedPage(request, contextRelativePath);
-				// Keep old arguments to restore
-				final Object oldArgs = request.getAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE);
-				try {
-					// Set new arguments
-					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE,
-						args==null ? null : AoCollections.optimalUnmodifiableMap(args)
-					);
+				// Push new arguments
+				try (
+					Attribute.OldValue oldArgs = ARG_REQUEST_ATTRIBUTE.context(request)
+						.init(AoCollections.optimalUnmodifiableMap(args))
+				) {
 					// Perform dispatch
 					dispatcher.forward(request, response);
-				} finally {
-					// Restore any previous args
-					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE, oldArgs);
 				}
 			} finally {
 				setDispatchedPage(request, oldDispatchPage);
@@ -331,18 +331,13 @@ public class Dispatcher {
 				);
 				// Store as new relative path source
 				setDispatchedPage(request, contextRelativePath);
-				// Keep old arguments to restore
-				final Object oldArgs = request.getAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE);
-				try {
-					// Set new arguments
-					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE,
-						args==null ? null : AoCollections.optimalUnmodifiableMap(args)
-					);
+				// Push new arguments
+				try (
+					Attribute.OldValue oldArgs = ARG_REQUEST_ATTRIBUTE.context(request)
+						.init(AoCollections.optimalUnmodifiableMap(args))
+				) {
 					// Perform dispatch
 					Includer.dispatchInclude(dispatcher, request, response);
-				} finally {
-					// Restore any previous args
-					request.setAttribute(Dispatcher.ARG_REQUEST_ATTRIBUTE, oldArgs);
 				}
 			} finally {
 				setDispatchedPage(request, oldDispatchPage);

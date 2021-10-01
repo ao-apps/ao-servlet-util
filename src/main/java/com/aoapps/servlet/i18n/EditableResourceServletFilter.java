@@ -24,6 +24,8 @@ package com.aoapps.servlet.i18n;
 
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.net.URIEncoder;
+import com.aoapps.servlet.attribute.AttributeEE;
+import com.aoapps.servlet.attribute.ScopeEE;
 import com.aoapps.servlet.http.Cookies;
 import com.aoapps.servlet.http.HttpServletUtil;
 import java.io.IOException;
@@ -45,7 +47,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditableResourceServletFilter implements Filter {
 
-	private static final String FILTER_ENABLED_REQUEST_ATTRIBUTE = EditableResourceServletFilter.class.getName()+" . enabled";
+	private static final ScopeEE.Request.Attribute<Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
+		ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
+//	private static final ScopeEE.Attribute<ServletRequest, Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
+//		ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
+//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").request();
+//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ServletRequest.class);
+//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ScopeEE.REQUEST);
 
 	private String role;
 
@@ -61,12 +69,14 @@ public class EditableResourceServletFilter implements Filter {
 		FilterChain chain
 	) throws IOException, ServletException {
 		// Makes sure only one locale filter is applied per request
+		AttributeEE.Request<Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
+//		AttributeEE<ServletRequest, Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
 		if(
-			request.getAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE)==null
+			filterEnabledAttribute.get() == null
 			&& (request instanceof HttpServletRequest)
 			&& (response instanceof HttpServletResponse)
 		) {
-			request.setAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE, Boolean.TRUE);
+			filterEnabledAttribute.set(true);
 			try {
 				HttpServletRequest httpRequest = (HttpServletRequest)request;
 				HttpServletResponse httpResponse = (HttpServletResponse)response;
@@ -99,7 +109,7 @@ public class EditableResourceServletFilter implements Filter {
 					chain.doFilter(request, response);
 				}
 			} finally {
-				request.removeAttribute(FILTER_ENABLED_REQUEST_ATTRIBUTE);
+				filterEnabledAttribute.remove();
 			}
 		} else {
 			chain.doFilter(request, response);

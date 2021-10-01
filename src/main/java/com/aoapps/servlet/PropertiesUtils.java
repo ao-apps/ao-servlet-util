@@ -34,7 +34,7 @@ import javax.servlet.ServletContext;
  * These methods moved here since they were causing a compile-time dependency on servlet APIs
  * for non-servlet related projects.
  */
-final public class PropertiesUtils {
+public final class PropertiesUtils {
 
 	/**
 	 * Make no instances.

@@ -24,6 +24,7 @@ package com.aoapps.servlet.jsp;
 
 import com.aoapps.lang.EmptyArrays;
 import com.aoapps.lang.Throwables;
+import com.aoapps.lang.exception.LocalizedException;
 import com.aoapps.lang.i18n.Resources;
 import java.io.Serializable;
 import javax.servlet.jsp.JspException;
@@ -33,7 +34,7 @@ import javax.servlet.jsp.JspException;
  *
  * @author  AO Industries, Inc.
  */
-public class LocalizedJspException extends JspException {
+public class LocalizedJspException extends JspException implements LocalizedException {
 
 	private static final long serialVersionUID = 3L;
 
@@ -72,6 +73,25 @@ public class LocalizedJspException extends JspException {
 	@Override
 	public String getLocalizedMessage() {
 		return resources.getMessage(key, (Object[])args);
+	}
+
+	@Override
+	public final Resources getResources() {
+		return resources;
+	}
+
+	@Override
+	public final String getKey() {
+		return key;
+	}
+
+	/**
+	 * @return  No defensive copy
+	 */
+	@Override
+	@SuppressWarnings("ReturnOfCollectionOrArrayField")
+	public final Serializable[] getArgs() {
+		return args;
 	}
 
 	static {
