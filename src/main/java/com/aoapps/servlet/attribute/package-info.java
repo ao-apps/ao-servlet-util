@@ -24,7 +24,7 @@
 /**
  * Utilities for working with various attribute scopes.
  * <p>
- * This API has three concepts:
+ * This API has four concepts:
  * </p>
  * <ol>
  *   <li>{@link ScopeEE} - The most broad concept is scope, including page, request, session, and application.
