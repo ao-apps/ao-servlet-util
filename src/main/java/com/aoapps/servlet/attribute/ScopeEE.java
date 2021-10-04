@@ -55,6 +55,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 
 	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, ScopeEE.class);
 
+	private static final long serialVersionUID = 1L;
+
 	private ScopeEE() {}
 
 	/**
@@ -67,6 +69,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 	 * {@link AttributeEE}: Has scope and name, still needs context.
 	 */
 	public abstract static class Attribute<C, T> extends com.aoapps.lang.attribute.Scope.Attribute<C, T> {
+
+		private static final long serialVersionUID = 1L;
 
 		private Attribute(String name) {
 			super(name);
@@ -147,6 +151,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 			SCOPE_SESSION = "session",
 			SCOPE_APPLICATION = "application";
 
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * Gets the {@link PageContext} scope value for the textual scope name.
 		 *
@@ -171,6 +177,13 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		}
 
 		/**
+		 * Keep singleton.
+		 */
+		private Object readResolve() {
+			return ScopeEE.PAGE;
+		}
+
+		/**
 		 * {@link AttributeEE}: Uses the given context within the {@linkplain JspContext#getAttribute(java.lang.String) page scope},
 		 * still needs name.
 		 */
@@ -184,6 +197,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		 * still needs context.
 		 */
 		public static final class Attribute<T> extends ScopeEE.Attribute<JspContext, T> {
+
+			private static final long serialVersionUID = 1L;
 
 			Attribute(String name) {
 				super(name);
@@ -336,7 +351,16 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		public static final Attribute<Integer> ERROR_STATUS_CODE = new Attribute<>(RequestDispatcher.ERROR_STATUS_CODE);
 		// </editor-fold>
 
+		private static final long serialVersionUID = 1L;
+
 		private Request() {
+		}
+
+		/**
+		 * Keep singleton.
+		 */
+		private Object readResolve() {
+			return ScopeEE.REQUEST;
 		}
 
 		/**
@@ -353,6 +377,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		 * still needs context.
 		 */
 		public static final class Attribute<T> extends ScopeEE.Attribute<ServletRequest, T> {
+
+			private static final long serialVersionUID = 1L;
 
 			Attribute(String name) {
 				super(name);
@@ -399,6 +425,15 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		private Session() {
 		}
 
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Keep singleton.
+		 */
+		private Object readResolve() {
+			return ScopeEE.SESSION;
+		}
+
 		/**
 		 * {@link AttributeEE}: Uses the given context within the {@linkplain HttpSession#getAttribute(java.lang.String) session scope},
 		 * still needs name.
@@ -413,6 +448,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		 * still needs context.
 		 */
 		public static final class Attribute<T> extends ScopeEE.Attribute<HttpSession, T> {
+
+			private static final long serialVersionUID = 1L;
 
 			Attribute(String name) {
 				super(name);
@@ -461,7 +498,16 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		public static final Attribute<File> TEMPDIR = new Attribute<>(ServletContext.TEMPDIR);
 		// </editor-fold>
 
+		private static final long serialVersionUID = 1L;
+
 		private Application() {
+		}
+
+		/**
+		 * Keep singleton.
+		 */
+		private Object readResolve() {
+			return ScopeEE.APPLICATION;
 		}
 
 		/**
@@ -478,6 +524,8 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		 * still needs context.
 		 */
 		public static final class Attribute<T> extends ScopeEE.Attribute<ServletContext, T> {
+
+			private static final long serialVersionUID = 1L;
 
 			Attribute(String name) {
 				super(name);

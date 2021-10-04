@@ -2123,6 +2123,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 	 */
 	public static class Name<T> extends com.aoapps.lang.attribute.Attribute.Name<T> {
 
+		private static final long serialVersionUID = 1L;
+
 		private Name(String name) {
 			super(name);
 		}
@@ -2371,6 +2373,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 		 * @see  Config#APPLICATION_SCOPE_SUFFIX
 		 */
 		private static final String APPLICATION_SCOPE_SUFFIX = ".application";
+
+		private static final long serialVersionUID = 1L;
 
 		private Jstl(String name) {
 			super(name);
