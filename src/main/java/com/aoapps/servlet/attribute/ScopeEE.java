@@ -99,6 +99,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		/**
 		 * @see  PageContext#PAGE
 		 */
+		@SuppressWarnings("FieldNameHidesFieldInSuperclass")
 		public static final Attribute<Servlet> PAGE = new Attribute<>(PageContext.PAGE);
 
 		/**
@@ -109,6 +110,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		/**
 		 * @see  PageContext#REQUEST
 		 */
+		@SuppressWarnings("FieldNameHidesFieldInSuperclass")
 		public static final Attribute<ServletRequest> REQUEST = new Attribute<>(PageContext.REQUEST);
 
 		/**
@@ -124,6 +126,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		/**
 		 * @see  PageContext#SESSION
 		 */
+		@SuppressWarnings("FieldNameHidesFieldInSuperclass")
 		public static final Attribute<HttpSession> SESSION = new Attribute<>(PageContext.SESSION);
 
 		/**
@@ -134,6 +137,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		/**
 		 * @see  PageContext#APPLICATION
 		 */
+		@SuppressWarnings("FieldNameHidesFieldInSuperclass")
 		public static final Attribute<ServletContext> APPLICATION = new Attribute<>(PageContext.APPLICATION);
 
 		/**

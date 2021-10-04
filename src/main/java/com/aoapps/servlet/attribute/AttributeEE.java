@@ -2138,6 +2138,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 		 */
 		public static class ScopeEEFactory<C, T> implements ScopeFactory<C, T> {
 			@Override
+			@SuppressWarnings("unchecked")
 			public ScopeEE.Attribute<C, T> attribute(Class<?> contextType, String name) {
 				if(contextType == JspContext.class) {
 					return (ScopeEE.Attribute<C, T>)new ScopeEE.Page.Attribute<T>(name);
@@ -2254,6 +2255,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 		 */
 		public static class ContextEEFactory<C, T> implements ContextFactory<C, T> {
 			@Override
+			@SuppressWarnings("unchecked")
 			public AttributeEE<C, T> attribute(Object context, String name) {
 				if(context instanceof JspContext) {
 					return (AttributeEE<C, T>)new Page<>((JspContext)context, name);
