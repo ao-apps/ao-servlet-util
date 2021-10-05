@@ -45,7 +45,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 / <a target="${javadoc.target}" href="${project.url}">Servlet Util</a>]]></javadoc.breadcrumbs>
 		<!-- SonarQube -->
 		<sonar.projectKey>${project.groupId}:${project.artifactId}</sonar.projectKey>
-		<sonar.organization>aoindustries</sonar.organization>
+		<sonar.organization>ao-apps</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<!-- TODO: Implement tests -->
 		<sonar.coverage.exclusions>**.*</sonar.coverage.exclusions>
@@ -82,20 +82,20 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 	</developers>
 
 	<scm>
-		<connection>scm:git:git://github.com/aoindustries/ao-servlet-util.git</connection>
-		<developerConnection>scm:git:git@github.com:aoindustries/ao-servlet-util.git</developerConnection>
-		<url>https://github.com/aoindustries/ao-servlet-util</url>
+		<connection>scm:git:git://github.com/ao-apps/ao-servlet-util.git</connection>
+		<developerConnection>scm:git:git@github.com:ao-apps/ao-servlet-util.git</developerConnection>
+		<url>https://github.com/ao-apps/ao-servlet-util</url>
 		<tag>HEAD</tag>
 	</scm>
 
 	<issueManagement>
 		<system>GitHub Issues</system>
-		<url>https://github.com/aoindustries/ao-servlet-util/issues</url>
+		<url>https://github.com/ao-apps/ao-servlet-util/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>GitHub Actions</system>
-		<url>https://github.com/aoindustries/ao-servlet-util/actions</url>
+		<url>https://github.com/ao-apps/ao-servlet-util/actions</url>
 	</ciManagement>
 
 	<repositories>
