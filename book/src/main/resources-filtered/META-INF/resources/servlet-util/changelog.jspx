@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-05:00"
-		dateModified="2021-09-29T21:22:14-05:00"
+		dateModified="2021-10-15T20:48:47-05:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,43 +47,52 @@ along with ao-servlet-util.  If not, see <http://www.gnu.org/licenses />.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>
-						New classes <code>AttributeEE</code>, <code>ContextEE</code>, and <code>ScopeEE</code> for accessing
-						servlet APIs attributes by scope, context, and name.
-						<ul>
-							<li>
-								<strong>Breaking change:</strong> <code>Dispatcher.ARG_REQUEST_ATTRIBUTE</code> is now an instance
-								of <code>ScopeEE.Request.Attribute</code> instead of <code>String</code>.
-							</li>
-							<li>
-								API supports arriving at an attribute in any order, such as <code>scope → context → name</code>
-								or <code>name → context</code>.
-							</li>
-							<li>
-								API provides generic type safety (assumes casts will be OK behind the scenes, which is
-								acceptable when all access to attributes is through this API).
-							</li>
-							<li>
-								Also provides additional functional-friendly methods similar to those in <code>Map</code>,
-								such as <code>computeIfAbsent</code>.
-							</li>
-							<li>
-								There is also a set of static utility methods, to which the rest of the API ends up calling.
-								For one-off attribute access, these static methods may be more succinct.
-							</li>
-						</ul>
-					</li>
-				</ul>
-			</changelog:release>
+			/>
 		</c:if>
+
+		<changelog:release
+			projectName="@{documented.name}"
+			version="5.0.0"
+			datePublished="2021-10-15T20:48:47-05:00"
+			groupId="@{project.groupId}"
+			artifactId="@{documented.artifactId}"
+			scmUrl="@{project.scm.url}"
+		>
+			<ul>
+				<li>
+					New classes <code>AttributeEE</code>, <code>ContextEE</code>, and <code>ScopeEE</code> for accessing
+					servlet APIs attributes by scope, context, and name.
+					<ul>
+						<li>
+							<strong>Breaking change:</strong> <code>Dispatcher.ARG_REQUEST_ATTRIBUTE</code> is now an instance
+							of <code>ScopeEE.Request.Attribute</code> instead of <code>String</code>.
+						</li>
+						<li>
+							API supports arriving at an attribute in any order, such as <code>scope → context → name</code>
+							or <code>name → context</code>.
+						</li>
+						<li>
+							API provides generic type safety (assumes casts will be OK behind the scenes, which is
+							acceptable when all access to attributes is through this API).
+						</li>
+						<li>
+							Also provides additional functional-friendly methods similar to those in <code>Map</code>,
+							such as <code>computeIfAbsent</code>.
+						</li>
+						<li>
+							There is also a set of static utility methods, to which the rest of the API ends up calling.
+							For one-off attribute access, these static methods may be more succinct.
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</changelog:release>
 
 		<changelog:release
 			projectName="@{documented.name}"
 			version="4.0.0"
 			datePublished="2021-07-04T23:51:07-05:00"
-			groupId="com.aoindustries"
+			groupId="@{project.groupId}"
 			artifactId="@{documented.artifactId}"
 			scmUrl="@{project.scm.url}"
 		>
