@@ -48,12 +48,7 @@ public abstract class Canonical implements AutoCloseable {
 	@Override
 	public abstract void close();
 
-	private static final ThreadLocal<Boolean> canonicalUrls = new ThreadLocal<Boolean>() {
-		@Override
-		protected Boolean initialValue() {
-			return Boolean.FALSE;
-		}
-	};
+	private static final ThreadLocal<Boolean> canonicalUrls = ThreadLocal.withInitial(() -> false);
 
 	/**
 	 * Gets the current state of the canonical {@link ThreadLocal}.
