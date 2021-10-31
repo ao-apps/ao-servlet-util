@@ -47,9 +47,9 @@ public final class ServletContextCache {
 
 	private static final Logger logger = Logger.getLogger(ServletContextCache.class.getName());
 
-	private static final long REFRESH_INTERVAL = 5 * 1000;
+	private static final long REFRESH_INTERVAL = 5L * 1000;
 
-	private static final long EXPIRATION_AGE = 60 * 1000;
+	private static final long EXPIRATION_AGE = 60L * 1000;
 
 	private static final ScopeEE.Application.Attribute<ServletContextCache> APPLICATION_ATTRIBUTE =
 		ScopeEE.APPLICATION.attribute(ServletContextCache.class.getName());
