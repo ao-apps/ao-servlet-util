@@ -59,15 +59,25 @@ public abstract class Canonical implements AutoCloseable {
 
 	private static final Canonical restoreFalse = new Canonical() {
 		@Override
+		public String toString() {
+			return Canonical.class.getName() + ".restoreFalse";
+		}
+
+		@Override
 		public void close() {
-			canonicalUrls.set(Boolean.FALSE);
+			canonicalUrls.remove();
 		}
 	};
 
 	private static final Canonical restoreTrue = new Canonical() {
 		@Override
+		public String toString() {
+			return Canonical.class.getName() + ".restoreTrue";
+		}
+
+		@Override
 		public void close() {
-			canonicalUrls.set(Boolean.TRUE);
+			canonicalUrls.set(true);
 		}
 	};
 
