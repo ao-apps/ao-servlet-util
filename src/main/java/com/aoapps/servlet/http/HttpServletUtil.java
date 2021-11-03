@@ -98,7 +98,7 @@ public class HttpServletUtil {
 
 	/**
 	 * Resolves a possibly page-relative path to a context-absolute path.
-	 * 
+	 *
 	 * @param  path  The absolute URL, context-absolute path, or page-relative path
 	 *
 	 * @see  Dispatcher#getCurrentPagePath(javax.servlet.http.HttpServletRequest)
@@ -261,7 +261,7 @@ public class HttpServletUtil {
 	 *   <li>Rewrite with {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}</li>
 	 *   <li>Final US-ASCII encoding since Location must always be <a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986</a></li>
 	 * </ol>
-	 * 
+	 *
 	 * @param  href  The absolute URL, context-absolute path, or page-relative path
 	 *
 	 * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}

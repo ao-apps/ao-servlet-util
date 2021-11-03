@@ -113,13 +113,6 @@ public final class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String, URL, MalformedURLException> getResourceRefresher = new Refresher<String, URL, MalformedURLException>() {
-		@Override
-		public URL call(String path) throws MalformedURLException {
-			return servletContext.getResource(path);
-		}
-	};
-
 	/**
 	 * Gets the possibly cached URL.  This URL is not copied and caller should not fiddle with
 	 * its state.  Thank you Java for this not being immutable.
@@ -127,7 +120,7 @@ public final class ServletContextCache {
 	 * @see  ServletContext#getResource(java.lang.String)
 	 */
 	public URL getResource(String path) throws MalformedURLException {
-		Result<URL, MalformedURLException> result = getResourceCache.get(path, getResourceRefresher);
+		Result<URL, MalformedURLException> result = getResourceCache.get(path, servletContext::getResource);
 		MalformedURLException exception = result.getException();
 		if(exception != null) throw exception;
 		return result.getValue();
@@ -152,18 +145,11 @@ public final class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String, String, RuntimeException> getRealPathRefresher = new Refresher<String, String, RuntimeException>() {
-		@Override
-		public String call(String path) {
-			return servletContext.getRealPath(path);
-		}
-	};
-
 	/**
 	 * @see  ServletContext#getRealPath(java.lang.String)
 	 */
 	public String getRealPath(String path) {
-		Result<String, RuntimeException> result = getRealPathCache.get(path, getRealPathRefresher);
+		Result<String, RuntimeException> result = getRealPathCache.get(path, servletContext::getRealPath);
 		RuntimeException exception = result.getException();
 		if(exception != null) throw exception;
 		return result.getValue();
@@ -186,7 +172,7 @@ public final class ServletContextCache {
 		logger
 	);
 
-	private final Refresher<String, Long, RuntimeException> getLastModifiedRefresher = (String path) -> {
+	private final Refresher<String, Long, RuntimeException> getLastModifiedRefresher = path -> {
 		long lastModified = 0;
 		String realPath = getRealPath(path);
 		if(realPath != null) {

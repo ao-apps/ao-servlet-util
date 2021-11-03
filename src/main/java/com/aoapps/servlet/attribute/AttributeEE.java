@@ -2141,16 +2141,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 			@SuppressWarnings("unchecked")
 			public ScopeEE.Attribute<C, T> attribute(Class<?> contextType, String name) {
 				if(contextType == JspContext.class) {
-					return (ScopeEE.Attribute<C, T>)new ScopeEE.Page.Attribute<T>(name);
+					return (ScopeEE.Attribute<C, T>)new ScopeEE.Page.Attribute<>(name);
 				}
 				if(contextType == ServletRequest.class) {
-					return (ScopeEE.Attribute<C, T>)new ScopeEE.Request.Attribute<T>(name);
+					return (ScopeEE.Attribute<C, T>)new ScopeEE.Request.Attribute<>(name);
 				}
 				if(contextType == HttpSession.class) {
-					return (ScopeEE.Attribute<C, T>)new ScopeEE.Session.Attribute<T>(name);
+					return (ScopeEE.Attribute<C, T>)new ScopeEE.Session.Attribute<>(name);
 				}
 				if(contextType == ServletContext.class) {
-					return (ScopeEE.Attribute<C, T>)new ScopeEE.Application.Attribute<T>(name);
+					return (ScopeEE.Attribute<C, T>)new ScopeEE.Application.Attribute<>(name);
 				}
 				return null;
 			}
