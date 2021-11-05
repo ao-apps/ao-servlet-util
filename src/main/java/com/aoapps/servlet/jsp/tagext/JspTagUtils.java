@@ -36,7 +36,10 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author  AO Industries, Inc.
  */
-public final class JspTagUtils {
+public abstract class JspTagUtils {
+
+	/** Make no instances. */
+	private JspTagUtils() {throw new AssertionError();}
 
 	private static final Resources RESOURCES = Resources.getResources(ResourceBundle::getBundle, JspTagUtils.class);
 
@@ -138,11 +141,5 @@ public final class JspTagUtils {
 	@Deprecated
 	public static <T> T requireAncestor(JspTag from, Class<? extends T> ancestorClass) throws JspTagException {
 		return requireAncestor(LocalizedJspTagException::new, from, ancestorClass);
-	}
-
-	/**
-	 * Make no instances.
-	 */
-	private JspTagUtils() {
 	}
 }

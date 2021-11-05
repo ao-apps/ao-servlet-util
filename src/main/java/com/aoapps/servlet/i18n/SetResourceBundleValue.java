@@ -42,9 +42,6 @@ public class SetResourceBundleValue extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public SetResourceBundleValue() {
-	}
-
 	private String role;
 
 	@Override

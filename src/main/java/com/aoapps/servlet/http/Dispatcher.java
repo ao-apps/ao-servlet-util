@@ -46,7 +46,10 @@ import javax.servlet.jsp.SkipPageException;
  *
  * @author  AO Industries, Inc.
  */
-public class Dispatcher {
+public abstract class Dispatcher {
+
+	/** Make no instances. */
+	private Dispatcher() {throw new AssertionError();}
 
 	private static final Logger logger = Logger.getLogger(Dispatcher.class.getName());
 
@@ -57,9 +60,6 @@ public class Dispatcher {
 	 */
 	public static final ScopeEE.Request.Attribute<Map<String, ?>> ARG_REQUEST_ATTRIBUTE =
 		ScopeEE.REQUEST.attribute("arg");
-
-	private Dispatcher() {
-	}
 
 	/**
 	 * Tracks the first servlet path seen, before any include/forward.

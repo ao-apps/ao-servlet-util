@@ -52,10 +52,10 @@ import javax.servlet.jsp.PageContext;
  *
  * @see ServletUtil
  */
-public class HttpServletUtil {
+public abstract class HttpServletUtil {
 
-	private HttpServletUtil() {
-	}
+	/** Make no instances. */
+	private HttpServletUtil() {throw new AssertionError();}
 
 	private static final Logger logger = Logger.getLogger(HttpServletUtil.class.getName());
 

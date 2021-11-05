@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class Canonical implements AutoCloseable {
 
 	private Canonical() {
+		// Do nothing
 	}
 
 	/**

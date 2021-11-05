@@ -118,5 +118,6 @@ public class EditableResourceServletFilter implements Filter {
 
 	@Override
 	public void destroy() {
+		// Do nothing
 	}
 }

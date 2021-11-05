@@ -57,7 +57,9 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 
 	private static final long serialVersionUID = 1L;
 
-	private ScopeEE() {}
+	private ScopeEE() {
+		// Do nothing
+	}
 
 	/**
 	 * {@link AttributeEE}: Uses the given context within this scope, still needs name.
@@ -178,6 +180,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		}
 
 		private Page() {
+			// Do nothing
 		}
 
 		/**
@@ -358,6 +361,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		private static final long serialVersionUID = 1L;
 
 		private Request() {
+			// Do nothing
 		}
 
 		/**
@@ -427,6 +431,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		// </editor-fold>
 
 		private Session() {
+			// Do nothing
 		}
 
 		private static final long serialVersionUID = 1L;
@@ -505,6 +510,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
 		private static final long serialVersionUID = 1L;
 
 		private Application() {
+			// Do nothing
 		}
 
 		/**

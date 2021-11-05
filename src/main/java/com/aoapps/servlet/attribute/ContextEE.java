@@ -44,7 +44,9 @@ import javax.servlet.jsp.PageContext;
  */
 public abstract class ContextEE<C> extends com.aoapps.lang.attribute.Context<C> {
 
-	private ContextEE() {}
+	private ContextEE() {
+		// Do nothing
+	}
 
 	/**
 	 * Gets the scope for this context.

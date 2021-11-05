@@ -31,10 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Helper utility to set, get, remove, encode, and decode cookies.
  */
-public final class Cookies {
+public abstract class Cookies {
 
-	private Cookies() {
-	}
+	/** Make no instances. */
+	private Cookies() {throw new AssertionError();}
 
 	/**
 	 * Encodes the name of a cookie via {@link URIEncoder#encodeURIComponent(java.lang.String)}.

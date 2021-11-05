@@ -37,10 +37,10 @@ import javax.servlet.jsp.SkipPageException;
  *
  * @see HttpServletUtil
  */
-public class ServletUtil {
+public abstract class ServletUtil {
 
-	private ServletUtil() {
-	}
+	/** Make no instances. */
+	private ServletUtil() {throw new AssertionError();}
 
 	/**
 	 * @see #SKIP_PAGE_EXCEPTION

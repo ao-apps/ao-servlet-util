@@ -43,12 +43,12 @@ import javax.servlet.jsp.SkipPageException;
  *
  * @author  AO Industries, Inc.
  */
-public class Includer {
+public abstract class Includer {
+
+	/** Make no instances. */
+	private Includer() {throw new AssertionError();}
 
 	private static final Logger logger = Logger.getLogger(Includer.class.getName());
-
-	private Includer() {
-	}
 
 	/**
 	 * Since sendError does not work within included pages, the outermost include

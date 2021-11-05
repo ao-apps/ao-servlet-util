@@ -37,6 +37,7 @@ public final class NullServletOutputStream extends ServletOutputStream {
 	}
 
 	private NullServletOutputStream() {
+		// Do nothing
 	}
 
 	@Override

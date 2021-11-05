@@ -34,12 +34,10 @@ import javax.servlet.ServletContext;
  * These methods moved here since they were causing a compile-time dependency on servlet APIs
  * for non-servlet related projects.
  */
-public final class PropertiesUtils {
+public abstract class PropertiesUtils {
 
-	/**
-	 * Make no instances.
-	 */
-	private PropertiesUtils() {}
+	/** Make no instances. */
+	private PropertiesUtils() {throw new AssertionError();}
 
 	/**
 	 * Loads properties from a web resource.
