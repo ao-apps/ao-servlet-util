@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -36,7 +36,7 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class JspTagUtils {
+public final class JspTagUtils {
 
 	/** Make no instances. */
 	private JspTagUtils() {throw new AssertionError();}

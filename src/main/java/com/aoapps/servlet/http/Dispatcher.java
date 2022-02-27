@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2018, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2018, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -46,7 +46,7 @@ import javax.servlet.jsp.SkipPageException;
  *
  * @author  AO Industries, Inc.
  */
-public abstract class Dispatcher {
+public final class Dispatcher {
 
 	/** Make no instances. */
 	private Dispatcher() {throw new AssertionError();}

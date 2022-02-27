@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2009, 2010, 2011, 2016, 2019, 2021  AO Industries, Inc.
+ * Copyright (C) 2009, 2010, 2011, 2016, 2019, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Helper utility to set, get, remove, encode, and decode cookies.
  */
-public abstract class Cookies {
+public final class Cookies {
 
 	/** Make no instances. */
 	private Cookies() {throw new AssertionError();}
