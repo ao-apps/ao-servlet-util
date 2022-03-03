@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
 		shortTitle="Changelog"
 		tocLevels="1"
 		datePublished="2019-08-21T05:09:52-05:00"
-		dateModified="2022-02-15T19:20:05-06:00"
+		dateModified="2022-03-03T08:51:22-06:00"
 	>
 		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
 			<changelog:release
@@ -47,7 +47,46 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
 				artifactId="@{documented.artifactId}"
 				repository="@{nexusUrl}content/repositories/snapshots/"
 				scmUrl="@{project.scm.url}"
-			/>
+			>
+				<ul>
+					<li>
+						New functional interfaces that may throw <code>ServletException</code>, <code>IOException</code>, and (optionally) an arbitrary
+						tertiary exception:
+						<ol>
+							<li><code>ServletBiConsumer</code></li>
+							<li><code>ServletBiConsumerE</code></li>
+							<li><code>ServletConsumer</code></li>
+							<li><code>ServletConsumerE</code></li>
+							<li><code>ServletFunction</code></li>
+							<li><code>ServletFunctionE</code></li>
+							<li><code>ServletPredicate</code></li>
+							<li><code>ServletPredicateE</code></li>
+							<li><code>ServletRunnable</code></li>
+							<li><code>ServletRunnableE</code></li>
+							<li><code>ServletSupplier</code></li>
+							<li><code>ServletSupplierE</code></li>
+						</ol>
+					</li>
+					<li>
+						New functional interfaces that may throw <code>JspException</code>, <code>IOException</code>, and (optionally) an arbitrary
+						tertiary exception:
+						<ol>
+							<li><code>JspBiConsumer</code></li>
+							<li><code>JspBiConsumerE</code></li>
+							<li><code>JspConsumer</code></li>
+							<li><code>JspConsumerE</code></li>
+							<li><code>JspFunction</code></li>
+							<li><code>JspFunctionE</code></li>
+							<li><code>JspPredicate</code></li>
+							<li><code>JspPredicateE</code></li>
+							<li><code>JspRunnable</code></li>
+							<li><code>JspRunnableE</code></li>
+							<li><code>JspSupplier</code></li>
+							<li><code>JspSupplierE</code></li>
+						</ol>
+					</li>
+				</ul>
+			</changelog:release>
 		</c:if>
 
 		<changelog:release

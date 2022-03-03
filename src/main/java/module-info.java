@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021  AO Industries, Inc.
+ * Copyright (C) 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,9 +23,11 @@
 module com.aoapps.servlet.util {
 	exports com.aoapps.servlet;
 	exports com.aoapps.servlet.attribute;
+	exports com.aoapps.servlet.function;
 	exports com.aoapps.servlet.http;
 	exports com.aoapps.servlet.i18n;
 	exports com.aoapps.servlet.jsp;
+	exports com.aoapps.servlet.jsp.function;
 	exports com.aoapps.servlet.jsp.tagext;
 	provides com.aoapps.lang.CoercionOptimizerInitializer with com.aoapps.servlet.BodyContentImplCoercionOptimizerInitializer;
 	provides com.aoapps.lang.ThrowableSurrogateFactoryInitializer with com.aoapps.servlet.JavaeeWebSurrogateFactoryInitializer;
