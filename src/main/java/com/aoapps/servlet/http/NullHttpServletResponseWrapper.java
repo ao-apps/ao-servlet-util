@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2016, 2019, 2020, 2021  AO Industries, Inc.
+ * Copyright (C) 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,16 +23,15 @@
 package com.aoapps.servlet.http;
 
 import com.aoapps.lang.io.NullPrintWriter;
-import java.io.PrintWriter;
-import javax.servlet.ServletOutputStream;
+import com.aoapps.servlet.NullServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import org.apache.commons.lang3.NotImplementedException;
 
 /**
  * Discards all output.
  *
  * @see  NullPrintWriter
+ * @see  NullServletOutputStream
  */
 public class NullHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
@@ -41,12 +40,12 @@ public class NullHttpServletResponseWrapper extends HttpServletResponseWrapper {
 	}
 
 	@Override
-	public PrintWriter getWriter() {
+	public NullPrintWriter getWriter() {
 		return NullPrintWriter.getInstance();
 	}
 
 	@Override
-	public ServletOutputStream getOutputStream() {
-		throw new NotImplementedException("getOutputStream not expected");
+	public NullServletOutputStream getOutputStream() {
+		return NullServletOutputStream.getInstance();
 	}
 }

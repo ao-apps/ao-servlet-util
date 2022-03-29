@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2014, 2021  AO Industries, Inc.
+ * Copyright (C) 2013, 2014, 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -22,13 +22,14 @@
  */
 package com.aoapps.servlet;
 
+import com.aoapps.lang.io.NoClose;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 
 /**
  * Discards all data.
  */
-public final class NullServletOutputStream extends ServletOutputStream {
+public final class NullServletOutputStream extends ServletOutputStream implements NoClose {
 
 	private static final NullServletOutputStream instance = new NullServletOutputStream();
 

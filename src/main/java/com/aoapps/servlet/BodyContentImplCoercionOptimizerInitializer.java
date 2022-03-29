@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021  AO Industries, Inc.
+ * Copyright (C) 2021, 2022  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,7 +25,6 @@ package com.aoapps.servlet;
 import com.aoapps.lang.Coercion;
 import com.aoapps.lang.CoercionOptimizerInitializer;
 import com.aoapps.lang.io.Encoder;
-import java.io.IOException;
 import java.io.Writer;
 import java.lang.reflect.Field;
 import java.util.logging.Level;
@@ -78,7 +77,7 @@ public class BodyContentImplCoercionOptimizerInitializer implements CoercionOpti
 							return out;
 						}
 					} catch(IllegalAccessException e) {
-						throw new IOException(e);
+						throw new AssertionError("The field has already been set accessible", e);
 					}
 				} else {
 					// No unwrapping
