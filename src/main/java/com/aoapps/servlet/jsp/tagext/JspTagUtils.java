@@ -20,6 +20,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 package com.aoapps.servlet.jsp.tagext;
 
 import com.aoapps.lang.i18n.LocalizedSupplier;
