@@ -38,37 +38,37 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletPredicateE<T, Ex extends Throwable> {
 
-	boolean test(T t) throws ServletException, IOException, Ex;
+  boolean test(T t) throws ServletException, IOException, Ex;
 
-	default ServletPredicateE<T, Ex> and(ServletPredicateE<? super T, ? extends Ex> other) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(other);
-		return t -> test(t) && other.test(t);
-	}
+  default ServletPredicateE<T, Ex> and(ServletPredicateE<? super T, ? extends Ex> other) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(other);
+    return t -> test(t) && other.test(t);
+  }
 
-	default ServletPredicateE<T, Ex> negate() throws ServletException, IOException, Ex {
-		return t -> !test(t);
-	}
+  default ServletPredicateE<T, Ex> negate() throws ServletException, IOException, Ex {
+    return t -> !test(t);
+  }
 
-	default ServletPredicateE<T, Ex> or(ServletPredicateE<? super T, ? extends Ex> other) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(other);
-		return t -> test(t) || other.test(t);
-	}
+  default ServletPredicateE<T, Ex> or(ServletPredicateE<? super T, ? extends Ex> other) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(other);
+    return t -> test(t) || other.test(t);
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	static <T, Ex extends Throwable> ServletPredicateE<T, Ex> isEqual(Object targetRef) {
-		return (null == targetRef)
-			? Objects::isNull
-			: targetRef::equals;
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  static <T, Ex extends Throwable> ServletPredicateE<T, Ex> isEqual(Object targetRef) {
+    return (null == targetRef)
+      ? Objects::isNull
+      : targetRef::equals;
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	@SuppressWarnings("unchecked")
-	static <T, Ex extends Throwable> ServletPredicateE<T, Ex> not(ServletPredicateE<? super T, ? extends Ex> target) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(target);
-		return (ServletPredicateE<T, Ex>)target.negate();
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  @SuppressWarnings("unchecked")
+  static <T, Ex extends Throwable> ServletPredicateE<T, Ex> not(ServletPredicateE<? super T, ? extends Ex> target) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(target);
+    return (ServletPredicateE<T, Ex>)target.negate();
+  }
 }

@@ -40,97 +40,99 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class Canonical implements AutoCloseable {
 
-	private Canonical() {
-		// Do nothing
-	}
+  private Canonical() {
+    // Do nothing
+  }
 
-	/**
-	 * Restores the previous state of the canonical {@link ThreadLocal}.
-	 */
-	@Override
-	public abstract void close();
+  /**
+   * Restores the previous state of the canonical {@link ThreadLocal}.
+   */
+  @Override
+  public abstract void close();
 
-	private static final ThreadLocal<Boolean> canonicalUrls = ThreadLocal.withInitial(() -> false);
+  private static final ThreadLocal<Boolean> canonicalUrls = ThreadLocal.withInitial(() -> false);
 
-	/**
-	 * Gets the current state of the canonical {@link ThreadLocal}.
-	 */
-	public static boolean get() {
-		return canonicalUrls.get();
-	}
+  /**
+   * Gets the current state of the canonical {@link ThreadLocal}.
+   */
+  public static boolean get() {
+    return canonicalUrls.get();
+  }
 
-	private static final Canonical restoreFalse = new Canonical() {
-		@Override
-		public String toString() {
-			return Canonical.class.getName() + ".restoreFalse";
-		}
+  private static final Canonical restoreFalse = new Canonical() {
+    @Override
+    public String toString() {
+      return Canonical.class.getName() + ".restoreFalse";
+    }
 
-		@Override
-		public void close() {
-			canonicalUrls.remove();
-		}
-	};
+    @Override
+    public void close() {
+      canonicalUrls.remove();
+    }
+  };
 
-	private static final Canonical restoreTrue = new Canonical() {
-		@Override
-		public String toString() {
-			return Canonical.class.getName() + ".restoreTrue";
-		}
+  private static final Canonical restoreTrue = new Canonical() {
+    @Override
+    public String toString() {
+      return Canonical.class.getName() + ".restoreTrue";
+    }
 
-		@Override
-		public void close() {
-			canonicalUrls.set(true);
-		}
-	};
+    @Override
+    public void close() {
+      canonicalUrls.set(true);
+    }
+  };
 
-	/**
-	 * Sets the current state of the canonical {@link ThreadLocal} to the given value.
-	 * This should be used in a try-with-resources block to ensure the previous
-	 * value is restored.
-	 */
-	public static Canonical set(boolean value) {
-		boolean previous = canonicalUrls.get();
-		if(previous != value) canonicalUrls.set(value);
-		return previous ? restoreTrue : restoreFalse;
-	}
+  /**
+   * Sets the current state of the canonical {@link ThreadLocal} to the given value.
+   * This should be used in a try-with-resources block to ensure the previous
+   * value is restored.
+   */
+  public static Canonical set(boolean value) {
+    boolean previous = canonicalUrls.get();
+    if (previous != value) {
+      canonicalUrls.set(value);
+    }
+    return previous ? restoreTrue : restoreFalse;
+  }
 
-	/**
-	 * Sets the current state of the canonical {@link ThreadLocal} to {@code true}.
-	 * This should be used in a try-with-resources block to ensure the previous
-	 * value is restored.
-	 */
-	public static Canonical set() {
-		return set(true);
-	}
+  /**
+   * Sets the current state of the canonical {@link ThreadLocal} to {@code true}.
+   * This should be used in a try-with-resources block to ensure the previous
+   * value is restored.
+   */
+  public static Canonical set() {
+    return set(true);
+  }
 
-	/**
-	 * Sets the current state of the canonical {@link ThreadLocal} to {@code false}.
-	 * This should be used in a try-with-resources block to ensure the previous
-	 * value is restored.
-	 */
-	public static Canonical clear() {
-		return set(false);
-	}
+  /**
+   * Sets the current state of the canonical {@link ThreadLocal} to {@code false}.
+   * This should be used in a try-with-resources block to ensure the previous
+   * value is restored.
+   */
+  public static Canonical clear() {
+    return set(false);
+  }
 
-	/**
-	 * Sets the state of the canonical {@link ThreadLocal} and invokes
-	 * {@link HttpServletResponse#encodeURL(java.lang.String)}.
-	 */
-	@SuppressWarnings("try")
-	public static String encodeCanonicalURL(HttpServletResponse response, String url) {
-		try (Canonical c = set()) {
-			return response.encodeURL(url);
-		}
-	}
+  /**
+   * Sets the state of the canonical {@link ThreadLocal} and invokes
+   * {@link HttpServletResponse#encodeURL(java.lang.String)}.
+   */
+  @SuppressWarnings("try")
+  public static String encodeCanonicalURL(HttpServletResponse response, String url) {
+    try (Canonical c = set()) {
+      return response.encodeURL(url);
+    }
+  }
 
-	/**
-	 * Sets the state of the canonical {@link ThreadLocal} and invokes
-	 * {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}.
-	 */
-	@SuppressWarnings("try")
-	public static String encodeCanonicalRedirectURL(HttpServletResponse response, String url) {
-		try (Canonical c = set()) {
-			return response.encodeRedirectURL(url);
-		}
-	}
+  /**
+   * Sets the state of the canonical {@link ThreadLocal} and invokes
+   * {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}.
+   */
+  @SuppressWarnings("try")
+  public static String encodeCanonicalRedirectURL(HttpServletResponse response, String url) {
+    try (Canonical c = set()) {
+      return response.encodeRedirectURL(url);
+    }
+  }
 }

@@ -38,10 +38,10 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspConsumerE<T, Ex extends Throwable> {
 
-	void accept(T t) throws JspException, IOException, Ex;
+  void accept(T t) throws JspException, IOException, Ex;
 
-	default JspConsumerE<T, Ex> andThen(JspConsumerE<? super T, ? extends Ex> after) throws JspException, IOException, Ex {
-		Objects.requireNonNull(after);
-		return t -> { accept(t); after.accept(t); };
-	}
+  default JspConsumerE<T, Ex> andThen(JspConsumerE<? super T, ? extends Ex> after) throws JspException, IOException, Ex {
+    Objects.requireNonNull(after);
+    return t -> { accept(t); after.accept(t); };
+  }
 }

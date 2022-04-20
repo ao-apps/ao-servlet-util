@@ -35,6 +35,6 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletConsumer<T> extends ServletConsumerE<T, RuntimeException> {
 
-	@Override
-	void accept(T t) throws ServletException, IOException;
+  @Override
+  void accept(T t) throws ServletException, IOException;
 }

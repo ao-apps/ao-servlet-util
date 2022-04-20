@@ -37,21 +37,25 @@ import javax.servlet.ServletContext;
  */
 public final class PropertiesUtils {
 
-	/** Make no instances. */
-	private PropertiesUtils() {throw new AssertionError();}
+  /** Make no instances. */
+  private PropertiesUtils() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * Loads properties from a web resource.
-	 */
-	public static Properties loadFromResource(ServletContext servletContext, String resource) throws IOException {
-		Properties props = new Properties();
-		InputStream in = servletContext.getResourceAsStream(resource);
-		if(in==null) throw new LocalizedIOException(RESOURCES, "PropertiesUtils.readProperties.resourceNotFound", resource);
-		try {
-			props.load(in);
-		} finally {
-			in.close();
-		}
-		return props;
-	}
+  /**
+   * Loads properties from a web resource.
+   */
+  public static Properties loadFromResource(ServletContext servletContext, String resource) throws IOException {
+    Properties props = new Properties();
+    InputStream in = servletContext.getResourceAsStream(resource);
+    if (in == null) {
+      throw new LocalizedIOException(RESOURCES, "PropertiesUtils.readProperties.resourceNotFound", resource);
+    }
+    try {
+      props.load(in);
+    } finally {
+      in.close();
+    }
+    return props;
+  }
 }

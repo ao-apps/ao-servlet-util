@@ -35,6 +35,6 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspSupplier<T> extends JspSupplierE<T, RuntimeException> {
 
-	@Override
-	T get() throws JspException, IOException;
+  @Override
+  T get() throws JspException, IOException;
 }

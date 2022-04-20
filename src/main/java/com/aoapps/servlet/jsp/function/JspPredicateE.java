@@ -38,37 +38,37 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspPredicateE<T, Ex extends Throwable> {
 
-	boolean test(T t) throws JspException, IOException, Ex;
+  boolean test(T t) throws JspException, IOException, Ex;
 
-	default JspPredicateE<T, Ex> and(JspPredicateE<? super T, ? extends Ex> other) throws JspException, IOException, Ex {
-		Objects.requireNonNull(other);
-		return t -> test(t) && other.test(t);
-	}
+  default JspPredicateE<T, Ex> and(JspPredicateE<? super T, ? extends Ex> other) throws JspException, IOException, Ex {
+    Objects.requireNonNull(other);
+    return t -> test(t) && other.test(t);
+  }
 
-	default JspPredicateE<T, Ex> negate() throws JspException, IOException, Ex {
-		return t -> !test(t);
-	}
+  default JspPredicateE<T, Ex> negate() throws JspException, IOException, Ex {
+    return t -> !test(t);
+  }
 
-	default JspPredicateE<T, Ex> or(JspPredicateE<? super T, ? extends Ex> other) throws JspException, IOException, Ex {
-		Objects.requireNonNull(other);
-		return t -> test(t) || other.test(t);
-	}
+  default JspPredicateE<T, Ex> or(JspPredicateE<? super T, ? extends Ex> other) throws JspException, IOException, Ex {
+    Objects.requireNonNull(other);
+    return t -> test(t) || other.test(t);
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	static <T, Ex extends Throwable> JspPredicateE<T, Ex> isEqual(Object targetRef) {
-		return (null == targetRef)
-			? Objects::isNull
-			: targetRef::equals;
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  static <T, Ex extends Throwable> JspPredicateE<T, Ex> isEqual(Object targetRef) {
+    return (null == targetRef)
+      ? Objects::isNull
+      : targetRef::equals;
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	@SuppressWarnings("unchecked")
-	static <T, Ex extends Throwable> JspPredicateE<T, Ex> not(JspPredicateE<? super T, ? extends Ex> target) throws JspException, IOException, Ex {
-		Objects.requireNonNull(target);
-		return (JspPredicateE<T, Ex>)target.negate();
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  @SuppressWarnings("unchecked")
+  static <T, Ex extends Throwable> JspPredicateE<T, Ex> not(JspPredicateE<? super T, ? extends Ex> target) throws JspException, IOException, Ex {
+    Objects.requireNonNull(target);
+    return (JspPredicateE<T, Ex>)target.negate();
+  }
 }

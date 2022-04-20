@@ -37,5 +37,5 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspSupplierE<T, Ex extends Throwable> {
 
-	T get() throws JspException, IOException, Ex;
+  T get() throws JspException, IOException, Ex;
 }

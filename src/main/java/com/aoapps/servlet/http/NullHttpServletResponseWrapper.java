@@ -36,17 +36,17 @@ import javax.servlet.http.HttpServletResponseWrapper;
  */
 public class NullHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
-	public NullHttpServletResponseWrapper(HttpServletResponse response) {
-		super(response);
-	}
+  public NullHttpServletResponseWrapper(HttpServletResponse response) {
+    super(response);
+  }
 
-	@Override
-	public NullPrintWriter getWriter() {
-		return NullPrintWriter.getInstance();
-	}
+  @Override
+  public NullPrintWriter getWriter() {
+    return NullPrintWriter.getInstance();
+  }
 
-	@Override
-	public NullServletOutputStream getOutputStream() {
-		return NullServletOutputStream.getInstance();
-	}
+  @Override
+  public NullServletOutputStream getOutputStream() {
+    return NullServletOutputStream.getInstance();
+  }
 }

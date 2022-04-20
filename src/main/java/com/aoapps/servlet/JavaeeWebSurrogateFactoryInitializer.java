@@ -33,50 +33,50 @@ import com.aoapps.lang.Throwables;
  */
 public class JavaeeWebSurrogateFactoryInitializer implements ThrowableSurrogateFactoryInitializer {
 
-	@Override
-	@SuppressWarnings("deprecation")
-	public void run() {
-		// From https://docs.oracle.com/javaee/6/api/overview-tree.html
-		// JavaEE 7: Review
+  @Override
+  @SuppressWarnings("deprecation")
+  public void run() {
+    // From https://docs.oracle.com/javaee/6/api/overview-tree.html
+    // JavaEE 7: Review
 
-		// javax:javaee-web-api:6.0
-		// Would add a dependency, not doing
+    // javax:javaee-web-api:6.0
+    // Would add a dependency, not doing
 
-		// javax.el:javax.el-api:2.2.5
-		// Added by ao-encoding-taglib project
+    // javax.el:javax.el-api:2.2.5
+    // Added by ao-encoding-taglib project
 
-		// javax.servlet:javax.servlet-api:3.0.1
-		Throwables.registerSurrogateFactory(javax.servlet.ServletException.class, (template, cause) ->
-			new javax.servlet.ServletException(template.getMessage(), cause)
-		);
-		Throwables.registerSurrogateFactory(javax.servlet.UnavailableException.class, (template, cause) -> {
-			javax.servlet.UnavailableException newEx = new javax.servlet.UnavailableException(template.getMessage(), template.getUnavailableSeconds());
-			newEx.initCause(cause);
-			return newEx;
-		});
+    // javax.servlet:javax.servlet-api:3.0.1
+    Throwables.registerSurrogateFactory(javax.servlet.ServletException.class, (template, cause) ->
+      new javax.servlet.ServletException(template.getMessage(), cause)
+    );
+    Throwables.registerSurrogateFactory(javax.servlet.UnavailableException.class, (template, cause) -> {
+      javax.servlet.UnavailableException newEx = new javax.servlet.UnavailableException(template.getMessage(), template.getUnavailableSeconds());
+      newEx.initCause(cause);
+      return newEx;
+    });
 
-		// javax.servlet.jsp:javax.servlet.jsp-api:2.2.1
-		Throwables.registerSurrogateFactory(javax.servlet.jsp.JspException.class, (template, cause) ->
-			new javax.servlet.jsp.JspException(template.getMessage(), cause)
-		);
-		Throwables.registerSurrogateFactory(javax.servlet.jsp.JspTagException.class, (template, cause) ->
-			new javax.servlet.jsp.JspTagException(template.getMessage(), cause)
-		);
-		Throwables.registerSurrogateFactory(javax.servlet.jsp.SkipPageException.class, (template, cause) ->
-			new javax.servlet.jsp.SkipPageException(template.getMessage(), cause)
-		);
-		Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELException.class, (template, cause) ->
-			new javax.servlet.jsp.el.ELException(template.getMessage(), cause));
-		Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELParseException.class, (template, cause) -> {
-			javax.servlet.jsp.el.ELParseException newEx = new javax.servlet.jsp.el.ELParseException(template.getMessage());
-			newEx.initCause(cause);
-			return newEx;
-		});
+    // javax.servlet.jsp:javax.servlet.jsp-api:2.2.1
+    Throwables.registerSurrogateFactory(javax.servlet.jsp.JspException.class, (template, cause) ->
+      new javax.servlet.jsp.JspException(template.getMessage(), cause)
+    );
+    Throwables.registerSurrogateFactory(javax.servlet.jsp.JspTagException.class, (template, cause) ->
+      new javax.servlet.jsp.JspTagException(template.getMessage(), cause)
+    );
+    Throwables.registerSurrogateFactory(javax.servlet.jsp.SkipPageException.class, (template, cause) ->
+      new javax.servlet.jsp.SkipPageException(template.getMessage(), cause)
+    );
+    Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELException.class, (template, cause) ->
+      new javax.servlet.jsp.el.ELException(template.getMessage(), cause));
+    Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELParseException.class, (template, cause) -> {
+      javax.servlet.jsp.el.ELParseException newEx = new javax.servlet.jsp.el.ELParseException(template.getMessage());
+      newEx.initCause(cause);
+      return newEx;
+    });
 
-		// javax.servlet:jstl:1.2
-		// Would add a dependency, not doing
+    // javax.servlet:jstl:1.2
+    // Would add a dependency, not doing
 
-		// org.glassfish.web:jstl-impl:1.2
-		// Would add a dependency, not doing
-	}
+    // org.glassfish.web:jstl-impl:1.2
+    // Would add a dependency, not doing
+  }
 }

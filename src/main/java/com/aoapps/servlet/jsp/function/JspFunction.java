@@ -35,10 +35,10 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspFunction<T, R> extends JspFunctionE<T, R, RuntimeException> {
 
-	@Override
-	R apply(T t) throws JspException, IOException;
+  @Override
+  R apply(T t) throws JspException, IOException;
 
-	static <T> JspFunction<T, T> identity() {
-		return t -> t;
-	}
+  static <T> JspFunction<T, T> identity() {
+    return t -> t;
+  }
 }

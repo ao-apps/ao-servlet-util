@@ -45,58 +45,58 @@ import java.util.logging.Logger;
  */
 public class BodyContentImplCoercionOptimizerInitializer implements CoercionOptimizerInitializer {
 
-	private static final Logger logger = Logger.getLogger(BodyContentImplCoercionOptimizerInitializer.class.getName());
+  private static final Logger logger = Logger.getLogger(BodyContentImplCoercionOptimizerInitializer.class.getName());
 
-	private static final String BODY_CONTENT_IMPL_CLASS = "org.apache.jasper.runtime.BodyContentImpl";
-	private static final String WRITER_FIELD = "writer";
+  private static final String BODY_CONTENT_IMPL_CLASS = "org.apache.jasper.runtime.BodyContentImpl";
+  private static final String WRITER_FIELD = "writer";
 
-	@Override
-	public void run() {
-		try {
-			Class<?> clazz = Class.forName(BODY_CONTENT_IMPL_CLASS);
-			// System.err.println("DEBUG: clazz=" + clazz);
-			Field field = clazz.getDeclaredField(WRITER_FIELD);
-			// System.err.println("DEBUG: field=" + field);
-			field.setAccessible(true);
-			Coercion.registerOptimizer((Writer out, Encoder encoder) -> {
-				Class<? extends Writer> outClass = out.getClass();
-				if(outClass == clazz) {
-					try {
-						Writer writer = (Writer)field.get(out);
-						// When the writer field is non-null, BodyContent is pass-through and we may safely directly access the wrapped writer.
-						if(writer != null) {
-							// Will keep looping to unwrap the wrapped out
-							if(logger.isLoggable(Level.FINER)) {
-								logger.finer("Successfully unwrapped instance of " + writer.getClass().getName());
-							}
-							return writer;
-						} else {
-							// BodyContent is buffering, must use directly
-							if(logger.isLoggable(Level.FINER)) {
-								logger.finer(clazz.getClass().getName() + " is buffering, nothing to unwrap");
-							}
-							return out;
-						}
-					} catch(IllegalAccessException e) {
-						throw new AssertionError("The field has already been set accessible", e);
-					}
-				} else {
-					// No unwrapping
-					return out;
-				}
-			});
-		} catch(ThreadDeath td) {
-			throw td;
-		} catch(Error | RuntimeException | ClassNotFoundException | NoSuchFieldException t) {
-			if(logger.isLoggable(Level.INFO)) {
-				logger.log(
-					Level.INFO,
-					"Cannot get direct access to the " + BODY_CONTENT_IMPL_CLASS + "." + WRITER_FIELD + " field.  "
-					+ "Unwrapping of BodyContent disabled.  "
-					+ "The system will behave correctly, but some optimizations are disabled.",
-					t
-				);
-			}
-		}
-	}
+  @Override
+  public void run() {
+    try {
+      Class<?> clazz = Class.forName(BODY_CONTENT_IMPL_CLASS);
+      // System.err.println("DEBUG: clazz=" + clazz);
+      Field field = clazz.getDeclaredField(WRITER_FIELD);
+      // System.err.println("DEBUG: field=" + field);
+      field.setAccessible(true);
+      Coercion.registerOptimizer((Writer out, Encoder encoder) -> {
+        Class<? extends Writer> outClass = out.getClass();
+        if (outClass == clazz) {
+          try {
+            Writer writer = (Writer)field.get(out);
+            // When the writer field is non-null, BodyContent is pass-through and we may safely directly access the wrapped writer.
+            if (writer != null) {
+              // Will keep looping to unwrap the wrapped out
+              if (logger.isLoggable(Level.FINER)) {
+                logger.finer("Successfully unwrapped instance of " + writer.getClass().getName());
+              }
+              return writer;
+            } else {
+              // BodyContent is buffering, must use directly
+              if (logger.isLoggable(Level.FINER)) {
+                logger.finer(clazz.getClass().getName() + " is buffering, nothing to unwrap");
+              }
+              return out;
+            }
+          } catch (IllegalAccessException e) {
+            throw new AssertionError("The field has already been set accessible", e);
+          }
+        } else {
+          // No unwrapping
+          return out;
+        }
+      });
+    } catch (ThreadDeath td) {
+      throw td;
+    } catch (Error | RuntimeException | ClassNotFoundException | NoSuchFieldException t) {
+      if (logger.isLoggable(Level.INFO)) {
+        logger.log(
+          Level.INFO,
+          "Cannot get direct access to the " + BODY_CONTENT_IMPL_CLASS + "." + WRITER_FIELD + " field.  "
+          + "Unwrapping of BodyContent disabled.  "
+          + "The system will behave correctly, but some optimizations are disabled.",
+          t
+        );
+      }
+    }
+  }
 }

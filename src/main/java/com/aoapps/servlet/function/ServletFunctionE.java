@@ -38,22 +38,22 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletFunctionE<T, R, Ex extends Throwable> {
 
-	R apply(T t) throws ServletException, IOException, Ex;
+  R apply(T t) throws ServletException, IOException, Ex;
 
-	default <V> ServletFunctionE<V, R, Ex> compose(ServletFunctionE<? super V, ? extends T, ? extends Ex> before) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(before);
-		return v -> apply(before.apply(v));
-	}
+  default <V> ServletFunctionE<V, R, Ex> compose(ServletFunctionE<? super V, ? extends T, ? extends Ex> before) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(before);
+    return v -> apply(before.apply(v));
+  }
 
-	default <V> ServletFunctionE<T, V, Ex> andThen(ServletFunctionE<? super R, ? extends V, ? extends Ex> after) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(after);
-		return t -> after.apply(apply(t));
-	}
+  default <V> ServletFunctionE<T, V, Ex> andThen(ServletFunctionE<? super R, ? extends V, ? extends Ex> after) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(after);
+    return t -> after.apply(apply(t));
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	static <T, Ex extends Throwable> ServletFunctionE<T, T, Ex> identity() {
-		return t -> t;
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  static <T, Ex extends Throwable> ServletFunctionE<T, T, Ex> identity() {
+    return t -> t;
+  }
 }

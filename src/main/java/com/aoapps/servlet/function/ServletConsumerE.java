@@ -38,10 +38,10 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletConsumerE<T, Ex extends Throwable> {
 
-	void accept(T t) throws ServletException, IOException, Ex;
+  void accept(T t) throws ServletException, IOException, Ex;
 
-	default ServletConsumerE<T, Ex> andThen(ServletConsumerE<? super T, ? extends Ex> after) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(after);
-		return t -> { accept(t); after.accept(t); };
-	}
+  default ServletConsumerE<T, Ex> andThen(ServletConsumerE<? super T, ? extends Ex> after) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(after);
+    return t -> { accept(t); after.accept(t); };
+  }
 }

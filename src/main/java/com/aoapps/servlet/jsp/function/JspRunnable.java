@@ -34,6 +34,6 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspRunnable extends JspRunnableE<RuntimeException> {
 
-	@Override
-	void run() throws JspException, IOException;
+  @Override
+  void run() throws JspException, IOException;
 }

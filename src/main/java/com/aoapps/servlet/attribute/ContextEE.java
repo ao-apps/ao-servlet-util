@@ -45,203 +45,203 @@ import javax.servlet.jsp.PageContext;
  */
 public abstract class ContextEE<C> extends com.aoapps.lang.attribute.Context<C> {
 
-	private ContextEE() {
-		// Do nothing
-	}
+  private ContextEE() {
+    // Do nothing
+  }
 
-	/**
-	 * Gets the scope for this context.
-	 */
-	@Override
-	public abstract ScopeEE<C> getScope();
+  /**
+   * Gets the scope for this context.
+   */
+  @Override
+  public abstract ScopeEE<C> getScope();
 
-	/**
-	 * {@link AttributeEE}: Uses the given name within this scope and context.
-	 */
-	@Override
-	public abstract <T> AttributeEE<C, T> attribute(String name);
+  /**
+   * {@link AttributeEE}: Uses the given name within this scope and context.
+   */
+  @Override
+  public abstract <T> AttributeEE<C, T> attribute(String name);
 
-	/**
-	 * {@link AttributeEE}: Has {@linkplain JspContext#getAttribute(java.lang.String) page scope and context},
-	 * still needs name.
-	 */
-	public static final class Page extends ContextEE<JspContext> {
+  /**
+   * {@link AttributeEE}: Has {@linkplain JspContext#getAttribute(java.lang.String) page scope and context},
+   * still needs name.
+   */
+  public static final class Page extends ContextEE<JspContext> {
 
-		private final JspContext jspContext;
+    private final JspContext jspContext;
 
-		Page(JspContext jspContext) {
-			this.jspContext = jspContext;
-		}
+    Page(JspContext jspContext) {
+      this.jspContext = jspContext;
+    }
 
-		/**
-		 * Gets the {@linkplain JspContext#getAttribute(java.lang.String) page scope}.
-		 */
-		@Override
-		public ScopeEE.Page getScope() {
-			return ScopeEE.PAGE;
-		}
+    /**
+     * Gets the {@linkplain JspContext#getAttribute(java.lang.String) page scope}.
+     */
+    @Override
+    public ScopeEE.Page getScope() {
+      return ScopeEE.PAGE;
+    }
 
-		/**
-		 * {@link AttributeEE}: Uses the given name within this {@linkplain JspContext#getAttribute(java.lang.String) page scope and context}.
-		 */
-		@Override
-		public <T> AttributeEE.Page<T> attribute(String name) {
-			return new AttributeEE.Page<>(jspContext, name);
-		}
+    /**
+     * {@link AttributeEE}: Uses the given name within this {@linkplain JspContext#getAttribute(java.lang.String) page scope and context}.
+     */
+    @Override
+    public <T> AttributeEE.Page<T> attribute(String name) {
+      return new AttributeEE.Page<>(jspContext, name);
+    }
 
-		/**
-		 * {@linkplain JspContext#getAttributeNamesInScope(int) Gets the attribute names}
-		 * within this {@linkplain JspContext#getAttribute(java.lang.String) page scope and context}.
-		 */
-		@Override
-		public Enumeration<String> getAttributeNames() {
-			return jspContext.getAttributeNamesInScope(PageContext.PAGE_SCOPE);
-		}
-	}
+    /**
+     * {@linkplain JspContext#getAttributeNamesInScope(int) Gets the attribute names}
+     * within this {@linkplain JspContext#getAttribute(java.lang.String) page scope and context}.
+     */
+    @Override
+    public Enumeration<String> getAttributeNames() {
+      return jspContext.getAttributeNamesInScope(PageContext.PAGE_SCOPE);
+    }
+  }
 
-	/**
-	 * {@link AttributeEE}: Uses the given {@linkplain JspContext#getAttribute(java.lang.String) page scope and context},
-	 * still needs name.
-	 */
-	public static Page page(JspContext jspContext) {
-		return new Page(jspContext);
-	}
+  /**
+   * {@link AttributeEE}: Uses the given {@linkplain JspContext#getAttribute(java.lang.String) page scope and context},
+   * still needs name.
+   */
+  public static Page page(JspContext jspContext) {
+    return new Page(jspContext);
+  }
 
-	/**
-	 * {@link AttributeEE}: Has {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context},
-	 * still needs name.
-	 */
-	public static final class Request extends ContextEE<ServletRequest> {
+  /**
+   * {@link AttributeEE}: Has {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context},
+   * still needs name.
+   */
+  public static final class Request extends ContextEE<ServletRequest> {
 
-		private final ServletRequest request;
+    private final ServletRequest request;
 
-		Request(ServletRequest request) {
-			this.request = request;
-		}
+    Request(ServletRequest request) {
+      this.request = request;
+    }
 
-		/**
-		 * Gets the {@linkplain ServletRequest#getAttribute(java.lang.String) request scope}.
-		 */
-		@Override
-		public ScopeEE.Request getScope() {
-			return ScopeEE.REQUEST;
-		}
+    /**
+     * Gets the {@linkplain ServletRequest#getAttribute(java.lang.String) request scope}.
+     */
+    @Override
+    public ScopeEE.Request getScope() {
+      return ScopeEE.REQUEST;
+    }
 
-		/**
-		 * {@link AttributeEE}: Uses the given name within this {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context}.
-		 */
-		@Override
-		public <T> AttributeEE.Request<T> attribute(String name) {
-			return new AttributeEE.Request<>(request, name);
-		}
+    /**
+     * {@link AttributeEE}: Uses the given name within this {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context}.
+     */
+    @Override
+    public <T> AttributeEE.Request<T> attribute(String name) {
+      return new AttributeEE.Request<>(request, name);
+    }
 
-		/**
-		 * {@linkplain ServletRequest#getAttributeNames() Gets the attribute names}
-		 * within this {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context}.
-		 */
-		@Override
-		public Enumeration<String> getAttributeNames() {
-			return request.getAttributeNames();
-		}
-	}
+    /**
+     * {@linkplain ServletRequest#getAttributeNames() Gets the attribute names}
+     * within this {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context}.
+     */
+    @Override
+    public Enumeration<String> getAttributeNames() {
+      return request.getAttributeNames();
+    }
+  }
 
-	/**
-	 * {@link AttributeEE}: Uses the given {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context},
-	 * still needs name.
-	 */
-	public static Request request(ServletRequest request) {
-		return new Request(request);
-	}
+  /**
+   * {@link AttributeEE}: Uses the given {@linkplain ServletRequest#getAttribute(java.lang.String) request scope and context},
+   * still needs name.
+   */
+  public static Request request(ServletRequest request) {
+    return new Request(request);
+  }
 
-	/**
-	 * {@link AttributeEE}: Has {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context},
-	 * still needs name.
-	 */
-	public static final class Session extends ContextEE<HttpSession> {
+  /**
+   * {@link AttributeEE}: Has {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context},
+   * still needs name.
+   */
+  public static final class Session extends ContextEE<HttpSession> {
 
-		private final HttpSession session;
+    private final HttpSession session;
 
-		Session(HttpSession session) {
-			this.session = session;
-		}
+    Session(HttpSession session) {
+      this.session = session;
+    }
 
-		/**
-		 * Gets the {@linkplain HttpSession#getAttribute(java.lang.String) session scope}.
-		 */
-		@Override
-		public ScopeEE.Session getScope() {
-			return ScopeEE.SESSION;
-		}
+    /**
+     * Gets the {@linkplain HttpSession#getAttribute(java.lang.String) session scope}.
+     */
+    @Override
+    public ScopeEE.Session getScope() {
+      return ScopeEE.SESSION;
+    }
 
-		/**
-		 * {@link AttributeEE}: Uses the given name within this {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context}.
-		 */
-		@Override
-		public <T> AttributeEE.Session<T> attribute(String name) {
-			return new AttributeEE.Session<>(session, name);
-		}
+    /**
+     * {@link AttributeEE}: Uses the given name within this {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context}.
+     */
+    @Override
+    public <T> AttributeEE.Session<T> attribute(String name) {
+      return new AttributeEE.Session<>(session, name);
+    }
 
-		/**
-		 * {@linkplain HttpSession#getAttributeNames() Gets the attribute names}
-		 * within this {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context}.
-		 */
-		@Override
-		public Enumeration<String> getAttributeNames() {
-			return (session == null) ? Collections.emptyEnumeration() : session.getAttributeNames();
-		}
-	}
+    /**
+     * {@linkplain HttpSession#getAttributeNames() Gets the attribute names}
+     * within this {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context}.
+     */
+    @Override
+    public Enumeration<String> getAttributeNames() {
+      return (session == null) ? Collections.emptyEnumeration() : session.getAttributeNames();
+    }
+  }
 
-	/**
-	 * {@link AttributeEE}: Uses the given {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context},
-	 * still needs name.
-	 */
-	public static Session session(HttpSession session) {
-		return new Session(session);
-	}
+  /**
+   * {@link AttributeEE}: Uses the given {@linkplain HttpSession#getAttribute(java.lang.String) session scope and context},
+   * still needs name.
+   */
+  public static Session session(HttpSession session) {
+    return new Session(session);
+  }
 
-	/**
-	 * {@link AttributeEE}: Has {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context},
-	 * still needs name.
-	 */
-	public static final class Application extends ContextEE<ServletContext> {
+  /**
+   * {@link AttributeEE}: Has {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context},
+   * still needs name.
+   */
+  public static final class Application extends ContextEE<ServletContext> {
 
-		private final ServletContext servletContext;
+    private final ServletContext servletContext;
 
-		Application(ServletContext servletContext) {
-			this.servletContext = servletContext;
-		}
+    Application(ServletContext servletContext) {
+      this.servletContext = servletContext;
+    }
 
-		/**
-		 * Gets the {@linkplain ServletContext#getAttribute(java.lang.String) application scope}.
-		 */
-		@Override
-		public ScopeEE.Application getScope() {
-			return ScopeEE.APPLICATION;
-		}
+    /**
+     * Gets the {@linkplain ServletContext#getAttribute(java.lang.String) application scope}.
+     */
+    @Override
+    public ScopeEE.Application getScope() {
+      return ScopeEE.APPLICATION;
+    }
 
-		/**
-		 * {@link AttributeEE}: Uses the given name within this {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context}.
-		 */
-		@Override
-		public <T> AttributeEE.Application<T> attribute(String name) {
-			return new AttributeEE.Application<>(servletContext, name);
-		}
+    /**
+     * {@link AttributeEE}: Uses the given name within this {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context}.
+     */
+    @Override
+    public <T> AttributeEE.Application<T> attribute(String name) {
+      return new AttributeEE.Application<>(servletContext, name);
+    }
 
-		/**
-		 * {@linkplain ServletContext#getAttributeNames() Gets the attribute names}
-		 * within this {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context}.
-		 */
-		@Override
-		public Enumeration<String> getAttributeNames() {
-			return servletContext.getAttributeNames();
-		}
-	}
+    /**
+     * {@linkplain ServletContext#getAttributeNames() Gets the attribute names}
+     * within this {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context}.
+     */
+    @Override
+    public Enumeration<String> getAttributeNames() {
+      return servletContext.getAttributeNames();
+    }
+  }
 
-	/**
-	 * {@link AttributeEE}: Uses the given {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context},
-	 * still needs name.
-	 */
-	public static Application application(ServletContext servletContext) {
-		return new Application(servletContext);
-	}
+  /**
+   * {@link AttributeEE}: Uses the given {@linkplain ServletContext#getAttribute(java.lang.String) application scope and context},
+   * still needs name.
+   */
+  public static Application application(ServletContext servletContext) {
+    return new Application(servletContext);
+  }
 }

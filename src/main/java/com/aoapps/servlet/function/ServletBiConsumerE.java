@@ -38,14 +38,14 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletBiConsumerE<T, U, Ex extends Throwable> {
 
-	void accept(T t, U u) throws ServletException, IOException, Ex;
+  void accept(T t, U u) throws ServletException, IOException, Ex;
 
-	default ServletBiConsumerE<T, U, Ex> andThen(ServletBiConsumerE<? super T, ? super U, ? extends Ex> after) throws ServletException, IOException, Ex {
-		Objects.requireNonNull(after);
+  default ServletBiConsumerE<T, U, Ex> andThen(ServletBiConsumerE<? super T, ? super U, ? extends Ex> after) throws ServletException, IOException, Ex {
+    Objects.requireNonNull(after);
 
-		return (l, r) -> {
-			accept(l, r);
-			after.accept(l, r);
-		};
-	}
+    return (l, r) -> {
+      accept(l, r);
+      after.accept(l, r);
+    };
+  }
 }

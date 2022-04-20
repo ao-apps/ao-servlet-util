@@ -35,6 +35,6 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletBiConsumer<T, U> extends ServletBiConsumerE<T, U, RuntimeException> {
 
-	@Override
-	void accept(T t, U u) throws ServletException, IOException;
+  @Override
+  void accept(T t, U u) throws ServletException, IOException;
 }

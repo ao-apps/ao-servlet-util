@@ -38,14 +38,14 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspBiConsumerE<T, U, Ex extends Throwable> {
 
-	void accept(T t, U u) throws JspException, IOException, Ex;
+  void accept(T t, U u) throws JspException, IOException, Ex;
 
-	default JspBiConsumerE<T, U, Ex> andThen(JspBiConsumerE<? super T, ? super U, ? extends Ex> after) throws JspException, IOException, Ex {
-		Objects.requireNonNull(after);
+  default JspBiConsumerE<T, U, Ex> andThen(JspBiConsumerE<? super T, ? super U, ? extends Ex> after) throws JspException, IOException, Ex {
+    Objects.requireNonNull(after);
 
-		return (l, r) -> {
-			accept(l, r);
-			after.accept(l, r);
-		};
-	}
+    return (l, r) -> {
+      accept(l, r);
+      after.accept(l, r);
+    };
+  }
 }

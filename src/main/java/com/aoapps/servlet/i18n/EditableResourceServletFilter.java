@@ -48,77 +48,77 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class EditableResourceServletFilter implements Filter {
 
-	private static final ScopeEE.Request.Attribute<Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
-		ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
-//	private static final ScopeEE.Attribute<ServletRequest, Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
-//		ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
-//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").request();
-//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ServletRequest.class);
-//		AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ScopeEE.REQUEST);
+  private static final ScopeEE.Request.Attribute<Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
+    ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
+//  private static final ScopeEE.Attribute<ServletRequest, Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
+//    ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
+//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").request();
+//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ServletRequest.class);
+//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ScopeEE.REQUEST);
 
-	private String role;
+  private String role;
 
-	@Override
-	public void init(FilterConfig filterConfig) throws ServletException {
-		role = filterConfig.getInitParameter("role");
-	}
+  @Override
+  public void init(FilterConfig filterConfig) throws ServletException {
+    role = filterConfig.getInitParameter("role");
+  }
 
-	@Override
-	public void doFilter(
-		ServletRequest request,
-		ServletResponse response,
-		FilterChain chain
-	) throws IOException, ServletException {
-		// Makes sure only one locale filter is applied per request
-		AttributeEE.Request<Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
-//		AttributeEE<ServletRequest, Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
-		if(
-			filterEnabledAttribute.get() == null
-			&& (request instanceof HttpServletRequest)
-			&& (response instanceof HttpServletResponse)
-		) {
-			filterEnabledAttribute.set(true);
-			try {
-				HttpServletRequest httpRequest = (HttpServletRequest)request;
-				HttpServletResponse httpResponse = (HttpServletResponse)response;
-				if("*".equals(role) || httpRequest.isUserInRole(role)) {
-					try {
-						// Check for cookie
-						boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, EditableResourceBundle.VISIBILITY_COOKIE_NAME));
-						// Setup request for editing
-						EditableResourceBundle.setThreadSettings(
-							new EditableResourceBundle.ThreadSettings(
-								httpResponse.encodeURL(
-									URIEncoder.encodeURI(
-										HttpServletUtil.getAbsoluteURL(
-											httpRequest,
-											"/SetResourceBundleValue"
-										)
-									)
-								),
-								EditableResourceBundle.ThreadSettings.Mode.MARKUP,
-								modifyAllText
-							)
-						);
-						chain.doFilter(request, response);
-					} finally {
-						EditableResourceBundle.resetThreadSettings();
-					}
-				} else {
-					// Not allowed to translate
-					EditableResourceBundle.resetThreadSettings();
-					chain.doFilter(request, response);
-				}
-			} finally {
-				filterEnabledAttribute.remove();
-			}
-		} else {
-			chain.doFilter(request, response);
-		}
-	}
+  @Override
+  public void doFilter(
+    ServletRequest request,
+    ServletResponse response,
+    FilterChain chain
+  ) throws IOException, ServletException {
+    // Makes sure only one locale filter is applied per request
+    AttributeEE.Request<Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
+//    AttributeEE<ServletRequest, Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
+    if (
+      filterEnabledAttribute.get() == null
+      && (request instanceof HttpServletRequest)
+      && (response instanceof HttpServletResponse)
+    ) {
+      filterEnabledAttribute.set(true);
+      try {
+        HttpServletRequest httpRequest = (HttpServletRequest)request;
+        HttpServletResponse httpResponse = (HttpServletResponse)response;
+        if ("*".equals(role) || httpRequest.isUserInRole(role)) {
+          try {
+            // Check for cookie
+            boolean modifyAllText = "visible".equals(Cookies.getCookie(httpRequest, EditableResourceBundle.VISIBILITY_COOKIE_NAME));
+            // Setup request for editing
+            EditableResourceBundle.setThreadSettings(
+              new EditableResourceBundle.ThreadSettings(
+                httpResponse.encodeURL(
+                  URIEncoder.encodeURI(
+                    HttpServletUtil.getAbsoluteURL(
+                      httpRequest,
+                      "/SetResourceBundleValue"
+                    )
+                  )
+                ),
+                EditableResourceBundle.ThreadSettings.Mode.MARKUP,
+                modifyAllText
+              )
+            );
+            chain.doFilter(request, response);
+          } finally {
+            EditableResourceBundle.resetThreadSettings();
+          }
+        } else {
+          // Not allowed to translate
+          EditableResourceBundle.resetThreadSettings();
+          chain.doFilter(request, response);
+        }
+      } finally {
+        filterEnabledAttribute.remove();
+      }
+    } else {
+      chain.doFilter(request, response);
+    }
+  }
 
-	@Override
-	public void destroy() {
-		// Do nothing
-	}
+  @Override
+  public void destroy() {
+    // Do nothing
+  }
 }

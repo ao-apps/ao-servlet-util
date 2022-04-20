@@ -42,57 +42,59 @@ import javax.servlet.ServletRequest;
  */
 public class ServletRequestParameters implements URIParameters {
 
-	private final ServletRequest request;
-	private String toString;
+  private final ServletRequest request;
+  private String toString;
 
-	public ServletRequestParameters(ServletRequest request) {
-		this.request = request;
-	}
+  public ServletRequestParameters(ServletRequest request) {
+    this.request = request;
+  }
 
-	/**
-	 * @see  URIParameters#toString()
-	 */
-	@Override
-	public String toString() {
-		String s = toString;
-		if(s == null) toString = s = Objects.toString(URIParametersUtils.toQueryString(this), "");
-		return s;
-	}
+  /**
+   * @see  URIParameters#toString()
+   */
+  @Override
+  public String toString() {
+    String s = toString;
+    if (s == null) {
+      toString = s = Objects.toString(URIParametersUtils.toQueryString(this), "");
+    }
+    return s;
+  }
 
-	@Override
-	public String getParameter(String name) {
-		return request.getParameter(name);
-	}
+  @Override
+  public String getParameter(String name) {
+    return request.getParameter(name);
+  }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public Iterator<String> getParameterNames() {
-		return new EnumerationIterator<>(request.getParameterNames());
-	}
+  @Override
+  @SuppressWarnings("unchecked")
+  public Iterator<String> getParameterNames() {
+    return new EnumerationIterator<>(request.getParameterNames());
+  }
 
-	@Override
-	public List<String> getParameterValues(String name) {
-		String[] values = request.getParameterValues(name);
-		return values==null ? null : Collections.unmodifiableList(Arrays.asList(values));
-	}
+  @Override
+  public List<String> getParameterValues(String name) {
+    String[] values = request.getParameterValues(name);
+    return values == null ? null : Collections.unmodifiableList(Arrays.asList(values));
+  }
 
-	@Override
-	public Map<String, List<String>> getParameterMap() {
-		@SuppressWarnings("unchecked") Map<String, String[]> requestMap = request.getParameterMap();
-		Map<String, List<String>> map = AoCollections.newLinkedHashMap(requestMap.size());
-		for(Map.Entry<String, String[]> entry : requestMap.entrySet()) {
-			map.put(
-				entry.getKey(),
-				Collections.unmodifiableList(
-					Arrays.asList(entry.getValue())
-				)
-			);
-		}
-		return Collections.unmodifiableMap(map);
-	}
+  @Override
+  public Map<String, List<String>> getParameterMap() {
+    @SuppressWarnings("unchecked") Map<String, String[]> requestMap = request.getParameterMap();
+    Map<String, List<String>> map = AoCollections.newLinkedHashMap(requestMap.size());
+    for (Map.Entry<String, String[]> entry : requestMap.entrySet()) {
+      map.put(
+        entry.getKey(),
+        Collections.unmodifiableList(
+          Arrays.asList(entry.getValue())
+        )
+      );
+    }
+    return Collections.unmodifiableMap(map);
+  }
 
-	@Override
-	public boolean isFastToString() {
-		return toString != null;
-	}
+  @Override
+  public boolean isFastToString() {
+    return toString != null;
+  }
 }

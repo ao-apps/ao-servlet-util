@@ -40,80 +40,86 @@ import javax.servlet.jsp.SkipPageException;
  */
 public final class ServletUtil {
 
-	/** Make no instances. */
-	private ServletUtil() {throw new AssertionError();}
+  /** Make no instances. */
+  private ServletUtil() {
+    throw new AssertionError();
+  }
 
-	/**
-	 * @see #SKIP_PAGE_EXCEPTION
-	 */
-	private static final class SingletonSkipPageException extends SkipPageException {
+  /**
+   * @see #SKIP_PAGE_EXCEPTION
+   */
+  private static final class SingletonSkipPageException extends SkipPageException {
 
-		private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-		private SingletonSkipPageException() {
-			super(
-				"The calling page must cease evaluation." + System.lineSeparator()
-				+ "Please note, this is a shared exception instance for efficiency." + System.lineSeparator()
-				+ "The stack trace has been reduced to the top-most stack element." + System.lineSeparator()
-				+ "Code that catches SkipPageException should be prepared to provide stack traces." + System.lineSeparator()
-				+ "Code that catches JspException might also benefit from handling SkipPageException."
-			);
-			// Hides any stack trace from original caller that first instantiated the object.
-			StackTraceElement[] stackTrace = getStackTrace();
-			if(stackTrace != null && stackTrace.length > 1) {
-				setStackTrace(
-					new StackTraceElement[] {
-						stackTrace[0]
-					}
-				);
-			}
-		}
+    private SingletonSkipPageException() {
+      super(
+        "The calling page must cease evaluation." + System.lineSeparator()
+        + "Please note, this is a shared exception instance for efficiency." + System.lineSeparator()
+        + "The stack trace has been reduced to the top-most stack element." + System.lineSeparator()
+        + "Code that catches SkipPageException should be prepared to provide stack traces." + System.lineSeparator()
+        + "Code that catches JspException might also benefit from handling SkipPageException."
+      );
+      // Hides any stack trace from original caller that first instantiated the object.
+      StackTraceElement[] stackTrace = getStackTrace();
+      if (stackTrace != null && stackTrace.length > 1) {
+        setStackTrace(
+          new StackTraceElement[] {
+            stackTrace[0]
+          }
+        );
+      }
+    }
 
-		private Object readResolve() {
-			return SKIP_PAGE_EXCEPTION;
-		}
-	}
+    private Object readResolve() {
+      return SKIP_PAGE_EXCEPTION;
+    }
+  }
 
-	/**
-	 * A shared {@link SkipPageException} instance to avoid exception creation overhead
-	 * for the routine operation of skipping pages.
-	 */
-	public static final SkipPageException SKIP_PAGE_EXCEPTION = new SingletonSkipPageException();
+  /**
+   * A shared {@link SkipPageException} instance to avoid exception creation overhead
+   * for the routine operation of skipping pages.
+   */
+  public static final SkipPageException SKIP_PAGE_EXCEPTION = new SingletonSkipPageException();
 
-	private static final Charset DEFAULT_REQUEST_ENCODING = StandardCharsets.ISO_8859_1;
+  private static final Charset DEFAULT_REQUEST_ENCODING = StandardCharsets.ISO_8859_1;
 
-	/**
-	 * Gets the request encoding or ISO-8859-1 when not available.
-	 */
-	public static String getRequestEncoding(ServletRequest request) {
-		String requestEncoding = request.getCharacterEncoding();
-		return requestEncoding != null ? requestEncoding : DEFAULT_REQUEST_ENCODING.name();
-	}
+  /**
+   * Gets the request encoding or ISO-8859-1 when not available.
+   */
+  public static String getRequestEncoding(ServletRequest request) {
+    String requestEncoding = request.getCharacterEncoding();
+    return requestEncoding != null ? requestEncoding : DEFAULT_REQUEST_ENCODING.name();
+  }
 
-	/**
-	 * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
-	 * throws an exception when unable to set the content type.
-	 *
-	 * @throws ServletException when unable to change the content type
-	 */
-	public static void setContentType(ServletResponse response, String contentType, String characterEncoding) throws ServletException {
-		response.setContentType(contentType);
-		response.setCharacterEncoding(characterEncoding);
-		String actualContentType = response.getContentType();
-		if(actualContentType != null) {
-			int semiPos = actualContentType.indexOf(';');
-			if(semiPos != -1) actualContentType = actualContentType.substring(0, semiPos);
-		}
-		if(!contentType.equals(actualContentType)) throw new ServletException("Unable to set content type, response already committed? expectedContentType = " + contentType + ", actualContentType = " + actualContentType);
-	}
+  /**
+   * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
+   * throws an exception when unable to set the content type.
+   *
+   * @throws ServletException when unable to change the content type
+   */
+  public static void setContentType(ServletResponse response, String contentType, String characterEncoding) throws ServletException {
+    response.setContentType(contentType);
+    response.setCharacterEncoding(characterEncoding);
+    String actualContentType = response.getContentType();
+    if (actualContentType != null) {
+      int semiPos = actualContentType.indexOf(';');
+      if (semiPos != -1) {
+        actualContentType = actualContentType.substring(0, semiPos);
+      }
+    }
+    if (!contentType.equals(actualContentType)) {
+      throw new ServletException("Unable to set content type, response already committed? expectedContentType = " + contentType + ", actualContentType = " + actualContentType);
+    }
+  }
 
-	/**
-	 * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
-	 * throws an exception when unable to set the content type.
-	 *
-	 * @throws ServletException when unable to change the content type
-	 */
-	public static void setContentType(ServletResponse response, String contentType, Charset characterEncoding) throws ServletException {
-		setContentType(response, contentType, characterEncoding.name());
-	}
+  /**
+   * Sets the response content type.  Unlike {@link ServletResponse#setContentType(java.lang.String)},
+   * throws an exception when unable to set the content type.
+   *
+   * @throws ServletException when unable to change the content type
+   */
+  public static void setContentType(ServletResponse response, String contentType, Charset characterEncoding) throws ServletException {
+    setContentType(response, contentType, characterEncoding.name());
+  }
 }

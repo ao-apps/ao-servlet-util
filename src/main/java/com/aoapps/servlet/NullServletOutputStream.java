@@ -32,129 +32,129 @@ import javax.servlet.WriteListener;
  */
 public final class NullServletOutputStream extends ServletOutputStream implements NoClose {
 
-	private static final NullServletOutputStream instance = new NullServletOutputStream();
+  private static final NullServletOutputStream instance = new NullServletOutputStream();
 
-	public static NullServletOutputStream getInstance() {
-		return instance;
-	}
+  public static NullServletOutputStream getInstance() {
+    return instance;
+  }
 
-	private NullServletOutputStream() {
-		// Do nothing
-	}
+  private NullServletOutputStream() {
+    // Do nothing
+  }
 
-	@Override
-	public void close() {
-		// Do nothing
-	}
+  @Override
+  public void close() {
+    // Do nothing
+  }
 
-	@Override
-	public void flush() {
-		// Do nothing
-	}
+  @Override
+  public void flush() {
+    // Do nothing
+  }
 
-	@Override
-	public void write(byte[] b) {
-		// Discard all
-	}
+  @Override
+  public void write(byte[] b) {
+    // Discard all
+  }
 
-	@Override
-	public void write(byte[] b, int off, int len) {
-		// Discard all
-	}
+  @Override
+  public void write(byte[] b, int off, int len) {
+    // Discard all
+  }
 
-	@Override
-	public void write(int b) {
-		// Discard all
-	}
+  @Override
+  public void write(int b) {
+    // Discard all
+  }
 
-	@Override
-	public void print(String s) {
-		// Discard all
-	}
+  @Override
+  public void print(String s) {
+    // Discard all
+  }
 
-	@Override
-	public void print(boolean b) {
-		// Discard all
-	}
+  @Override
+  public void print(boolean b) {
+    // Discard all
+  }
 
-	@Override
-	public void print(char c) {
-		// Discard all
-	}
+  @Override
+  public void print(char c) {
+    // Discard all
+  }
 
-	@Override
-	public void print(int i) {
-		// Discard all
-	}
+  @Override
+  public void print(int i) {
+    // Discard all
+  }
 
-	@Override
-	public void print(long l) {
-		// Discard all
-	}
+  @Override
+  public void print(long l) {
+    // Discard all
+  }
 
-	@Override
-	public void print(float f) {
-		// Discard all
-	}
+  @Override
+  public void print(float f) {
+    // Discard all
+  }
 
-	@Override
-	public void print(double d) {
-		// Discard all
-	}
+  @Override
+  public void print(double d) {
+    // Discard all
+  }
 
-	@Override
-	public void println() {
-		// Discard all
-	}
+  @Override
+  public void println() {
+    // Discard all
+  }
 
-	@Override
-	public void println(String s) {
-		// Discard all
-	}
+  @Override
+  public void println(String s) {
+    // Discard all
+  }
 
-	@Override
-	public void println(boolean b) {
-		// Discard all
-	}
+  @Override
+  public void println(boolean b) {
+    // Discard all
+  }
 
-	@Override
-	public void println(char c) {
-		// Discard all
-	}
+  @Override
+  public void println(char c) {
+    // Discard all
+  }
 
-	@Override
-	public void println(int i) {
-		// Discard all
-	}
+  @Override
+  public void println(int i) {
+    // Discard all
+  }
 
-	@Override
-	public void println(long l) {
-		// Discard all
-	}
+  @Override
+  public void println(long l) {
+    // Discard all
+  }
 
-	@Override
-	public void println(float f) {
-		// Discard all
-	}
+  @Override
+  public void println(float f) {
+    // Discard all
+  }
 
-	@Override
-	public void println(double d) {
-		// Discard all
-	}
+  @Override
+  public void println(double d) {
+    // Discard all
+  }
 
-	@Override
-	public boolean isReady() {
-		return true;
-	}
+  @Override
+  public boolean isReady() {
+    return true;
+  }
 
-	@Override
-	public void setWriteListener(WriteListener wl) {
-		throw new IllegalStateException("Implement when first required");
-		/*
-		try {
-			wl.onWritePossible();
-		} catch(IOException e) {
-			wl.onError(e);
-		}*/
-	}
+  @Override
+  public void setWriteListener(WriteListener wl) {
+    throw new IllegalStateException("Implement when first required");
+    /*
+    try {
+      wl.onWritePossible();
+    } catch (IOException e) {
+      wl.onError(e);
+    }*/
+  }
 }

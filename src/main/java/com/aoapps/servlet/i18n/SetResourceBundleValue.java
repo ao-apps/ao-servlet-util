@@ -41,49 +41,53 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class SetResourceBundleValue extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-	private String role;
+  private String role;
 
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		super.init(config);
-		role = config.getInitParameter("role");
-	}
+  @Override
+  public void init(ServletConfig config) throws ServletException {
+    super.init(config);
+    role = config.getInitParameter("role");
+  }
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Must have the required role
-		if("*".equals(role) || request.isUserInRole(role)) {
-			String baseName = request.getParameter("baseName");
-			Locale locale = Locales.parseLocale(request.getParameter("locale"));
-			String key = request.getParameter("key");
-			String value = request.getParameter("value");
-			//for(int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
-			boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
+  @Override
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // Must have the required role
+    if ("*".equals(role) || request.isUserInRole(role)) {
+      String baseName = request.getParameter("baseName");
+      Locale locale = Locales.parseLocale(request.getParameter("locale"));
+      String key = request.getParameter("key");
+      String value = request.getParameter("value");
+      //for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
+      boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
 
-			// Find the bundle
-			ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
-			if(!resourceBundle.getLocale().equals(locale)) throw new AssertionError("resourceBundle.locale!=locale");
-			if(!(resourceBundle instanceof ModifiableResourceBundle)) throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
-			if(value.isEmpty()) {
-				((ModifiableResourceBundle)resourceBundle).removeKey(key);
-			} else {
-				((ModifiableResourceBundle)resourceBundle).setString(
-					key,
-					EditableResourceBundle.EMPTY_DISPLAY.equals(value) ? "" : value,
-					modified
-				);
-			}
+      // Find the bundle
+      ResourceBundle resourceBundle = ResourceBundle.getBundle(baseName, locale);
+      if (!resourceBundle.getLocale().equals(locale)) {
+        throw new AssertionError("resourceBundle.locale != locale");
+      }
+      if (!(resourceBundle instanceof ModifiableResourceBundle)) {
+        throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
+      }
+      if (value.isEmpty()) {
+        ((ModifiableResourceBundle)resourceBundle).removeKey(key);
+      } else {
+        ((ModifiableResourceBundle)resourceBundle).setString(
+          key,
+          EditableResourceBundle.EMPTY_DISPLAY.equals(value) ? "" : value,
+          modified
+        );
+      }
 
-			// Set request parameters
-			PrintWriter out = response.getWriter();
-			out.println("<html>");
-			out.println("  <head><title>Value Successfully Set</title></head>");
-			out.println("  <body>Value Successfully Set</body>");
-			out.println("</html>");
-		} else {
-			response.sendError(HttpServletResponse.SC_FORBIDDEN);
-		}
-	}
+      // Set request parameters
+      PrintWriter out = response.getWriter();
+      out.println("<html>");
+      out.println("  <head><title>Value Successfully Set</title></head>");
+      out.println("  <body>Value Successfully Set</body>");
+      out.println("</html>");
+    } else {
+      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+    }
+  }
 }

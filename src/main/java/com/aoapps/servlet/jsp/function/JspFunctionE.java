@@ -38,22 +38,22 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspFunctionE<T, R, Ex extends Throwable> {
 
-	R apply(T t) throws JspException, IOException, Ex;
+  R apply(T t) throws JspException, IOException, Ex;
 
-	default <V> JspFunctionE<V, R, Ex> compose(JspFunctionE<? super V, ? extends T, ? extends Ex> before) throws JspException, IOException, Ex {
-		Objects.requireNonNull(before);
-		return v -> apply(before.apply(v));
-	}
+  default <V> JspFunctionE<V, R, Ex> compose(JspFunctionE<? super V, ? extends T, ? extends Ex> before) throws JspException, IOException, Ex {
+    Objects.requireNonNull(before);
+    return v -> apply(before.apply(v));
+  }
 
-	default <V> JspFunctionE<T, V, Ex> andThen(JspFunctionE<? super R, ? extends V, ? extends Ex> after) throws JspException, IOException, Ex {
-		Objects.requireNonNull(after);
-		return t -> after.apply(apply(t));
-	}
+  default <V> JspFunctionE<T, V, Ex> andThen(JspFunctionE<? super R, ? extends V, ? extends Ex> after) throws JspException, IOException, Ex {
+    Objects.requireNonNull(after);
+    return t -> after.apply(apply(t));
+  }
 
-	/**
-	 * @param  <Ex>  An arbitrary exception type that may be thrown
-	 */
-	static <T, Ex extends Throwable> JspFunctionE<T, T, Ex> identity() {
-		return t -> t;
-	}
+  /**
+   * @param  <Ex>  An arbitrary exception type that may be thrown
+   */
+  static <T, Ex extends Throwable> JspFunctionE<T, T, Ex> identity() {
+    return t -> t;
+  }
 }

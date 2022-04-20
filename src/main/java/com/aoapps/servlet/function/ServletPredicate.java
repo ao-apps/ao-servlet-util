@@ -36,18 +36,18 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletPredicate<T> extends ServletPredicateE<T, RuntimeException> {
 
-	@Override
-	boolean test(T t) throws ServletException, IOException;
+  @Override
+  boolean test(T t) throws ServletException, IOException;
 
-	static <T> ServletPredicate<T> isEqual(Object targetRef) {
-		return (null == targetRef)
-			? Objects::isNull
-			: targetRef::equals;
-	}
+  static <T> ServletPredicate<T> isEqual(Object targetRef) {
+    return (null == targetRef)
+      ? Objects::isNull
+      : targetRef::equals;
+  }
 
-	@SuppressWarnings("unchecked")
-	static <T> ServletPredicate<T> not(ServletPredicate<? super T> target) throws ServletException, IOException {
-		Objects.requireNonNull(target);
-		return (ServletPredicate<T>)target.negate();
-	}
+  @SuppressWarnings("unchecked")
+  static <T> ServletPredicate<T> not(ServletPredicate<? super T> target) throws ServletException, IOException {
+    Objects.requireNonNull(target);
+    return (ServletPredicate<T>)target.negate();
+  }
 }

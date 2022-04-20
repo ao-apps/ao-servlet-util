@@ -34,6 +34,6 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletRunnable extends ServletRunnableE<RuntimeException> {
 
-	@Override
-	void run() throws ServletException, IOException;
+  @Override
+  void run() throws ServletException, IOException;
 }

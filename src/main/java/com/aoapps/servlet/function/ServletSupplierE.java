@@ -37,5 +37,5 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletSupplierE<T, Ex extends Throwable> {
 
-	T get() throws ServletException, IOException, Ex;
+  T get() throws ServletException, IOException, Ex;
 }

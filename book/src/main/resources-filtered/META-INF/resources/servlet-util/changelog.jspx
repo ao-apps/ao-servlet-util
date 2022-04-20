@@ -22,469 +22,469 @@ You should have received a copy of the GNU Lesser General Public License
 along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
 -->
 <jsp:root
-	xmlns:ao="https://oss.aoapps.com/taglib/"
-	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:changelog="https://semanticcms.com/changelog/taglib/"
-	xmlns:core="https://semanticcms.com/core/taglib/"
-	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:jsp="http://java.sun.com/JSP/Page"
-	version="2.1"
+  xmlns:ao="https://oss.aoapps.com/taglib/"
+  xmlns:c="http://java.sun.com/jsp/jstl/core"
+  xmlns:changelog="https://semanticcms.com/changelog/taglib/"
+  xmlns:core="https://semanticcms.com/core/taglib/"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:jsp="http://java.sun.com/JSP/Page"
+  version="2.1"
 >
-	<jsp:directive.page language="java" pageEncoding="UTF-8" />
-	<jsp:directive.page session="false" />
-	<core:page
-		title="@{documented.name} Changelog"
-		shortTitle="Changelog"
-		tocLevels="1"
-		datePublished="2019-08-21T05:09:52-05:00"
-		dateModified="2022-03-28T18:05:16-05:00"
-	>
-		<c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
-			<changelog:release
-				projectName="@{documented.name}"
-				version="@{project.version}"
-				groupId="@{project.groupId}"
-				artifactId="@{documented.artifactId}"
-				repository="@{nexusUrl}content/repositories/snapshots/"
-				scmUrl="@{project.scm.url}"
-			>
-				<ul>
-					<li>Updated dependencies.</li>
-					<li>New interface <code>NoClose</code> along with static <code>wrap(…)</code> methods to avoid duplicate wrapping.</li>
-					<li>Removed dependency on <code>org.apache.commons:commons-lang3</code>.</li>
-				</ul>
-			</changelog:release>
-		</c:if>
+  <jsp:directive.page language="java" pageEncoding="UTF-8" />
+  <jsp:directive.page session="false" />
+  <core:page
+    title="@{documented.name} Changelog"
+    shortTitle="Changelog"
+    tocLevels="1"
+    datePublished="2019-08-21T05:09:52-05:00"
+    dateModified="2022-03-28T18:05:16-05:00"
+  >
+    <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
+      <changelog:release
+        projectName="@{documented.name}"
+        version="@{project.version}"
+        groupId="@{project.groupId}"
+        artifactId="@{documented.artifactId}"
+        repository="@{nexusUrl}content/repositories/snapshots/"
+        scmUrl="@{project.scm.url}"
+      >
+        <ul>
+          <li>Updated dependencies.</li>
+          <li>New interface <code>NoClose</code> along with static <code>wrap(…)</code> methods to avoid duplicate wrapping.</li>
+          <li>Removed dependency on <code>org.apache.commons:commons-lang3</code>.</li>
+        </ul>
+      </changelog:release>
+    </c:if>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="5.1.0"
-			datePublished="2022-03-05T08:04:46-06:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					New functional interfaces that may throw <code>ServletException</code>, <code>IOException</code>, and (optionally) an arbitrary
-					tertiary exception:
-					<ol>
-						<li><code>ServletBiConsumer</code></li>
-						<li><code>ServletBiConsumerE</code></li>
-						<li><code>ServletConsumer</code></li>
-						<li><code>ServletConsumerE</code></li>
-						<li><code>ServletFunction</code></li>
-						<li><code>ServletFunctionE</code></li>
-						<li><code>ServletPredicate</code></li>
-						<li><code>ServletPredicateE</code></li>
-						<li><code>ServletRunnable</code></li>
-						<li><code>ServletRunnableE</code></li>
-						<li><code>ServletSupplier</code></li>
-						<li><code>ServletSupplierE</code></li>
-					</ol>
-				</li>
-				<li>
-					New functional interfaces that may throw <code>JspException</code>, <code>IOException</code>, and (optionally) an arbitrary
-					tertiary exception:
-					<ol>
-						<li><code>JspBiConsumer</code></li>
-						<li><code>JspBiConsumerE</code></li>
-						<li><code>JspConsumer</code></li>
-						<li><code>JspConsumerE</code></li>
-						<li><code>JspFunction</code></li>
-						<li><code>JspFunctionE</code></li>
-						<li><code>JspPredicate</code></li>
-						<li><code>JspPredicateE</code></li>
-						<li><code>JspRunnable</code></li>
-						<li><code>JspRunnableE</code></li>
-						<li><code>JspSupplier</code></li>
-						<li><code>JspSupplierE</code></li>
-					</ol>
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="5.1.0"
+      datePublished="2022-03-05T08:04:46-06:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          New functional interfaces that may throw <code>ServletException</code>, <code>IOException</code>, and (optionally) an arbitrary
+          tertiary exception:
+          <ol>
+            <li><code>ServletBiConsumer</code></li>
+            <li><code>ServletBiConsumerE</code></li>
+            <li><code>ServletConsumer</code></li>
+            <li><code>ServletConsumerE</code></li>
+            <li><code>ServletFunction</code></li>
+            <li><code>ServletFunctionE</code></li>
+            <li><code>ServletPredicate</code></li>
+            <li><code>ServletPredicateE</code></li>
+            <li><code>ServletRunnable</code></li>
+            <li><code>ServletRunnableE</code></li>
+            <li><code>ServletSupplier</code></li>
+            <li><code>ServletSupplierE</code></li>
+          </ol>
+        </li>
+        <li>
+          New functional interfaces that may throw <code>JspException</code>, <code>IOException</code>, and (optionally) an arbitrary
+          tertiary exception:
+          <ol>
+            <li><code>JspBiConsumer</code></li>
+            <li><code>JspBiConsumerE</code></li>
+            <li><code>JspConsumer</code></li>
+            <li><code>JspConsumerE</code></li>
+            <li><code>JspFunction</code></li>
+            <li><code>JspFunctionE</code></li>
+            <li><code>JspPredicate</code></li>
+            <li><code>JspPredicateE</code></li>
+            <li><code>JspRunnable</code></li>
+            <li><code>JspRunnableE</code></li>
+            <li><code>JspSupplier</code></li>
+            <li><code>JspSupplierE</code></li>
+          </ol>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="5.0.1"
-			datePublished="2022-02-15T19:20:05-06:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					Cleaning-up ThreadLocal variables when no longer used,
-					see <ao:a href="https://rules.sonarsource.com/java/RSPEC-5164" />.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="5.0.1"
+      datePublished="2022-02-15T19:20:05-06:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          Cleaning-up ThreadLocal variables when no longer used,
+          see <ao:a href="https://rules.sonarsource.com/java/RSPEC-5164" />.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="5.0.0"
-			datePublished="2021-10-15T20:48:47-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					New classes <code>AttributeEE</code>, <code>ContextEE</code>, and <code>ScopeEE</code> for accessing
-					servlet APIs attributes by scope, context, and name.
-					<ul>
-						<li>
-							<strong>Breaking change:</strong> <code>Dispatcher.ARG_REQUEST_ATTRIBUTE</code> is now an instance
-							of <code>ScopeEE.Request.Attribute</code> instead of <code>String</code>.
-						</li>
-						<li>
-							API supports arriving at an attribute in any order, such as <code>scope → context → name</code>
-							or <code>name → context</code>.
-						</li>
-						<li>
-							API provides generic type safety (assumes casts will be OK behind the scenes, which is
-							acceptable when all access to attributes is through this API).
-						</li>
-						<li>
-							Also provides additional functional-friendly methods similar to those in <code>Map</code>,
-							such as <code>computeIfAbsent</code>.
-						</li>
-						<li>
-							There is also a set of static utility methods, to which the rest of the API ends up calling.
-							For one-off attribute access, these static methods may be more succinct.
-						</li>
-					</ul>
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="5.0.0"
+      datePublished="2021-10-15T20:48:47-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          New classes <code>AttributeEE</code>, <code>ContextEE</code>, and <code>ScopeEE</code> for accessing
+          servlet APIs attributes by scope, context, and name.
+          <ul>
+            <li>
+              <strong>Breaking change:</strong> <code>Dispatcher.ARG_REQUEST_ATTRIBUTE</code> is now an instance
+              of <code>ScopeEE.Request.Attribute</code> instead of <code>String</code>.
+            </li>
+            <li>
+              API supports arriving at an attribute in any order, such as <code>scope → context → name</code>
+              or <code>name → context</code>.
+            </li>
+            <li>
+              API provides generic type safety (assumes casts will be OK behind the scenes, which is
+              acceptable when all access to attributes is through this API).
+            </li>
+            <li>
+              Also provides additional functional-friendly methods similar to those in <code>Map</code>,
+              such as <code>computeIfAbsent</code>.
+            </li>
+            <li>
+              There is also a set of static utility methods, to which the rest of the API ends up calling.
+              For one-off attribute access, these static methods may be more succinct.
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="4.0.0"
-			datePublished="2021-07-04T23:51:07-05:00"
-			groupId="@{project.groupId}"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
-				<li>
-					Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
-					*-SNAPSHOT versions include <code>module-info.class</code> while releases include the
-					<code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
-					modes, <code>module-info.java</code> does not perform any transitive requires.
-				</li>
-				<li>Maven artifact relocated from <code>com.aoindustries:ao-servlet-util</code> to <code>com.aoapps:ao-servlet-util</code>.</li>
-				<li>Packages renamed from <code>com.aoindustries.servlet.*</code> to <code>com.aoapps.servlet.*</code>.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="4.0.0"
+      datePublished="2021-07-04T23:51:07-05:00"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated to <ao:a rel="nofollow" href="https://www.oracle.com/java/technologies/javaee/javaeetechnologies.html#javaee7">Java™ EE 7 Web Profile</ao:a> (Servlet 3.1, JSP 2.3, EL 3.0, and JSTL 1.2).</li>
+        <li>
+          Now supports Java 9+ modules.  Due to still having filename-based automatic module dependencies,
+          *-SNAPSHOT versions include <code>module-info.class</code> while releases include the
+          <code>Automatic-Module-Name</code> manifest entry.  To minimize the difference between these
+          modes, <code>module-info.java</code> does not perform any transitive requires.
+        </li>
+        <li>Maven artifact relocated from <code>com.aoindustries:ao-servlet-util</code> to <code>com.aoapps:ao-servlet-util</code>.</li>
+        <li>Packages renamed from <code>com.aoindustries.servlet.*</code> to <code>com.aoapps.servlet.*</code>.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.5.1"
-			datePublished="2021-02-15T06:03:53-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated dependencies.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.5.1"
+      datePublished="2021-02-15T06:03:53-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated dependencies.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.5.0"
-			datePublished="2021-02-14T06:26:17-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					<code>Coercion</code> moved out of <core:link book="/encoding" page="/index.jspx" />:
-					<ol>
-						<li>Non-localized parts moved to <core:link book="/lang" page="/index.jspx" />.</li>
-						<li>
-							Localized parts moved to <core:link book="/hodgepodge" page="/index.jspx" /> and
-							renamed to <code>MarkupCoercion</code>.
-						</li>
-						<li>New pluggable <code>CoercionOptimizer</code> to allow this decoupling.</li>
-						<li>Servlet-specific optimizations moved to this project.</li>
-					</ol>
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.5.0"
+      datePublished="2021-02-14T06:26:17-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          <code>Coercion</code> moved out of <core:link book="/encoding" page="/index.jspx" />:
+          <ol>
+            <li>Non-localized parts moved to <core:link book="/lang" page="/index.jspx" />.</li>
+            <li>
+              Localized parts moved to <core:link book="/hodgepodge" page="/index.jspx" /> and
+              renamed to <code>MarkupCoercion</code>.
+            </li>
+            <li>New pluggable <code>CoercionOptimizer</code> to allow this decoupling.</li>
+            <li>Servlet-specific optimizations moved to this project.</li>
+          </ol>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.4.0"
-			datePublished="2021-02-09T07:50:13-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					<code>JspTagUtils</code> now supports throwing any localized exceptions types using the new
-					<code>LocalizedSupplier</code>.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.4.0"
+      datePublished="2021-02-09T07:50:13-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          <code>JspTagUtils</code> now supports throwing any localized exceptions types using the new
+          <code>LocalizedSupplier</code>.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.3.1"
-			datePublished="2020-12-29T21:38:48-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					Now implementing <code>ServletUtil.SKIP_PAGE_EXCEPTION</code> as a private inner class with a
-					detailed message.  Previously, an uncaught instance of <code>SKIP_PAGE_EXCEPTION</code> would
-					produce the rather short, cryptic error message:
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.3.1"
+      datePublished="2020-12-29T21:38:48-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          Now implementing <code>ServletUtil.SKIP_PAGE_EXCEPTION</code> as a private inner class with a
+          detailed message.  Previously, an uncaught instance of <code>SKIP_PAGE_EXCEPTION</code> would
+          produce the rather short, cryptic error message:
 <pre><![CDATA[com.aoindustries.servlet.ServletUtil$1
         at com.aoindustries.servlet.ServletUtil.&lt;clinit&gt;(ServletUtil.java:49)]]></pre>
-				</li>
-			</ul>
-		</changelog:release>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.3.0"
-			datePublished="2020-12-16T22:43:15-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					New method <code>HttpServletUtil.getSubmittedFileName(Part)</code>, which fills in the gap in
-					Java EE 6.  Applications that are Java EE 7 should use <code>Part.getSubmittedFileName()</code>
-					directly.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.3.0"
+      datePublished="2020-12-16T22:43:15-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          New method <code>HttpServletUtil.getSubmittedFileName(Part)</code>, which fills in the gap in
+          Java EE 6.  Applications that are Java EE 7 should use <code>Part.getSubmittedFileName()</code>
+          directly.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.2.0"
-			datePublished="2020-12-13T02:07:00-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated dependencies.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.2.0"
+      datePublished="2020-12-13T02:07:00-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated dependencies.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.1.0"
-			datePublished="2020-12-07T19:21:53-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					Split development-only classes into a new sub-project in <code>devel/</code>.  This
-					sub-project is used only for development and is never deployed to artifact repositories.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.1.0"
+      datePublished="2020-12-07T19:21:53-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          Split development-only classes into a new sub-project in <code>devel/</code>.  This
+          sub-project is used only for development and is never deployed to artifact repositories.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="3.0.0"
-			datePublished="2020-11-24T20:41:51-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					<code>JspTagUtils.findAncestor(…)</code> now returns <code><![CDATA[Optional&lt;T&gt;]]></code>,
-					allowing for parent to not be found.
-				</li>
-				<li>
-					New methods <code>JspTagUtils.requireAncestor(…)</code> that throw an exception when the parent
-					is not found.
-				</li>
-				<li>
-					Changed parameter order in <code>HttpServletUtil.getAbsoluteURL(…)</code> to better match the
-					order they are used in the generated URL.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="3.0.0"
+      datePublished="2020-11-24T20:41:51-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          <code>JspTagUtils.findAncestor(…)</code> now returns <code><![CDATA[Optional&lt;T&gt;]]></code>,
+          allowing for parent to not be found.
+        </li>
+        <li>
+          New methods <code>JspTagUtils.requireAncestor(…)</code> that throw an exception when the parent
+          is not found.
+        </li>
+        <li>
+          Changed parameter order in <code>HttpServletUtil.getAbsoluteURL(…)</code> to better match the
+          order they are used in the generated URL.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="2.2.1"
-			datePublished="2020-11-18T00:26:41-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Renamed <code>JavaeeWebSetStackTraceInitializer</code> to <code>JavaeeWebSurrogateFactoryInitializer</code>.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="2.2.1"
+      datePublished="2020-11-18T00:26:41-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Renamed <code>JavaeeWebSetStackTraceInitializer</code> to <code>JavaeeWebSurrogateFactoryInitializer</code>.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="2.2.0"
-			datePublished="2020-11-17T23:03:56-06:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Updated dependencies.</li>
-				<li>
-					<p>
-						Now registering exception types for use with <code>Throwables.newSurrogate(…)</code> that supports creating new instances
-						of throwables in order to have caller stack trace.  When wrapped, the original throwable is the
-						cause of the new throwable.  When not wrapped, the original throwable is used directly and
-						caller stack trace is lost.
-					</p>
-					<p>
-						This is used to maintain exception types and states across thread boundaries, such as when an exception cause
-						is obtained from an <code>ExecutionException</code>.
-					</p>
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="2.2.0"
+      datePublished="2020-11-17T23:03:56-06:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Updated dependencies.</li>
+        <li>
+          <p>
+            Now registering exception types for use with <code>Throwables.newSurrogate(…)</code> that supports creating new instances
+            of throwables in order to have caller stack trace.  When wrapped, the original throwable is the
+            cause of the new throwable.  When not wrapped, the original throwable is used directly and
+            caller stack trace is lost.
+          </p>
+          <p>
+            This is used to maintain exception types and states across thread boundaries, such as when an exception cause
+            is obtained from an <code>ExecutionException</code>.
+          </p>
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="2.1.0"
-			datePublished="2020-06-16T08:08:13-05:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					Improved platform compatibility by falling back to
-					<ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#FORWARD_SERVLET_PATH">RequestDispatcher.FORWARD_SERVLET_PATH</ao:a>
-					and <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#INCLUDE_SERVLET_PATH">RequestDispatcher.INCLUDE_SERVLET_PATH</ao:a>
-					where appropriate.
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="2.1.0"
+      datePublished="2020-06-16T08:08:13-05:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          Improved platform compatibility by falling back to
+          <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#FORWARD_SERVLET_PATH">RequestDispatcher.FORWARD_SERVLET_PATH</ao:a>
+          and <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/RequestDispatcher.html#INCLUDE_SERVLET_PATH">RequestDispatcher.INCLUDE_SERVLET_PATH</ao:a>
+          where appropriate.
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="2.0.0"
-			datePublished="2020-03-26T19:14:55-05:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Minimum Java version changed from 1.7 to 1.8.</li>
-				<li>
-					Reduced use of property substitutions in <code>pom.xml</code>.
-					This is to help 3rd-party parsers that fail to perform full Maven-compatible substitutions.
-				</li>
-				<li>
-					Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
-					class directly.
-				</li>
-				<li>Optimized ServletContext attribute initialization and concurrency.</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="2.0.0"
+      datePublished="2020-03-26T19:14:55-05:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Minimum Java version changed from 1.7 to 1.8.</li>
+        <li>
+          Reduced use of property substitutions in <code>pom.xml</code>.
+          This is to help 3rd-party parsers that fail to perform full Maven-compatible substitutions.
+        </li>
+        <li>
+          Consolidated <code>writeWithMarkup(…)</code> methods into <code>Coercion</code>
+          class directly.
+        </li>
+        <li>Optimized ServletContext attribute initialization and concurrency.</li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.1.0"
-			datePublished="2019-10-14T02:54:27-05:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>
-					Added <ao:a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</ao:a>
-					header to <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
-					Defaults to a short-term setting of public, five-minute, and allowing stale.
-					This will help performance when <code>*.css</code> files are accessed directly
-					(URLs not rewritten with <code><ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
-					parameter).
-				</li>
-			</ul>
-		</changelog:release>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.1.0"
+      datePublished="2019-10-14T02:54:27-05:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          Added <ao:a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</ao:a>
+          header to <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>.
+          Defaults to a short-term setting of public, five-minute, and allowing stale.
+          This will help performance when <code>*.css</code> files are accessed directly
+          (URLs not rewritten with <code><ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html#LAST_MODIFIED_PARAMETER_NAME">lastModified=…</ao:a></code>
+          parameter).
+        </li>
+      </ul>
+    </changelog:release>
 
-		<changelog:release
-			projectName="@{documented.name}"
-			version="1.0.0"
-			datePublished="2019-10-08T01:10:52-05:00"
-			groupId="com.aoindustries"
-			artifactId="@{documented.artifactId}"
-			scmUrl="@{project.scm.url}"
-		>
-			<ul>
-				<li>Pulled Servlet and JSP related utilities out of <core:link book="/hodgepodge" page="/index.jspx" />.</li>
-				<li>
-					Split HTTP-specific parts of <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/ServletUtil.html">ServletUtil</ao:a>
-					into <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
-				</li>
-				<li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
-				<li>Cookie names, values, comments, and paths are now URI-encoded.</li>
-				<li>
-					<code>HttpServletUtil.getContextRequestUri()</code> now percent-encodes
-					result of <code>HttpServletRequest.getContextPath()</code>
-					because it sometimes comes back percent encoded, but is usually decoded.
-				</li>
-				<li>
-					Absolute URLs are now generated in <ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
-					format, even when the context path has Unicode characters.
-				</li>
-				<li>Absolute URLs are generated first, then passed to response URL encoding.</li>
-				<li>
-					<code>HttpServletUtil.sendRedirect(…)</code> now converts location to
-					<ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
-				</li>
-				<li>Added <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URL</ao:a> support:
-					<ol>
-						<li>
-							New class <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical</ao:a> that
-							coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
-							(such as not adding per-user information when cookies are disabled).
-							These canonical URLs, without per-user settings, are used for things like
-							<ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
-							<ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
-							and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
-						</li>
-						<li>
-							<ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
-							updated with new <code>canonical</code> parameters.
-						</li>
-						<li>
-							When in auto mode, <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">last modified stamping</ao:a>
-							is not performed on <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URLs</ao:a>.
-						</li>
-					</ol>
-				</li>
-				<li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
-				<li>
-					<ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
-					cleaned-up significantly, with more consistent method names and more uniform
-					method overloads.
-				</li>
-				<li>Improved <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
-					Unicode support:
-					<ol>
-						<li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
-						<li>Parser supports fragments on URLs</li>
-						<li>Now properly decodes path components</li>
-					</ol>
-				</li>
-			</ul>
-		</changelog:release>
-	</core:page>
+    <changelog:release
+      projectName="@{documented.name}"
+      version="1.0.0"
+      datePublished="2019-10-08T01:10:52-05:00"
+      groupId="com.aoindustries"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Pulled Servlet and JSP related utilities out of <core:link book="/hodgepodge" page="/index.jspx" />.</li>
+        <li>
+          Split HTTP-specific parts of <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/ServletUtil.html">ServletUtil</ao:a>
+          into <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>.
+        </li>
+        <li>Added variants of <code>HttpServletUtil.getAbsoluteURL(…)</code> that allow not adding context path.</li>
+        <li>Cookie names, values, comments, and paths are now URI-encoded.</li>
+        <li>
+          <code>HttpServletUtil.getContextRequestUri()</code> now percent-encodes
+          result of <code>HttpServletRequest.getContextPath()</code>
+          because it sometimes comes back percent encoded, but is usually decoded.
+        </li>
+        <li>
+          Absolute URLs are now generated in <ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII
+          format, even when the context path has Unicode characters.
+        </li>
+        <li>Absolute URLs are generated first, then passed to response URL encoding.</li>
+        <li>
+          <code>HttpServletUtil.sendRedirect(…)</code> now converts location to
+          <ao:a href="https://datatracker.ietf.org/doc/html/rfc3986">RFC 3986 URI</ao:a> US-ASCII format.
+        </li>
+        <li>Added <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URL</ao:a> support:
+          <ol>
+            <li>
+              New class <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical</ao:a> that
+              coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
+              (such as not adding per-user information when cookies are disabled).
+              These canonical URLs, without per-user settings, are used for things like
+              <ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
+              <ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
+              and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
+            </li>
+            <li>
+              <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+              updated with new <code>canonical</code> parameters.
+            </li>
+            <li>
+              When in auto mode, <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">last modified stamping</ao:a>
+              is not performed on <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Canonical.html">Canonical URLs</ao:a>.
+            </li>
+          </ol>
+        </li>
+        <li>Now adding last modified parameter to <code>*.jnlp</code>, <code>*.tld</code>, and <code>*.xsd</code> files, too.</li>
+        <li>
+          <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/HttpServletUtil.html">HttpServletUtil</ao:a>
+          cleaned-up significantly, with more consistent method names and more uniform
+          method overloads.
+        </li>
+        <li>Improved <ao:a href="https://oss.aoapps.com/servlet-last-modified/apidocs/com.aoapps.servlet.lastmodified/com/aoapps/servlet/lastmodified/LastModifiedServlet.html">LastModifiedServlet</ao:a>
+          Unicode support:
+          <ol>
+            <li>Parser supports both US-ASCII-encoded and Unicode URLs (or any mixture)</li>
+            <li>Parser supports fragments on URLs</li>
+            <li>Now properly decodes path components</li>
+          </ol>
+        </li>
+      </ul>
+    </changelog:release>
+  </core:page>
 </jsp:root>

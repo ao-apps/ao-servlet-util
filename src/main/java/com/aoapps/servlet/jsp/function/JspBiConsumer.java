@@ -35,6 +35,6 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspBiConsumer<T, U> extends JspBiConsumerE<T, U, RuntimeException> {
 
-	@Override
-	void accept(T t, U u) throws JspException, IOException;
+  @Override
+  void accept(T t, U u) throws JspException, IOException;
 }

@@ -36,18 +36,18 @@ import javax.servlet.jsp.JspException;
 @FunctionalInterface
 public interface JspPredicate<T> extends JspPredicateE<T, RuntimeException> {
 
-	@Override
-	boolean test(T t) throws JspException, IOException;
+  @Override
+  boolean test(T t) throws JspException, IOException;
 
-	static <T> JspPredicate<T> isEqual(Object targetRef) {
-		return (null == targetRef)
-			? Objects::isNull
-			: targetRef::equals;
-	}
+  static <T> JspPredicate<T> isEqual(Object targetRef) {
+    return (null == targetRef)
+      ? Objects::isNull
+      : targetRef::equals;
+  }
 
-	@SuppressWarnings("unchecked")
-	static <T> JspPredicate<T> not(JspPredicate<? super T> target) throws JspException, IOException {
-		Objects.requireNonNull(target);
-		return (JspPredicate<T>)target.negate();
-	}
+  @SuppressWarnings("unchecked")
+  static <T> JspPredicate<T> not(JspPredicate<? super T> target) throws JspException, IOException {
+    Objects.requireNonNull(target);
+    return (JspPredicate<T>)target.negate();
+  }
 }

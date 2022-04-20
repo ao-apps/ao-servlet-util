@@ -35,10 +35,10 @@ import javax.servlet.ServletException;
 @FunctionalInterface
 public interface ServletFunction<T, R> extends ServletFunctionE<T, R, RuntimeException> {
 
-	@Override
-	R apply(T t) throws ServletException, IOException;
+  @Override
+  R apply(T t) throws ServletException, IOException;
 
-	static <T> ServletFunction<T, T> identity() {
-		return t -> t;
-	}
+  static <T> ServletFunction<T, T> identity() {
+    return t -> t;
+  }
 }
