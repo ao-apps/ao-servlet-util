@@ -58,25 +58,25 @@ public final class Includer {
    * sets the isIncluded flag to true.
    */
   private static final ScopeEE.Request.Attribute<Boolean> IS_INCLUDED_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Includer.class.getName() + ".isIncluded");
+      ScopeEE.REQUEST.attribute(Includer.class.getName() + ".isIncluded");
 
   /**
    * The location header that should be set before calling sendError.
    */
   private static final ScopeEE.Request.Attribute<String> LOCATION_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Includer.class.getName() + ".location");
+      ScopeEE.REQUEST.attribute(Includer.class.getName() + ".location");
 
   /**
    * The status that should be sent to sendError.
    */
   private static final ScopeEE.Request.Attribute<Integer> STATUS_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Includer.class.getName() + ".sendError.status");
+      ScopeEE.REQUEST.attribute(Includer.class.getName() + ".sendError.status");
 
   /**
    * The message that should be sent to sendError.
    */
   private static final ScopeEE.Request.Attribute<String> MESSAGE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Includer.class.getName() + ".sendError.message");
+      ScopeEE.REQUEST.attribute(Includer.class.getName() + ".sendError.message");
 
   /**
    * The request attribute name set to boolean true when the page should be skipped.
@@ -86,7 +86,7 @@ public final class Includer {
    * performed within an include.
    */
   private static final ScopeEE.Request.Attribute<Boolean> PAGE_SKIPPED_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Includer.class.getName() + ".pageSkipped");
+      ScopeEE.REQUEST.attribute(Includer.class.getName() + ".pageSkipped");
 
   /**
    * Performs the actual include, supporting propagation of SkipPageException and sendError.
@@ -96,11 +96,11 @@ public final class Includer {
     final boolean isOutmostInclude = isIncludedAttribute.get() == null;
     if (logger.isLoggable(Level.FINER)) {
       logger.log(
-        Level.FINER, "request={0}, isOutmostInclude={1}",
-        new Object[] {
-          request,
-          isOutmostInclude
-        }
+          Level.FINER, "request={0}, isOutmostInclude={1}",
+          new Object[]{
+              request,
+              isOutmostInclude
+          }
       );
     }
     AttributeEE.Request<String> locationAttribute = LOCATION_REQUEST_ATTRIBUTE.context(request);

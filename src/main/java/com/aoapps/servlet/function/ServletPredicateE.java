@@ -59,8 +59,8 @@ public interface ServletPredicateE<T, Ex extends Throwable> {
    */
   static <T, Ex extends Throwable> ServletPredicateE<T, Ex> isEqual(Object targetRef) {
     return (null == targetRef)
-      ? Objects::isNull
-      : targetRef::equals;
+        ? Objects::isNull
+        : targetRef::equals;
   }
 
   /**
@@ -69,6 +69,6 @@ public interface ServletPredicateE<T, Ex extends Throwable> {
   @SuppressWarnings("unchecked")
   static <T, Ex extends Throwable> ServletPredicateE<T, Ex> not(ServletPredicateE<? super T, ? extends Ex> target) throws ServletException, IOException, Ex {
     Objects.requireNonNull(target);
-    return (ServletPredicateE<T, Ex>)target.negate();
+    return (ServletPredicateE<T, Ex>) target.negate();
   }
 }

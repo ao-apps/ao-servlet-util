@@ -62,7 +62,7 @@ public class BodyContentImplCoercionOptimizerInitializer implements CoercionOpti
         Class<? extends Writer> outClass = out.getClass();
         if (outClass == clazz) {
           try {
-            Writer writer = (Writer)field.get(out);
+            Writer writer = (Writer) field.get(out);
             // When the writer field is non-null, BodyContent is pass-through and we may safely directly access the wrapped writer.
             if (writer != null) {
               // Will keep looping to unwrap the wrapped out
@@ -90,11 +90,11 @@ public class BodyContentImplCoercionOptimizerInitializer implements CoercionOpti
     } catch (Error | RuntimeException | ClassNotFoundException | NoSuchFieldException t) {
       if (logger.isLoggable(Level.INFO)) {
         logger.log(
-          Level.INFO,
-          "Cannot get direct access to the " + BODY_CONTENT_IMPL_CLASS + "." + WRITER_FIELD + " field.  "
-          + "Unwrapping of BodyContent disabled.  "
-          + "The system will behave correctly, but some optimizations are disabled.",
-          t
+            Level.INFO,
+            "Cannot get direct access to the " + BODY_CONTENT_IMPL_CLASS + "." + WRITER_FIELD + " field.  "
+                + "Unwrapping of BodyContent disabled.  "
+                + "The system will behave correctly, but some optimizations are disabled.",
+            t
         );
       }
     }

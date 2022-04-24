@@ -153,10 +153,10 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
      * The set of allowed scope names.
      */
     public static final String
-      SCOPE_PAGE = "page",
-      SCOPE_REQUEST = "request",
-      SCOPE_SESSION = "session",
-      SCOPE_APPLICATION = "application";
+        SCOPE_PAGE = "page",
+        SCOPE_REQUEST = "request",
+        SCOPE_SESSION = "session",
+        SCOPE_APPLICATION = "application";
 
     private static final long serialVersionUID = 1L;
 
@@ -435,6 +435,7 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
      * @see  RequestEncodingSupport#REQUEST_CHAR_SET
      */
     public static final Attribute<String> REQUEST_CHAR_SET = new Attribute<>("javax.servlet.jsp.jstl.fmt.request.charset");
+
     // </editor-fold>
 
     private Session() {

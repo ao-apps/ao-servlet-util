@@ -54,19 +54,19 @@ public final class ServletUtil {
 
     private SingletonSkipPageException() {
       super(
-        "The calling page must cease evaluation." + System.lineSeparator()
-        + "Please note, this is a shared exception instance for efficiency." + System.lineSeparator()
-        + "The stack trace has been reduced to the top-most stack element." + System.lineSeparator()
-        + "Code that catches SkipPageException should be prepared to provide stack traces." + System.lineSeparator()
-        + "Code that catches JspException might also benefit from handling SkipPageException."
+          "The calling page must cease evaluation." + System.lineSeparator()
+              + "Please note, this is a shared exception instance for efficiency." + System.lineSeparator()
+              + "The stack trace has been reduced to the top-most stack element." + System.lineSeparator()
+              + "Code that catches SkipPageException should be prepared to provide stack traces." + System.lineSeparator()
+              + "Code that catches JspException might also benefit from handling SkipPageException."
       );
       // Hides any stack trace from original caller that first instantiated the object.
       StackTraceElement[] stackTrace = getStackTrace();
       if (stackTrace != null && stackTrace.length > 1) {
         setStackTrace(
-          new StackTraceElement[] {
-            stackTrace[0]
-          }
+            new StackTraceElement[]{
+                stackTrace[0]
+            }
         );
       }
     }

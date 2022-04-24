@@ -125,14 +125,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T compute(
-      JspContext jspContext,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name);
+        T oldValue = (T) jspContext.getAttribute(name);
         T newValue = remappingFunction.apply(name, oldValue);
         if (newValue != oldValue) {
           jspContext.setAttribute(name, newValue);
@@ -150,7 +150,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T compute(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return compute(jspContext, name, remappingFunction);
     }
@@ -163,15 +163,15 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T compute(
-      JspContext jspContext,
-      int scope,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        int scope,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name, scope);
+        T oldValue = (T) jspContext.getAttribute(name, scope);
         T newValue = remappingFunction.apply(name, oldValue);
         if (newValue != oldValue) {
           jspContext.setAttribute(name, newValue, scope);
@@ -188,8 +188,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public <Ex extends Throwable> T compute(
-      int scope,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        int scope,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return compute(jspContext, scope, name, remappingFunction);
     }
@@ -202,13 +202,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public static <T, Ex extends Throwable> T computeIfAbsent(
-      JspContext jspContext,
-      String name,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        JspContext jspContext,
+        String name,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T value = (T)jspContext.getAttribute(name);
+        T value = (T) jspContext.getAttribute(name);
         if (value == null) {
           value = mappingFunction.apply(name);
           if (value != null) {
@@ -228,7 +228,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfAbsent(
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       return computeIfAbsent(jspContext, name, mappingFunction);
     }
@@ -241,14 +241,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public static <T, Ex extends Throwable> T computeIfAbsent(
-      JspContext jspContext,
-      int scope,
-      String name,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        JspContext jspContext,
+        int scope,
+        String name,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T value = (T)jspContext.getAttribute(name, scope);
+        T value = (T) jspContext.getAttribute(name, scope);
         if (value == null) {
           value = mappingFunction.apply(name);
           if (value != null) {
@@ -267,8 +267,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public <Ex extends Throwable> T computeIfAbsent(
-      int scope,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        int scope,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       return computeIfAbsent(jspContext, scope, name, mappingFunction);
     }
@@ -281,14 +281,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T computeIfPresent(
-      JspContext jspContext,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name);
+        T oldValue = (T) jspContext.getAttribute(name);
         if (oldValue != null) {
           T newValue = remappingFunction.apply(name, oldValue);
           if (newValue != oldValue) {
@@ -310,7 +310,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfPresent(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return computeIfPresent(jspContext, name, remappingFunction);
     }
@@ -323,15 +323,15 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T computeIfPresent(
-      JspContext jspContext,
-      int scope,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        int scope,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name, scope);
+        T oldValue = (T) jspContext.getAttribute(name, scope);
         if (oldValue != null) {
           T newValue = remappingFunction.apply(name, oldValue);
           if (newValue != oldValue) {
@@ -352,8 +352,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public <Ex extends Throwable> T computeIfPresent(
-      int scope,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        int scope,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return computeIfPresent(jspContext, scope, name, remappingFunction);
     }
@@ -366,7 +366,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T find(JspContext jspContext, String name) {
       @SuppressWarnings("unchecked")
-      T value = (T)jspContext.findAttribute(name);
+      T value = (T) jspContext.findAttribute(name);
       return value;
     }
 
@@ -407,7 +407,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T get(JspContext jspContext, String name) {
       @SuppressWarnings("unchecked")
-      T value = (jspContext == null) ? null : (T)jspContext.getAttribute(name);
+      T value = (jspContext == null) ? null : (T) jspContext.getAttribute(name);
       return value;
     }
 
@@ -426,7 +426,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T get(JspContext jspContext, int scope, String name) {
       @SuppressWarnings("unchecked")
-      T value = (jspContext == null) ? null : (T)jspContext.getAttribute(name, scope);
+      T value = (jspContext == null) ? null : (T) jspContext.getAttribute(name, scope);
       return value;
     }
 
@@ -446,12 +446,12 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#getOrDefault(java.lang.Object, java.lang.Object)
      */
     public static <T> T getOrDefault(
-      JspContext jspContext,
-      String name,
-      T defaultValue
+        JspContext jspContext,
+        String name,
+        T defaultValue
     ) {
       @SuppressWarnings("unchecked")
-      T value = (jspContext == null) ? null : (T)jspContext.getAttribute(name);
+      T value = (jspContext == null) ? null : (T) jspContext.getAttribute(name);
       return (value != null) ? value : defaultValue;
     }
 
@@ -475,13 +475,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#getOrDefault(java.lang.Object, java.lang.Object)
      */
     public static <T> T getOrDefault(
-      JspContext jspContext,
-      int scope,
-      String name,
-      T defaultValue
+        JspContext jspContext,
+        int scope,
+        String name,
+        T defaultValue
     ) {
       @SuppressWarnings("unchecked")
-      T value = (jspContext == null) ? null : (T)jspContext.getAttribute(name, scope);
+      T value = (jspContext == null) ? null : (T) jspContext.getAttribute(name, scope);
       return (value != null) ? value : defaultValue;
     }
 
@@ -503,16 +503,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T merge(
-      JspContext jspContext,
-      String name,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        String name,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       Objects.requireNonNull(value);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name);
+        T oldValue = (T) jspContext.getAttribute(name);
         T newValue = (oldValue == null) ? value : remappingFunction.apply(oldValue, value);
         if (newValue != oldValue) {
           jspContext.setAttribute(name, newValue);
@@ -530,8 +530,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T merge(
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return merge(jspContext, name, value, remappingFunction);
     }
@@ -544,17 +544,17 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T merge(
-      JspContext jspContext,
-      int scope,
-      String name,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        JspContext jspContext,
+        int scope,
+        String name,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       Objects.requireNonNull(value);
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name, scope);
+        T oldValue = (T) jspContext.getAttribute(name, scope);
         T newValue = (oldValue == null) ? value : remappingFunction.apply(oldValue, value);
         if (newValue != oldValue) {
           jspContext.setAttribute(name, newValue, scope);
@@ -571,9 +571,9 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public <Ex extends Throwable> T merge(
-      int scope,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        int scope,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return merge(jspContext, scope, name, value, remappingFunction);
     }
@@ -700,7 +700,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public static <T> T replace(JspContext jspContext, String name, T value) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)jspContext.getAttribute(name);
+        T curValue = (T) jspContext.getAttribute(name);
         if (curValue != null) {
           jspContext.setAttribute(name, value);
         }
@@ -730,7 +730,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public static <T> T replace(JspContext jspContext, int scope, String name, T value) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)jspContext.getAttribute(name, scope);
+        T curValue = (T) jspContext.getAttribute(name, scope);
         if (curValue != null) {
           jspContext.setAttribute(name, value, scope);
         }
@@ -759,7 +759,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public static <T> boolean replace(JspContext jspContext, String name, T oldValue, T newValue) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)jspContext.getAttribute(name);
+        T curValue = (T) jspContext.getAttribute(name);
         if (Objects.equals(curValue, oldValue)) {
           jspContext.setAttribute(name, newValue);
           return true;
@@ -791,7 +791,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public static <T> boolean replace(JspContext jspContext, int scope, String name, T oldValue, T newValue) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)jspContext.getAttribute(name, scope);
+        T curValue = (T) jspContext.getAttribute(name, scope);
         if (Objects.equals(curValue, oldValue)) {
           jspContext.setAttribute(name, newValue, scope);
           return true;
@@ -849,13 +849,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#putIfAbsent(java.lang.Object, java.lang.Object)
      */
     public static <T> T setIfAbsent(
-      JspContext jspContext,
-      String name,
-      T value
+        JspContext jspContext,
+        String name,
+        T value
     ) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name);
+        T oldValue = (T) jspContext.getAttribute(name);
         if (oldValue == null) {
           jspContext.setAttribute(name, value);
         }
@@ -883,14 +883,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#putIfAbsent(java.lang.Object, java.lang.Object)
      */
     public static <T> T setIfAbsent(
-      JspContext jspContext,
-      int scope,
-      String name,
-      T value
+        JspContext jspContext,
+        int scope,
+        String name,
+        T value
     ) {
       synchronized (jspContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)jspContext.getAttribute(name, scope);
+        T oldValue = (T) jspContext.getAttribute(name, scope);
         if (oldValue == null) {
           jspContext.setAttribute(name, value, scope);
         }
@@ -957,14 +957,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T compute(
-      ServletRequest request,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletRequest request,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)request.getAttribute(name);
+        T oldValue = (T) request.getAttribute(name);
         T newValue = remappingFunction.apply(name, oldValue);
         if (newValue != oldValue) {
           request.setAttribute(name, newValue);
@@ -982,7 +982,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T compute(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return compute(request, name, remappingFunction);
     }
@@ -995,13 +995,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public static <T, Ex extends Throwable> T computeIfAbsent(
-      ServletRequest request,
-      String name,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        ServletRequest request,
+        String name,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T value = (T)request.getAttribute(name);
+        T value = (T) request.getAttribute(name);
         if (value == null) {
           value = mappingFunction.apply(name);
           if (value != null) {
@@ -1021,7 +1021,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfAbsent(
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       return computeIfAbsent(request, name, mappingFunction);
     }
@@ -1034,14 +1034,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T computeIfPresent(
-      ServletRequest request,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletRequest request,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)request.getAttribute(name);
+        T oldValue = (T) request.getAttribute(name);
         if (oldValue != null) {
           T newValue = remappingFunction.apply(name, oldValue);
           if (newValue != oldValue) {
@@ -1063,7 +1063,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfPresent(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return computeIfPresent(request, name, remappingFunction);
     }
@@ -1075,7 +1075,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T get(ServletRequest request, String name) {
       @SuppressWarnings("unchecked")
-      T value = (request == null) ? null : (T)request.getAttribute(name);
+      T value = (request == null) ? null : (T) request.getAttribute(name);
       return value;
     }
 
@@ -1096,12 +1096,12 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#getOrDefault(java.lang.Object, java.lang.Object)
      */
     public static <T> T getOrDefault(
-      ServletRequest request,
-      String name,
-      T defaultValue
+        ServletRequest request,
+        String name,
+        T defaultValue
     ) {
       @SuppressWarnings("unchecked")
-      T value = (request == null) ? null : (T)request.getAttribute(name);
+      T value = (request == null) ? null : (T) request.getAttribute(name);
       return (value != null) ? value : defaultValue;
     }
 
@@ -1124,16 +1124,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T merge(
-      ServletRequest request,
-      String name,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletRequest request,
+        String name,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       Objects.requireNonNull(value);
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)request.getAttribute(name);
+        T oldValue = (T) request.getAttribute(name);
         T newValue = (oldValue == null) ? value : remappingFunction.apply(oldValue, value);
         if (newValue != oldValue) {
           request.setAttribute(name, newValue);
@@ -1151,8 +1151,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T merge(
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return merge(request, name, value, remappingFunction);
     }
@@ -1184,9 +1184,9 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#remove(java.lang.Object, java.lang.Object)
      */
     public static <T> boolean remove(
-      ServletRequest request,
-      String name,
-      T value
+        ServletRequest request,
+        String name,
+        T value
     ) {
       synchronized (request) {
         Object curValue = request.getAttribute(name);
@@ -1219,13 +1219,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object)
      */
     public static <T> T replace(
-      ServletRequest request,
-      String name,
-      T value
+        ServletRequest request,
+        String name,
+        T value
     ) {
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)request.getAttribute(name);
+        T curValue = (T) request.getAttribute(name);
         if (curValue != null) {
           request.setAttribute(name, value);
         }
@@ -1253,14 +1253,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object, java.lang.Object)
      */
     public static <T> boolean replace(
-      ServletRequest request,
-      String name,
-      T oldValue,
-      T newValue
+        ServletRequest request,
+        String name,
+        T oldValue,
+        T newValue
     ) {
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)request.getAttribute(name);
+        T curValue = (T) request.getAttribute(name);
         if (Objects.equals(curValue, oldValue)) {
           request.setAttribute(name, newValue);
           return true;
@@ -1305,13 +1305,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#putIfAbsent(java.lang.Object, java.lang.Object)
      */
     public static <T> T setIfAbsent(
-      ServletRequest request,
-      String name,
-      T value
+        ServletRequest request,
+        String name,
+        T value
     ) {
       synchronized (request) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)request.getAttribute(name);
+        T oldValue = (T) request.getAttribute(name);
         if (oldValue == null) {
           request.setAttribute(name, value);
         }
@@ -1381,14 +1381,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T compute(
-      HttpSession session,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        HttpSession session,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (session) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)session.getAttribute(name);
+        T oldValue = (T) session.getAttribute(name);
         T newValue = remappingFunction.apply(name, oldValue);
         if (newValue != oldValue) {
           session.setAttribute(name, newValue);
@@ -1406,7 +1406,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T compute(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return compute(session, name, remappingFunction);
     }
@@ -1419,13 +1419,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public static <T, Ex extends Throwable> T computeIfAbsent(
-      HttpSession session,
-      String name,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        HttpSession session,
+        String name,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       synchronized (session) {
         @SuppressWarnings("unchecked")
-        T value = (T)session.getAttribute(name);
+        T value = (T) session.getAttribute(name);
         if (value == null) {
           value = mappingFunction.apply(name);
           if (value != null) {
@@ -1445,7 +1445,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfAbsent(
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       return computeIfAbsent(session, name, mappingFunction);
     }
@@ -1458,14 +1458,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T computeIfPresent(
-      HttpSession session,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        HttpSession session,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (session) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)session.getAttribute(name);
+        T oldValue = (T) session.getAttribute(name);
         if (oldValue != null) {
           T newValue = remappingFunction.apply(name, oldValue);
           if (newValue != oldValue) {
@@ -1487,7 +1487,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfPresent(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return computeIfPresent(session, name, remappingFunction);
     }
@@ -1499,7 +1499,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T get(HttpSession session, String name) {
       @SuppressWarnings("unchecked")
-      T value = (session == null) ? null : (T)session.getAttribute(name);
+      T value = (session == null) ? null : (T) session.getAttribute(name);
       return value;
     }
 
@@ -1520,12 +1520,12 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#getOrDefault(java.lang.Object, java.lang.Object)
      */
     public static <T> T getOrDefault(
-      HttpSession session,
-      String name,
-      T defaultValue
+        HttpSession session,
+        String name,
+        T defaultValue
     ) {
       @SuppressWarnings("unchecked")
-      T value = (session == null) ? null : (T)session.getAttribute(name);
+      T value = (session == null) ? null : (T) session.getAttribute(name);
       return (value != null) ? value : defaultValue;
     }
 
@@ -1548,16 +1548,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T merge(
-      HttpSession session,
-      String name,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        HttpSession session,
+        String name,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       Objects.requireNonNull(value);
       synchronized (session) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)session.getAttribute(name);
+        T oldValue = (T) session.getAttribute(name);
         T newValue = (oldValue == null) ? value : remappingFunction.apply(oldValue, value);
         if (newValue != oldValue) {
           session.setAttribute(name, newValue);
@@ -1575,8 +1575,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T merge(
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return merge(session, name, value, remappingFunction);
     }
@@ -1608,9 +1608,9 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#remove(java.lang.Object, java.lang.Object)
      */
     public static <T> boolean remove(
-      HttpSession session,
-      String name,
-      T value
+        HttpSession session,
+        String name,
+        T value
     ) {
       if (session == null) {
         return false;
@@ -1647,16 +1647,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object)
      */
     public static <T> T replace(
-      HttpSession session,
-      String name,
-      T value
+        HttpSession session,
+        String name,
+        T value
     ) {
       if (session == null) {
         return null;
       } else {
         synchronized (session) {
           @SuppressWarnings("unchecked")
-          T curValue = (T)session.getAttribute(name);
+          T curValue = (T) session.getAttribute(name);
           if (curValue != null) {
             session.setAttribute(name, value);
           }
@@ -1685,17 +1685,17 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object, java.lang.Object)
      */
     public static <T> boolean replace(
-      HttpSession session,
-      String name,
-      T oldValue,
-      T newValue
+        HttpSession session,
+        String name,
+        T oldValue,
+        T newValue
     ) {
       if (session == null && oldValue == null && newValue == null) {
         return true;
       } else {
         synchronized (session) {
           @SuppressWarnings({"unchecked", "null"})
-          T curValue = (T)session.getAttribute(name);
+          T curValue = (T) session.getAttribute(name);
           if (Objects.equals(curValue, oldValue)) {
             session.setAttribute(name, newValue);
             return true;
@@ -1744,16 +1744,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#putIfAbsent(java.lang.Object, java.lang.Object)
      */
     public static <T> T setIfAbsent(
-      HttpSession session,
-      String name,
-      T value
+        HttpSession session,
+        String name,
+        T value
     ) {
       if (session == null && value == null) {
         return null;
       } else {
         synchronized (session) {
           @SuppressWarnings({"unchecked", "null"})
-          T oldValue = (T)session.getAttribute(name);
+          T oldValue = (T) session.getAttribute(name);
           if (oldValue == null) {
             session.setAttribute(name, value);
           }
@@ -1822,14 +1822,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#compute(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T compute(
-      ServletContext servletContext,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletContext servletContext,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)servletContext.getAttribute(name);
+        T oldValue = (T) servletContext.getAttribute(name);
         T newValue = remappingFunction.apply(name, oldValue);
         if (newValue != oldValue) {
           servletContext.setAttribute(name, newValue);
@@ -1847,7 +1847,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T compute(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return compute(servletContext, name, remappingFunction);
     }
@@ -1860,13 +1860,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfAbsent(java.lang.Object, java.util.function.Function)
      */
     public static <T, Ex extends Throwable> T computeIfAbsent(
-      ServletContext servletContext,
-      String name,
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        ServletContext servletContext,
+        String name,
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T value = (T)servletContext.getAttribute(name);
+        T value = (T) servletContext.getAttribute(name);
         if (value == null) {
           value = mappingFunction.apply(name);
           if (value != null) {
@@ -1886,7 +1886,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfAbsent(
-      FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
+        FunctionE<? super String, ? extends T, ? extends Ex> mappingFunction
     ) throws Ex {
       return computeIfAbsent(servletContext, name, mappingFunction);
     }
@@ -1899,14 +1899,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#computeIfPresent(java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T computeIfPresent(
-      ServletContext servletContext,
-      String name,
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletContext servletContext,
+        String name,
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)servletContext.getAttribute(name);
+        T oldValue = (T) servletContext.getAttribute(name);
         if (oldValue != null) {
           T newValue = remappingFunction.apply(name, oldValue);
           if (newValue != oldValue) {
@@ -1928,7 +1928,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T computeIfPresent(
-      BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
+        BiFunctionE<? super String, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return computeIfPresent(servletContext, name, remappingFunction);
     }
@@ -1940,7 +1940,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     public static <T> T get(ServletContext servletContext, String name) {
       @SuppressWarnings("unchecked")
-      T value = (servletContext == null) ? null : (T)servletContext.getAttribute(name);
+      T value = (servletContext == null) ? null : (T) servletContext.getAttribute(name);
       return value;
     }
 
@@ -1961,12 +1961,12 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#getOrDefault(java.lang.Object, java.lang.Object)
      */
     public static <T> T getOrDefault(
-      ServletContext servletContext,
-      String name,
-      T defaultValue
+        ServletContext servletContext,
+        String name,
+        T defaultValue
     ) {
       @SuppressWarnings("unchecked")
-      T value = (servletContext == null) ? null : (T)servletContext.getAttribute(name);
+      T value = (servletContext == null) ? null : (T) servletContext.getAttribute(name);
       return (value != null) ? value : defaultValue;
     }
 
@@ -1989,16 +1989,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#merge(java.lang.Object, java.lang.Object, java.util.function.BiFunction)
      */
     public static <T, Ex extends Throwable> T merge(
-      ServletContext servletContext,
-      String name,
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        ServletContext servletContext,
+        String name,
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       Objects.requireNonNull(remappingFunction);
       Objects.requireNonNull(value);
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)servletContext.getAttribute(name);
+        T oldValue = (T) servletContext.getAttribute(name);
         T newValue = (oldValue == null) ? value : remappingFunction.apply(oldValue, value);
         if (newValue != oldValue) {
           servletContext.setAttribute(name, newValue);
@@ -2016,8 +2016,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <Ex extends Throwable> T merge(
-      T value,
-      BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
+        T value,
+        BiFunctionE<? super T, ? super T, ? extends T, ? extends Ex> remappingFunction
     ) throws Ex {
       return merge(servletContext, name, value, remappingFunction);
     }
@@ -2049,9 +2049,9 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#remove(java.lang.Object, java.lang.Object)
      */
     public static <T> boolean remove(
-      ServletContext servletContext,
-      String name,
-      T value
+        ServletContext servletContext,
+        String name,
+        T value
     ) {
       synchronized (servletContext) {
         Object curValue = servletContext.getAttribute(name);
@@ -2084,13 +2084,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object)
      */
     public static <T> T replace(
-      ServletContext servletContext,
-      String name,
-      T value
+        ServletContext servletContext,
+        String name,
+        T value
     ) {
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)servletContext.getAttribute(name);
+        T curValue = (T) servletContext.getAttribute(name);
         if (curValue != null) {
           servletContext.setAttribute(name, value);
         }
@@ -2118,14 +2118,14 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#replace(java.lang.Object, java.lang.Object, java.lang.Object)
      */
     public static <T> boolean replace(
-      ServletContext servletContext,
-      String name,
-      T oldValue,
-      T newValue
+        ServletContext servletContext,
+        String name,
+        T oldValue,
+        T newValue
     ) {
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T curValue = (T)servletContext.getAttribute(name);
+        T curValue = (T) servletContext.getAttribute(name);
         if (Objects.equals(curValue, oldValue)) {
           servletContext.setAttribute(name, newValue);
           return true;
@@ -2170,13 +2170,13 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      * @see  Map#putIfAbsent(java.lang.Object, java.lang.Object)
      */
     public static <T> T setIfAbsent(
-      ServletContext servletContext,
-      String name,
-      T value
+        ServletContext servletContext,
+        String name,
+        T value
     ) {
       synchronized (servletContext) {
         @SuppressWarnings("unchecked")
-        T oldValue = (T)servletContext.getAttribute(name);
+        T oldValue = (T) servletContext.getAttribute(name);
         if (oldValue == null) {
           servletContext.setAttribute(name, value);
         }
@@ -2224,16 +2224,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
       @SuppressWarnings("unchecked")
       public ScopeEE.Attribute<C, T> attribute(Class<?> contextType, String name) {
         if (contextType == JspContext.class) {
-          return (ScopeEE.Attribute<C, T>)new ScopeEE.Page.Attribute<>(name);
+          return (ScopeEE.Attribute<C, T>) new ScopeEE.Page.Attribute<>(name);
         }
         if (contextType == ServletRequest.class) {
-          return (ScopeEE.Attribute<C, T>)new ScopeEE.Request.Attribute<>(name);
+          return (ScopeEE.Attribute<C, T>) new ScopeEE.Request.Attribute<>(name);
         }
         if (contextType == HttpSession.class) {
-          return (ScopeEE.Attribute<C, T>)new ScopeEE.Session.Attribute<>(name);
+          return (ScopeEE.Attribute<C, T>) new ScopeEE.Session.Attribute<>(name);
         }
         if (contextType == ServletContext.class) {
-          return (ScopeEE.Attribute<C, T>)new ScopeEE.Application.Attribute<>(name);
+          return (ScopeEE.Attribute<C, T>) new ScopeEE.Application.Attribute<>(name);
         }
         return null;
       }
@@ -2251,26 +2251,26 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public <C> ScopeEE.Attribute<C, T> scope(Class<C> contextType) {
       // Avoid ServiceLoader for expected types
       if (contextType == JspContext.class) {
-        return (ScopeEE.Attribute<C, T>)page();
+        return (ScopeEE.Attribute<C, T>) page();
       }
       if (contextType == ServletRequest.class) {
-        return (ScopeEE.Attribute<C, T>)request();
+        return (ScopeEE.Attribute<C, T>) request();
       }
       if (contextType == HttpSession.class) {
-        return (ScopeEE.Attribute<C, T>)session();
+        return (ScopeEE.Attribute<C, T>) session();
       }
       if (contextType == ServletContext.class) {
-        return (ScopeEE.Attribute<C, T>)application();
+        return (ScopeEE.Attribute<C, T>) application();
       }
       // Check for additional types registered with ServiceLoader
       Scope.Attribute<C, T> attribute = super.scope(contextType);
       if (attribute instanceof ScopeEE.Attribute) {
-        return (ScopeEE.Attribute<C, T>)attribute;
+        return (ScopeEE.Attribute<C, T>) attribute;
       }
       throw new IllegalArgumentException(
-        "Scope attribute is not an instance of " + ScopeEE.Attribute.class.getName() + ".  To use attributes of any type, use "
-        + com.aoapps.lang.attribute.Attribute.class.getName() + ".scope(contextType) instead.  Context type is \""
-        + (contextType == null ? "null" : contextType.toGenericString()) + "\""
+          "Scope attribute is not an instance of " + ScopeEE.Attribute.class.getName() + ".  To use attributes of any type, use "
+              + com.aoapps.lang.attribute.Attribute.class.getName() + ".scope(contextType) instead.  Context type is \""
+              + (contextType == null ? "null" : contextType.toGenericString()) + "\""
       );
     }
 
@@ -2280,16 +2280,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     @SuppressWarnings("unchecked")
     public <C> ScopeEE.Attribute<C, T> scope(ScopeEE<C> scope) {
       if (scope == ScopeEE.PAGE) {
-        return (ScopeEE.Attribute<C, T>)application();
+        return (ScopeEE.Attribute<C, T>) application();
       }
       if (scope == ScopeEE.REQUEST) {
-        return (ScopeEE.Attribute<C, T>)request();
+        return (ScopeEE.Attribute<C, T>) request();
       }
       if (scope == ScopeEE.SESSION) {
-        return (ScopeEE.Attribute<C, T>)session();
+        return (ScopeEE.Attribute<C, T>) session();
       }
       if (scope == ScopeEE.APPLICATION) {
-        return (ScopeEE.Attribute<C, T>)application();
+        return (ScopeEE.Attribute<C, T>) application();
       }
       return scope.attribute(name);
     }
@@ -2301,7 +2301,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
      */
     @Override
     public <C> ScopeEE.Attribute<C, T> scope(Scope<C> scope) {
-      return scope((ScopeEE<C>)scope);
+      return scope((ScopeEE<C>) scope);
     }
 
     /**
@@ -2335,6 +2335,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public ScopeEE.Page.Attribute<T> page() {
       return new ScopeEE.Page.Attribute<>(name);
     }
+
     // </editor-fold>
 
     // <editor-fold desc="Context">
@@ -2349,16 +2350,16 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
       @SuppressWarnings("unchecked")
       public AttributeEE<C, T> attribute(Object context, String name) {
         if (context instanceof JspContext) {
-          return (AttributeEE<C, T>)new Page<>((JspContext)context, name);
+          return (AttributeEE<C, T>) new Page<>((JspContext) context, name);
         }
         if (context instanceof ServletRequest) {
-          return (AttributeEE<C, T>)new Request<>((ServletRequest)context, name);
+          return (AttributeEE<C, T>) new Request<>((ServletRequest) context, name);
         }
         if (context instanceof HttpSession) {
-          return (AttributeEE<C, T>)new Session<>((HttpSession)context, name);
+          return (AttributeEE<C, T>) new Session<>((HttpSession) context, name);
         }
         if (context instanceof ServletContext) {
-          return (AttributeEE<C, T>)new Application<>((ServletContext)context, name);
+          return (AttributeEE<C, T>) new Application<>((ServletContext) context, name);
         }
         return null;
       }
@@ -2376,26 +2377,26 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public <C> AttributeEE<C, T> context(C context) {
       // Avoid ServiceLoader for expected types
       if (context instanceof JspContext) {
-        return (AttributeEE<C, T>)context((JspContext)context);
+        return (AttributeEE<C, T>) context((JspContext) context);
       }
       if (context instanceof ServletRequest) {
-        return (AttributeEE<C, T>)context((ServletRequest)context);
+        return (AttributeEE<C, T>) context((ServletRequest) context);
       }
       if (context instanceof HttpSession) {
-        return (AttributeEE<C, T>)context((HttpSession)context);
+        return (AttributeEE<C, T>) context((HttpSession) context);
       }
       if (context instanceof ServletContext) {
-        return (AttributeEE<C, T>)context((ServletContext)context);
+        return (AttributeEE<C, T>) context((ServletContext) context);
       }
       // Check for additional types registered with ServiceLoader
       Attribute<C, T> attribute = super.context(context);
       if (attribute instanceof AttributeEE) {
-        return (AttributeEE<C, T>)attribute;
+        return (AttributeEE<C, T>) attribute;
       }
       throw new IllegalArgumentException(
-        "Attribute is not an instance of " + AttributeEE.class.getName() + ".  To use attributes of any type, use "
-        + com.aoapps.lang.attribute.Attribute.class.getName() + ".context(context) instead.  Context is type \""
-        + (context == null ? "null" : context.getClass().toGenericString()) + "\": " + context
+          "Attribute is not an instance of " + AttributeEE.class.getName() + ".  To use attributes of any type, use "
+              + com.aoapps.lang.attribute.Attribute.class.getName() + ".context(context) instead.  Context is type \""
+              + (context == null ? "null" : context.getClass().toGenericString()) + "\": " + context
       );
     }
 
@@ -2435,6 +2436,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
   public static <T> Name<T> attribute(String name) {
     return new Name<>(name);
   }
+
   // </editor-fold>
 
   // <editor-fold desc="JSTL 1.2">
@@ -2517,6 +2519,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     public ScopeEE.Page.Attribute<T> page() {
       return new ScopeEE.Page.Attribute<>(name + PAGE_SCOPE_SUFFIX);
     }
+
     // </editor-fold>
 
     // <editor-fold desc="Context">

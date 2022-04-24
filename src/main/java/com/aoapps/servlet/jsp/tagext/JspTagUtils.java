@@ -68,9 +68,9 @@ public final class JspTagUtils {
    */
   public static <T> Optional<T> findAncestor(JspTag from, Class<? extends T> ancestorClass) {
     return Optional.ofNullable(
-      ancestorClass.cast(
-        SimpleTagSupport.findAncestorWithClass(from, ancestorClass)
-      )
+        ancestorClass.cast(
+            SimpleTagSupport.findAncestorWithClass(from, ancestorClass)
+        )
     );
   }
 
@@ -91,7 +91,7 @@ public final class JspTagUtils {
    */
   public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws Ex {
     return findAncestor(from, ancestorClass).orElseThrow(
-      () -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", fromName, ancestorName)
+        () -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", fromName, ancestorName)
     );
   }
 
@@ -128,7 +128,7 @@ public final class JspTagUtils {
   @Deprecated
   public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws Ex {
     return findAncestor(from, ancestorClass).orElseThrow(
-      () -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
+        () -> exceptionSupplier.get(RESOURCES, "findAncestor.notFound", generateTagName(from.getClass()), generateTagName(ancestorClass))
     );
   }
 

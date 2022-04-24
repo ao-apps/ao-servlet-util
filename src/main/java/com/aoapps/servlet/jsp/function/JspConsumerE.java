@@ -42,6 +42,9 @@ public interface JspConsumerE<T, Ex extends Throwable> {
 
   default JspConsumerE<T, Ex> andThen(JspConsumerE<? super T, ? extends Ex> after) throws JspException, IOException, Ex {
     Objects.requireNonNull(after);
-    return t -> { accept(t); after.accept(t); };
+    return t -> {
+      accept(t);
+      after.accept(t);
+    };
   }
 }

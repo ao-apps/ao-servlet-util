@@ -62,13 +62,13 @@ public final class Dispatcher {
    * The name of the request-scope Map that will contain the arguments for the current page.
    */
   public static final ScopeEE.Request.Attribute<Map<String, ?>> ARG_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute("arg");
+      ScopeEE.REQUEST.attribute("arg");
 
   /**
    * Tracks the first servlet path seen, before any include/forward.
    */
   private static final ScopeEE.Request.Attribute<String> ORIGINAL_PAGE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".originalPage");
+      ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".originalPage");
 
   /**
    * Gets the current request original page or null if not set.
@@ -84,10 +84,10 @@ public final class Dispatcher {
       originalPage = ScopeEE.Request.FORWARD_SERVLET_PATH.context(request).get();
       if (originalPage == null) {
         if (
-          ScopeEE.Request.INCLUDE_SERVLET_PATH.context(request).get() != null
-          && (request instanceof HttpServletRequest)
+            ScopeEE.Request.INCLUDE_SERVLET_PATH.context(request).get() != null
+                && (request instanceof HttpServletRequest)
         ) {
-          originalPage = ((HttpServletRequest)request).getServletPath();
+          originalPage = ((HttpServletRequest) request).getServletPath();
         }
       }
     }
@@ -119,7 +119,7 @@ public final class Dispatcher {
    * Tracks the current dispatch page for correct page-relative paths.
    */
   private static final ScopeEE.Request.Attribute<String> DISPATCHED_PAGE_REQUEST_ATTRIBUTE =
-    ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".dispatchedPage");
+      ScopeEE.REQUEST.attribute(Dispatcher.class.getName() + ".dispatchedPage");
 
   /**
    * Gets the current request dispatched page or null if not set.
@@ -132,12 +132,12 @@ public final class Dispatcher {
     if (dispatchedPage != null) {
       if (logger.isLoggable(Level.FINE)) {
         logger.log(
-          Level.FINE,
-          "request={0}, dispatchedPage={1}",
-          new Object[] {
-            request,
-            dispatchedPage
-          }
+            Level.FINE,
+            "request={0}, dispatchedPage={1}",
+            new Object[]{
+                request,
+                dispatchedPage
+            }
         );
       }
     } else {
@@ -145,12 +145,12 @@ public final class Dispatcher {
       if (dispatchedPage != null) {
         if (logger.isLoggable(Level.FINE)) {
           logger.log(
-            Level.FINE,
-            "request={0}, " + ScopeEE.Request.INCLUDE_SERVLET_PATH.getName() + "={1}",
-            new Object[] {
-              request,
-              dispatchedPage
-            }
+              Level.FINE,
+              "request={0}, " + ScopeEE.Request.INCLUDE_SERVLET_PATH.getName() + "={1}",
+              new Object[]{
+                  request,
+                  dispatchedPage
+              }
           );
         }
       }
@@ -164,12 +164,12 @@ public final class Dispatcher {
   public static void setDispatchedPage(ServletRequest request, String dispatchedPage) {
     if (logger.isLoggable(Level.FINE)) {
       logger.log(
-        Level.FINE,
-        "request={0}, dispatchedPage={1}",
-        new Object[] {
-          request,
-          dispatchedPage
-        }
+          Level.FINE,
+          "request={0}, dispatchedPage={1}",
+          new Object[]{
+              request,
+              dispatchedPage
+          }
       );
     }
     DISPATCHED_PAGE_REQUEST_ATTRIBUTE.context(request).set(dispatchedPage);
@@ -188,12 +188,12 @@ public final class Dispatcher {
     if (dispatched != null) {
       if (logger.isLoggable(Level.FINE)) {
         logger.log(
-          Level.FINE,
-          "request={0}, dispatched={1}",
-          new Object[] {
-            request,
-            dispatched
-          }
+            Level.FINE,
+            "request={0}, dispatched={1}",
+            new Object[]{
+                request,
+                dispatched
+            }
         );
       }
       return dispatched;
@@ -201,12 +201,12 @@ public final class Dispatcher {
       String servletPath = request.getServletPath();
       if (logger.isLoggable(Level.FINE)) {
         logger.log(
-          Level.FINE,
-          "request={0}. servletPath={1}",
-          new Object[] {
-            request,
-            servletPath
-          }
+            Level.FINE,
+            "request={0}. servletPath={1}",
+            new Object[]{
+                request,
+                servletPath
+            }
         );
       }
       return servletPath;
@@ -219,11 +219,11 @@ public final class Dispatcher {
    * @param  args  The arguments for the page, make unmodifiable and accessible as request-scope var "arg"
    */
   public static void forward(
-    String contextRelativePath,
-    RequestDispatcher dispatcher,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Map<String, ?> args
+      String contextRelativePath,
+      RequestDispatcher dispatcher,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Map<String, ?> args
   ) throws ServletException, IOException {
     // Track original page when first accessed
     final String oldOriginal = getOriginalPage(request);
@@ -240,8 +240,8 @@ public final class Dispatcher {
         // Push new arguments
         try (
           Attribute.OldValue oldArgs = ARG_REQUEST_ATTRIBUTE.context(request)
-            .init(AoCollections.optimalUnmodifiableMap(args))
-        ) {
+                .init(AoCollections.optimalUnmodifiableMap(args))
+            ) {
           // Perform dispatch
           dispatcher.forward(request, response);
         }
@@ -259,10 +259,10 @@ public final class Dispatcher {
    * @see  #forward(java.lang.String, javax.servlet.RequestDispatcher, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
-    String contextRelativePath,
-    RequestDispatcher dispatcher,
-    HttpServletRequest request,
-    HttpServletResponse response
+      String contextRelativePath,
+      RequestDispatcher dispatcher,
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws ServletException, IOException {
     forward(contextRelativePath, dispatcher, request, response, null);
   }
@@ -276,11 +276,11 @@ public final class Dispatcher {
    * @see #forward(java.lang.String, javax.servlet.RequestDispatcher, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
-    ServletContext servletContext,
-    String page,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Map<String, ?> args
+      ServletContext servletContext,
+      String page,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Map<String, ?> args
   ) throws ServletException, IOException {
     // Resolve the dispatcher
     String contextRelativePath = URIResolver.getAbsolutePath(getCurrentPagePath(request), page);
@@ -295,10 +295,10 @@ public final class Dispatcher {
    * @see  #forward(javax.servlet.ServletContext, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
-    ServletContext servletContext,
-    String page,
-    HttpServletRequest request,
-    HttpServletResponse response
+      ServletContext servletContext,
+      String page,
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws ServletException, IOException {
     forward(servletContext, page, request, response, null);
   }
@@ -311,11 +311,11 @@ public final class Dispatcher {
    * @throws SkipPageException when the included page has been skipped due to a redirect.
    */
   public static void include(
-    String contextRelativePath,
-    RequestDispatcher dispatcher,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Map<String, ?> args
+      String contextRelativePath,
+      RequestDispatcher dispatcher,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Map<String, ?> args
   ) throws SkipPageException, ServletException, IOException {
     // Track original page when first accessed
     final String oldOriginal = getOriginalPage(request);
@@ -325,12 +325,12 @@ public final class Dispatcher {
         String servletPath = request.getServletPath();
         if (logger.isLoggable(Level.FINE)) {
           logger.log(
-            Level.FINE,
-            "request={0}, servletPath={1}",
-            new Object[] {
-              request,
-              servletPath
-            }
+              Level.FINE,
+              "request={0}, servletPath={1}",
+              new Object[]{
+                  request,
+                  servletPath
+              }
           );
         }
         setOriginalPage(request, servletPath);
@@ -340,12 +340,12 @@ public final class Dispatcher {
       try {
         if (logger.isLoggable(Level.FINE)) {
           logger.log(
-            Level.FINE,
-            "request={0}, oldDispatchPage={1}",
-            new Object[] {
-              request,
-              oldDispatchPage
-            }
+              Level.FINE,
+              "request={0}, oldDispatchPage={1}",
+              new Object[]{
+                  request,
+                  oldDispatchPage
+              }
           );
         }
         // Store as new relative path source
@@ -353,8 +353,8 @@ public final class Dispatcher {
         // Push new arguments
         try (
           Attribute.OldValue oldArgs = ARG_REQUEST_ATTRIBUTE.context(request)
-            .init(AoCollections.optimalUnmodifiableMap(args))
-        ) {
+                .init(AoCollections.optimalUnmodifiableMap(args))
+            ) {
           // Perform dispatch
           Includer.dispatchInclude(dispatcher, request, response);
         }
@@ -372,10 +372,10 @@ public final class Dispatcher {
    * @see  #include(java.lang.String, javax.servlet.RequestDispatcher, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
-    String contextRelativePath,
-    RequestDispatcher dispatcher,
-    HttpServletRequest request,
-    HttpServletResponse response
+      String contextRelativePath,
+      RequestDispatcher dispatcher,
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws SkipPageException, ServletException, IOException {
     include(contextRelativePath, dispatcher, request, response, null);
   }
@@ -391,11 +391,11 @@ public final class Dispatcher {
    * @see  #include(java.lang.String, javax.servlet.RequestDispatcher, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
-    ServletContext servletContext,
-    String page,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    Map<String, ?> args
+      ServletContext servletContext,
+      String page,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      Map<String, ?> args
   ) throws SkipPageException, ServletException, IOException {
     // Resolve the dispatcher
     String contextRelativePath;
@@ -403,23 +403,23 @@ public final class Dispatcher {
       String currentPagePath = getCurrentPagePath(request);
       if (logger.isLoggable(Level.FINE)) {
         logger.log(
-          Level.FINE,
-          "request={0}, currentPagePath={1}",
-          new Object[] {
-            request,
-            currentPagePath
-          }
+            Level.FINE,
+            "request={0}, currentPagePath={1}",
+            new Object[]{
+                request,
+                currentPagePath
+            }
         );
       }
       contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
       if (logger.isLoggable(Level.FINE)) {
         logger.log(
-          Level.FINE,
-          "request={0}, contextRelativePath={1}",
-          new Object[] {
-            request,
-            contextRelativePath
-          }
+            Level.FINE,
+            "request={0}, contextRelativePath={1}",
+            new Object[]{
+                request,
+                contextRelativePath
+            }
         );
       }
     }
@@ -434,10 +434,10 @@ public final class Dispatcher {
    * @see  #include(javax.servlet.ServletContext, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
-    ServletContext servletContext,
-    String page,
-    HttpServletRequest request,
-    HttpServletResponse response
+      ServletContext servletContext,
+      String page,
+      HttpServletRequest request,
+      HttpServletResponse response
   ) throws SkipPageException, ServletException, IOException {
     include(servletContext, page, request, response, null);
   }

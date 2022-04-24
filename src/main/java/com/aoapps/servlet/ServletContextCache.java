@@ -53,7 +53,7 @@ public final class ServletContextCache {
   private static final long EXPIRATION_AGE = 60L * 1000;
 
   private static final ScopeEE.Application.Attribute<ServletContextCache> APPLICATION_ATTRIBUTE =
-    ScopeEE.APPLICATION.attribute(ServletContextCache.class.getName());
+      ScopeEE.APPLICATION.attribute(ServletContextCache.class.getName());
 
   @WebListener
   public static class Initializer implements ServletContextListener {
@@ -80,8 +80,8 @@ public final class ServletContextCache {
    */
   public static ServletContextCache getInstance(ServletContext servletContext) {
     ServletContextCache cache = APPLICATION_ATTRIBUTE.context(servletContext)
-      // It is possible this is called during context initialization before the listener
-      .computeIfAbsent(__ -> new ServletContextCache(servletContext));
+        // It is possible this is called during context initialization before the listener
+        .computeIfAbsent(__ -> new ServletContextCache(servletContext));
     assert cache.servletContext == servletContext;
     return cache;
   }
@@ -107,11 +107,11 @@ public final class ServletContextCache {
 
   // <editor-fold defaultstate="collapsed" desc="getResource">
   private final BackgroundCache<String, URL, MalformedURLException> getResourceCache = new BackgroundCache<>(
-    ServletContextCache.class.getName() + ".getResource",
-    MalformedURLException.class,
-    REFRESH_INTERVAL,
-    EXPIRATION_AGE,
-    logger
+      ServletContextCache.class.getName() + ".getResource",
+      MalformedURLException.class,
+      REFRESH_INTERVAL,
+      EXPIRATION_AGE,
+      logger
   );
 
   /**
@@ -141,11 +141,11 @@ public final class ServletContextCache {
 
   // <editor-fold defaultstate="collapsed" desc="getRealPath">
   private final BackgroundCache<String, String, RuntimeException> getRealPathCache = new BackgroundCache<>(
-    ServletContextCache.class.getName() + ".getRealPath",
-    RuntimeException.class,
-    REFRESH_INTERVAL,
-    EXPIRATION_AGE,
-    logger
+      ServletContextCache.class.getName() + ".getRealPath",
+      RuntimeException.class,
+      REFRESH_INTERVAL,
+      EXPIRATION_AGE,
+      logger
   );
 
   /**
@@ -170,11 +170,11 @@ public final class ServletContextCache {
 
   // <editor-fold defaultstate="collapsed" desc="getLastModified">
   private final BackgroundCache<String, Long, RuntimeException> getLastModifiedCache = new BackgroundCache<>(
-    ServletContextCache.class.getName() + ".getLastModified",
-    RuntimeException.class,
-    REFRESH_INTERVAL,
-    EXPIRATION_AGE,
-    logger
+      ServletContextCache.class.getName() + ".getLastModified",
+      RuntimeException.class,
+      REFRESH_INTERVAL,
+      EXPIRATION_AGE,
+      logger
   );
 
   private final Refresher<String, Long, RuntimeException> getLastModifiedRefresher = path -> {

@@ -42,6 +42,9 @@ public interface ServletConsumerE<T, Ex extends Throwable> {
 
   default ServletConsumerE<T, Ex> andThen(ServletConsumerE<? super T, ? extends Ex> after) throws ServletException, IOException, Ex {
     Objects.requireNonNull(after);
-    return t -> { accept(t); after.accept(t); };
+    return t -> {
+      accept(t);
+      after.accept(t);
+    };
   }
 }

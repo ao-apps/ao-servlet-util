@@ -51,7 +51,7 @@ public class LocalizedJspException extends JspException implements LocalizedExce
   }
 
   public LocalizedJspException(Resources resources, String key, Serializable... args) {
-    super(resources.getMessage(key, (Object[])args));
+    super(resources.getMessage(key, (Object[]) args));
     this.resources = resources;
     this.key = key;
     this.args = args;
@@ -65,7 +65,7 @@ public class LocalizedJspException extends JspException implements LocalizedExce
   }
 
   public LocalizedJspException(Throwable cause, Resources resources, String key, Serializable... args) {
-    super(resources.getMessage(key, (Object[])args), cause);
+    super(resources.getMessage(key, (Object[]) args), cause);
     this.resources = resources;
     this.key = key;
     this.args = args;
@@ -73,7 +73,7 @@ public class LocalizedJspException extends JspException implements LocalizedExce
 
   @Override
   public String getLocalizedMessage() {
-    return resources.getMessage(key, (Object[])args);
+    return resources.getMessage(key, (Object[]) args);
   }
 
   @Override
@@ -97,7 +97,7 @@ public class LocalizedJspException extends JspException implements LocalizedExce
 
   static {
     Throwables.registerSurrogateFactory(LocalizedJspException.class, (template, cause) ->
-      new LocalizedJspException(cause, template.resources, template.key, template.args)
+        new LocalizedJspException(cause, template.resources, template.key, template.args)
     );
   }
 }

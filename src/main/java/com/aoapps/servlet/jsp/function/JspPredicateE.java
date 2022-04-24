@@ -59,8 +59,8 @@ public interface JspPredicateE<T, Ex extends Throwable> {
    */
   static <T, Ex extends Throwable> JspPredicateE<T, Ex> isEqual(Object targetRef) {
     return (null == targetRef)
-      ? Objects::isNull
-      : targetRef::equals;
+        ? Objects::isNull
+        : targetRef::equals;
   }
 
   /**
@@ -69,6 +69,6 @@ public interface JspPredicateE<T, Ex extends Throwable> {
   @SuppressWarnings("unchecked")
   static <T, Ex extends Throwable> JspPredicateE<T, Ex> not(JspPredicateE<? super T, ? extends Ex> target) throws JspException, IOException, Ex {
     Objects.requireNonNull(target);
-    return (JspPredicateE<T, Ex>)target.negate();
+    return (JspPredicateE<T, Ex>) target.negate();
   }
 }

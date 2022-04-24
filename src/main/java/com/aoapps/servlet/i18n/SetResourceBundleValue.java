@@ -71,12 +71,12 @@ public class SetResourceBundleValue extends HttpServlet {
         throw new AssertionError("resourceBundle is not a ModifiableResourceBundle");
       }
       if (value.isEmpty()) {
-        ((ModifiableResourceBundle)resourceBundle).removeKey(key);
+        ((ModifiableResourceBundle) resourceBundle).removeKey(key);
       } else {
-        ((ModifiableResourceBundle)resourceBundle).setString(
-          key,
-          EditableResourceBundle.EMPTY_DISPLAY.equals(value) ? "" : value,
-          modified
+        ((ModifiableResourceBundle) resourceBundle).setString(
+            key,
+            EditableResourceBundle.EMPTY_DISPLAY.equals(value) ? "" : value,
+            modified
         );
       }
 

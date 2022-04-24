@@ -86,23 +86,23 @@ public final class HttpServletUtil {
             // Forward DNS must resolve back to the original IP
             for (InetAddress actualIp : InetAddress.getAllByName(remoteHost)) {
               if (logger.isLoggable(Level.FINER)) {
-                logger.finer("DEBUG: ServletUtil: Googlebot verified: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+                logger.finer("DEBUG: ServletUtil: Googlebot verified: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
               }
               if (actualIp.equals(remoteIp)) {
                 return true;
               }
             }
             if (logger.isLoggable(Level.FINE)) {
-              logger.fine("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+              logger.fine("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
             }
           }
           if (logger.isLoggable(Level.FINE)) {
-            logger.fine("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"");
+            logger.fine("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
           }
         } catch (UnknownHostException exception) {
           // Ignored
           if (logger.isLoggable(Level.FINE)) {
-            logger.log(Level.FINE, "DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\""+userAgent+"\", remoteAddr=\""+remoteAddr+"\", remoteHost=\""+remoteHost+"\"", exception);
+            logger.log(Level.FINE, "DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"", exception);
           }
         }
         break; // Only check the first Googlebot User-Agent header (there should normally only be one anyway)
@@ -121,8 +121,8 @@ public final class HttpServletUtil {
    */
   public static String getAbsolutePath(HttpServletRequest request, String path) throws MalformedURLException {
     return URIResolver.getAbsolutePath(
-      Dispatcher.getCurrentPagePath(request),
-      path
+        Dispatcher.getCurrentPagePath(request),
+        path
     );
   }
 
@@ -289,14 +289,14 @@ public final class HttpServletUtil {
    */
   @SuppressWarnings("try")
   public static String buildRedirectURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     href = URIResolver.getAbsolutePath(servletPath, href);
     href = URIParametersUtils.addParams(href, params);
@@ -325,23 +325,23 @@ public final class HttpServletUtil {
    * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      request,
-      response,
-      servletPath,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        request,
+        response,
+        servletPath,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -354,23 +354,23 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      request,
-      response,
-      Dispatcher.getCurrentPagePath(request),
-      href,
-      params,
-      modifier,
-      absolute,
-      canonical
+        request,
+        response,
+        Dispatcher.getCurrentPagePath(request),
+        href,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -378,21 +378,21 @@ public final class HttpServletUtil {
    * @see  #buildRedirectURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      request,
-      response,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        request,
+        response,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -401,21 +401,21 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    PageContext pageContext,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      PageContext pageContext,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      (HttpServletRequest)pageContext.getRequest(),
-      (HttpServletResponse)pageContext.getResponse(),
-      href,
-      params,
-      modifier,
-      absolute,
-      canonical
+        (HttpServletRequest) pageContext.getRequest(),
+        (HttpServletResponse) pageContext.getResponse(),
+        href,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -423,19 +423,19 @@ public final class HttpServletUtil {
    * @see  #buildRedirectURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    PageContext pageContext,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      PageContext pageContext,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      pageContext,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        pageContext,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -444,20 +444,20 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    JspContext jspContext,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      JspContext jspContext,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      (PageContext)jspContext,
-      href,
-      params,
-      modifier,
-      absolute,
-      canonical
+        (PageContext) jspContext,
+        href,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -465,19 +465,19 @@ public final class HttpServletUtil {
    * @see  #buildRedirectURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
-    JspContext jspContext,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      JspContext jspContext,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildRedirectURL(
-      jspContext,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        jspContext,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -499,14 +499,14 @@ public final class HttpServletUtil {
    */
   @SuppressWarnings("try")
   public static String buildURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String url,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String url,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     url = URIResolver.getAbsolutePath(servletPath, url);
     url = URIParametersUtils.addParams(url, params);
@@ -534,23 +534,23 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String url,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String url,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      request,
-      response,
-      servletPath,
-      url,
-      params,
-      null,
-      absolute,
-      canonical
+        request,
+        response,
+        servletPath,
+        url,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -561,23 +561,23 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String url,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String url,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      request,
-      response,
-      Dispatcher.getCurrentPagePath(request),
-      url,
-      params,
-      modifier,
-      absolute,
-      canonical
+        request,
+        response,
+        Dispatcher.getCurrentPagePath(request),
+        url,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -585,21 +585,21 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String url,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String url,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      request,
-      response,
-      url,
-      params,
-      null,
-      absolute,
-      canonical
+        request,
+        response,
+        url,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -607,21 +607,21 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    PageContext pageContext,
-    String url,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      PageContext pageContext,
+      String url,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      (HttpServletRequest)pageContext.getRequest(),
-      (HttpServletResponse)pageContext.getResponse(),
-      url,
-      params,
-      modifier,
-      absolute,
-      canonical
+        (HttpServletRequest) pageContext.getRequest(),
+        (HttpServletResponse) pageContext.getResponse(),
+        url,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -629,19 +629,19 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    PageContext pageContext,
-    String url,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      PageContext pageContext,
+      String url,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      pageContext,
-      url,
-      params,
-      null,
-      absolute,
-      canonical
+        pageContext,
+        url,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -649,20 +649,20 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    JspContext jspContext,
-    String url,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      JspContext jspContext,
+      String url,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      (PageContext)jspContext,
-      url,
-      params,
-      modifier,
-      absolute,
-      canonical
+        (PageContext) jspContext,
+        url,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -670,19 +670,19 @@ public final class HttpServletUtil {
    * @see  #buildURL(javax.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
-    JspContext jspContext,
-    String url,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      JspContext jspContext,
+      String url,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException {
     return buildURL(
-      jspContext,
-      url,
-      params,
-      null,
-      absolute,
-      canonical
+        jspContext,
+        url,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -696,9 +696,9 @@ public final class HttpServletUtil {
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
   public static void sendRedirect(
-    int status,
-    HttpServletResponse response,
-    String location
+      int status,
+      HttpServletResponse response,
+      String location
   ) throws IllegalStateException, IOException {
     // Response must not be committed
     if (response.isCommitted()) {
@@ -716,29 +716,29 @@ public final class HttpServletUtil {
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
   public static void sendRedirect(
-    int status,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      int status,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      response,
-      buildRedirectURL(
-        request,
+        status,
         response,
-        servletPath,
-        href,
-        params,
-        modifier,
-        absolute,
-        canonical
-      )
+        buildRedirectURL(
+            request,
+            response,
+            servletPath,
+            href,
+            params,
+            modifier,
+            absolute,
+            canonical
+        )
     );
   }
 
@@ -746,25 +746,25 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
-    int status,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String servletPath,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      int status,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String servletPath,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      request,
-      response,
-      servletPath,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        status,
+        request,
+        response,
+        servletPath,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -775,27 +775,27 @@ public final class HttpServletUtil {
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
   public static void sendRedirect(
-    int status,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      int status,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      response,
-      buildRedirectURL(
-        request,
+        status,
         response,
-        href,
-        params,
-        modifier,
-        absolute,
-        canonical
-      )
+        buildRedirectURL(
+            request,
+            response,
+            href,
+            params,
+            modifier,
+            absolute,
+            canonical
+        )
     );
   }
 
@@ -803,23 +803,23 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
-    int status,
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      int status,
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      request,
-      response,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        status,
+        request,
+        response,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -830,25 +830,25 @@ public final class HttpServletUtil {
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
   public static void sendRedirect(
-    int status,
-    PageContext pageContext,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      int status,
+      PageContext pageContext,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      (HttpServletResponse)pageContext.getResponse(),
-      buildRedirectURL(
-        pageContext,
-        href,
-        params,
-        modifier,
-        absolute,
-        canonical
-      )
+        status,
+        (HttpServletResponse) pageContext.getResponse(),
+        buildRedirectURL(
+            pageContext,
+            href,
+            params,
+            modifier,
+            absolute,
+            canonical
+        )
     );
   }
 
@@ -856,21 +856,21 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
-    int status,
-    PageContext pageContext,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      int status,
+      PageContext pageContext,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      pageContext,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        status,
+        pageContext,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -881,22 +881,22 @@ public final class HttpServletUtil {
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
   public static void sendRedirect(
-    int status,
-    JspContext jspContext,
-    String href,
-    URIParameters params,
-    UrlModifier modifier,
-    boolean absolute,
-    boolean canonical
+      int status,
+      JspContext jspContext,
+      String href,
+      URIParameters params,
+      UrlModifier modifier,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      (PageContext)jspContext,
-      href,
-      params,
-      modifier,
-      absolute,
-      canonical
+        status,
+        (PageContext) jspContext,
+        href,
+        params,
+        modifier,
+        absolute,
+        canonical
     );
   }
 
@@ -904,21 +904,21 @@ public final class HttpServletUtil {
    * @see  #sendRedirect(int, javax.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
-    int status,
-    JspContext jspContext,
-    String href,
-    URIParameters params,
-    boolean absolute,
-    boolean canonical
+      int status,
+      JspContext jspContext,
+      String href,
+      URIParameters params,
+      boolean absolute,
+      boolean canonical
   ) throws MalformedURLException, IllegalStateException, IOException {
     sendRedirect(
-      status,
-      jspContext,
-      href,
-      params,
-      null,
-      absolute,
-      canonical
+        status,
+        jspContext,
+        href,
+        params,
+        null,
+        absolute,
+        canonical
     );
   }
 
@@ -954,14 +954,14 @@ public final class HttpServletUtil {
     if ((parentMethods != null) && (parentMethods.length > 0)) {
       Method[] allMethods = new Method[parentMethods.length + thisMethods.length];
       System.arraycopy(
-        parentMethods, 0,
-        allMethods, 0,
-        parentMethods.length
+          parentMethods, 0,
+          allMethods, 0,
+          parentMethods.length
       );
       System.arraycopy(
-        thisMethods, 0,
-        allMethods, parentMethods.length,
-        thisMethods.length
+          thisMethods, 0,
+          allMethods, parentMethods.length,
+          thisMethods.length
       );
       thisMethods = allMethods;
     }
@@ -972,14 +972,14 @@ public final class HttpServletUtil {
    * A reusable doOptions implementation for servlets.
    */
   public static <S extends HttpServlet> void doOptions(
-    HttpServletResponse response,
-    Class<S> stopClass,
-    Class<? extends S> thisClass,
-    String doGet,
-    String doPost,
-    String doPut,
-    String doDelete,
-    Class<?>[] paramTypes
+      HttpServletResponse response,
+      Class<S> stopClass,
+      Class<? extends S> thisClass,
+      String doGet,
+      String doPost,
+      String doPut,
+      String doDelete,
+      Class<?>[] paramTypes
   ) {
     boolean ALLOW_GET = false;
     boolean ALLOW_HEAD = false;
@@ -1074,10 +1074,10 @@ public final class HttpServletUtil {
       if (filename != null && !filename.isEmpty()) {
         filename = Paths.get(filename).getFileName().toString(); // MSIE fix
         if (
-          !filename.isEmpty()
-          // Servers have POSIX filesystem, make sure absolutely no '/' or NULL characters
-          && filename.indexOf('/') == -1
-          && filename.indexOf((char)0) == -1
+            !filename.isEmpty()
+                // Servers have POSIX filesystem, make sure absolutely no '/' or NULL characters
+                && filename.indexOf('/') == -1
+                && filename.indexOf((char) 0) == -1
         ) {
           return filename;
         }

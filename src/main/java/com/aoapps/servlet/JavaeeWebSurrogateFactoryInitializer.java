@@ -47,7 +47,7 @@ public class JavaeeWebSurrogateFactoryInitializer implements ThrowableSurrogateF
 
     // javax.servlet:javax.servlet-api:3.0.1
     Throwables.registerSurrogateFactory(javax.servlet.ServletException.class, (template, cause) ->
-      new javax.servlet.ServletException(template.getMessage(), cause)
+        new javax.servlet.ServletException(template.getMessage(), cause)
     );
     Throwables.registerSurrogateFactory(javax.servlet.UnavailableException.class, (template, cause) -> {
       javax.servlet.UnavailableException newEx = new javax.servlet.UnavailableException(template.getMessage(), template.getUnavailableSeconds());
@@ -57,16 +57,16 @@ public class JavaeeWebSurrogateFactoryInitializer implements ThrowableSurrogateF
 
     // javax.servlet.jsp:javax.servlet.jsp-api:2.2.1
     Throwables.registerSurrogateFactory(javax.servlet.jsp.JspException.class, (template, cause) ->
-      new javax.servlet.jsp.JspException(template.getMessage(), cause)
+        new javax.servlet.jsp.JspException(template.getMessage(), cause)
     );
     Throwables.registerSurrogateFactory(javax.servlet.jsp.JspTagException.class, (template, cause) ->
-      new javax.servlet.jsp.JspTagException(template.getMessage(), cause)
+        new javax.servlet.jsp.JspTagException(template.getMessage(), cause)
     );
     Throwables.registerSurrogateFactory(javax.servlet.jsp.SkipPageException.class, (template, cause) ->
-      new javax.servlet.jsp.SkipPageException(template.getMessage(), cause)
+        new javax.servlet.jsp.SkipPageException(template.getMessage(), cause)
     );
     Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELException.class, (template, cause) ->
-      new javax.servlet.jsp.el.ELException(template.getMessage(), cause));
+        new javax.servlet.jsp.el.ELException(template.getMessage(), cause));
     Throwables.registerSurrogateFactory(javax.servlet.jsp.el.ELParseException.class, (template, cause) -> {
       javax.servlet.jsp.el.ELParseException newEx = new javax.servlet.jsp.el.ELParseException(template.getMessage());
       newEx.initCause(cause);

@@ -137,8 +137,8 @@ public final class Cookies {
    */
   public static Cookie newCookie(String name, String value) {
     return new Cookie(
-      encodeName(name),
-      encodeValue(value)
+        encodeName(name),
+        encodeValue(value)
     );
   }
 
@@ -218,13 +218,13 @@ public final class Cookies {
    * Encodes path via {@link URIEncoder#encodeURI(java.lang.String)}.
    */
   public static Cookie newCookie(
-    HttpServletRequest request,
-    String name,
-    String value,
-    String comment,
-    int maxAge,
-    boolean secure,
-    boolean contextOnlyPath
+      HttpServletRequest request,
+      String name,
+      String value,
+      String comment,
+      int maxAge,
+      boolean secure,
+      boolean contextOnlyPath
   ) {
     Cookie newCookie = newCookie(name, value);
     setComment(newCookie, comment);
@@ -249,14 +249,14 @@ public final class Cookies {
    * Encodes path via {@link URIEncoder#encodeURI(java.lang.String)}.
    */
   public static void addCookie(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String name,
-    String value,
-    String comment,
-    int maxAge,
-    boolean secure,
-    boolean contextOnlyPath
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String name,
+      String value,
+      String comment,
+      int maxAge,
+      boolean secure,
+      boolean contextOnlyPath
   ) {
     response.addCookie(newCookie(request, name, value, comment, maxAge, secure, contextOnlyPath));
   }
@@ -283,11 +283,11 @@ public final class Cookies {
    * Encodes name via {@link URIEncoder#encodeURIComponent(java.lang.String)}.
    */
   public static void removeCookie(
-    HttpServletRequest request,
-    HttpServletResponse response,
-    String name,
-    boolean secure,
-    boolean contextOnlyPath
+      HttpServletRequest request,
+      HttpServletResponse response,
+      String name,
+      boolean secure,
+      boolean contextOnlyPath
   ) {
     addCookie(request, response, name, "Removed", null, 0, secure, contextOnlyPath);
   }

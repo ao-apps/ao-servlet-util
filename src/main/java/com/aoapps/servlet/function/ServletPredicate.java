@@ -41,13 +41,13 @@ public interface ServletPredicate<T> extends ServletPredicateE<T, RuntimeExcepti
 
   static <T> ServletPredicate<T> isEqual(Object targetRef) {
     return (null == targetRef)
-      ? Objects::isNull
-      : targetRef::equals;
+        ? Objects::isNull
+        : targetRef::equals;
   }
 
   @SuppressWarnings("unchecked")
   static <T> ServletPredicate<T> not(ServletPredicate<? super T> target) throws ServletException, IOException {
     Objects.requireNonNull(target);
-    return (ServletPredicate<T>)target.negate();
+    return (ServletPredicate<T>) target.negate();
   }
 }
