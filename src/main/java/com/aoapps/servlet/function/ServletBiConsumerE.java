@@ -43,7 +43,7 @@ public interface ServletBiConsumerE<T, U, Ex extends Throwable> {
   default ServletBiConsumerE<T, U, Ex> andThen(ServletBiConsumerE<? super T, ? super U, ? extends Ex> after) throws ServletException, IOException, Ex {
     Objects.requireNonNull(after);
 
-    return (l, r) -> {
+    return (T l, U r) -> {
       accept(l, r);
       after.accept(l, r);
     };

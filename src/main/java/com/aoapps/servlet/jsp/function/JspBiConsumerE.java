@@ -43,7 +43,7 @@ public interface JspBiConsumerE<T, U, Ex extends Throwable> {
   default JspBiConsumerE<T, U, Ex> andThen(JspBiConsumerE<? super T, ? super U, ? extends Ex> after) throws JspException, IOException, Ex {
     Objects.requireNonNull(after);
 
-    return (l, r) -> {
+    return (T l, U r) -> {
       accept(l, r);
       after.accept(l, r);
     };
