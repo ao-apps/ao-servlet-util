@@ -399,30 +399,30 @@ public final class Dispatcher {
   ) throws SkipPageException, ServletException, IOException {
     // Resolve the dispatcher
     String contextRelativePath;
-    {
-      String currentPagePath = getCurrentPagePath(request);
-      if (logger.isLoggable(Level.FINE)) {
-        logger.log(
-            Level.FINE,
-            "request={0}, currentPagePath={1}",
-            new Object[]{
-                request,
-                currentPagePath
-            }
-        );
+      {
+        String currentPagePath = getCurrentPagePath(request);
+        if (logger.isLoggable(Level.FINE)) {
+          logger.log(
+              Level.FINE,
+              "request={0}, currentPagePath={1}",
+              new Object[]{
+                  request,
+                  currentPagePath
+              }
+          );
+        }
+        contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
+        if (logger.isLoggable(Level.FINE)) {
+          logger.log(
+              Level.FINE,
+              "request={0}, contextRelativePath={1}",
+              new Object[]{
+                  request,
+                  contextRelativePath
+              }
+          );
+        }
       }
-      contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
-      if (logger.isLoggable(Level.FINE)) {
-        logger.log(
-            Level.FINE,
-            "request={0}, contextRelativePath={1}",
-            new Object[]{
-                request,
-                contextRelativePath
-            }
-        );
-      }
-    }
     RequestDispatcher dispatcher = servletContext.getRequestDispatcher(contextRelativePath);
     if (dispatcher == null) {
       throw new LocalizedServletException(RESOURCES, "dispatcherNotFound", contextRelativePath);

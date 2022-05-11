@@ -23,8 +23,9 @@
 
 package com.aoapps.servlet;
 
-import com.aoapps.lang.io.LocalizedIOException;
 import static com.aoapps.lang.util.PropertiesUtils.RESOURCES;
+
+import com.aoapps.lang.io.LocalizedIOException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

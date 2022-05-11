@@ -87,6 +87,8 @@ public class LocalizedServletException extends ServletException implements Local
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  No defensive copy
    */
   @Override

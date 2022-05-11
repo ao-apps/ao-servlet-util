@@ -55,7 +55,10 @@ public final class ServletContextCache {
   private static final ScopeEE.Application.Attribute<ServletContextCache> APPLICATION_ATTRIBUTE =
       ScopeEE.APPLICATION.attribute(ServletContextCache.class.getName());
 
-  @WebListener
+  /**
+   * Initializes the cache during {@linkplain ServletContextListener application start-up}.
+   */
+  @WebListener("Initializes the cache during application start-up.")
   public static class Initializer implements ServletContextListener {
 
     private ServletContextCache cache;
@@ -81,7 +84,7 @@ public final class ServletContextCache {
   public static ServletContextCache getInstance(ServletContext servletContext) {
     ServletContextCache cache = APPLICATION_ATTRIBUTE.context(servletContext)
         // It is possible this is called during context initialization before the listener
-        .computeIfAbsent(__ -> new ServletContextCache(servletContext));
+        .computeIfAbsent(name -> new ServletContextCache(servletContext));
     assert cache.servletContext == servletContext;
     return cache;
   }

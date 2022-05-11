@@ -87,6 +87,8 @@ public class LocalizedJspException extends JspException implements LocalizedExce
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  No defensive copy
    */
   @Override

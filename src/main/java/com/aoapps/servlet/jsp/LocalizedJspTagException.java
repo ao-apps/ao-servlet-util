@@ -87,6 +87,8 @@ public class LocalizedJspTagException extends JspTagException implements Localiz
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @return  No defensive copy
    */
   @Override

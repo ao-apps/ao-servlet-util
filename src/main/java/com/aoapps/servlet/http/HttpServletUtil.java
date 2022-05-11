@@ -86,23 +86,28 @@ public final class HttpServletUtil {
             // Forward DNS must resolve back to the original IP
             for (InetAddress actualIp : InetAddress.getAllByName(remoteHost)) {
               if (logger.isLoggable(Level.FINER)) {
-                logger.finer("DEBUG: ServletUtil: Googlebot verified: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
+                logger.finer("DEBUG: ServletUtil: Googlebot verified: userAgent=\"" + userAgent + "\", remoteAddr=\""
+                    + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
               }
               if (actualIp.equals(remoteIp)) {
                 return true;
               }
             }
             if (logger.isLoggable(Level.FINE)) {
-              logger.fine("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
+              logger.fine("DEBUG: ServletUtil: Googlebot agent with valid reverse DNS failed forward lookup: userAgent=\""
+                  + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
             }
           }
           if (logger.isLoggable(Level.FINE)) {
-            logger.fine("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
+            logger.fine("DEBUG: ServletUtil: Googlebot agent failed valid reverse DNS lookup: userAgent=\""
+                + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"");
           }
         } catch (UnknownHostException exception) {
           // Ignored
           if (logger.isLoggable(Level.FINE)) {
-            logger.log(Level.FINE, "DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\"" + userAgent + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"", exception);
+            logger.log(Level.FINE,
+                "DEBUG: ServletUtil: Googlebot agent verification failed due to exception: userAgent=\"" + userAgent
+                    + "\", remoteAddr=\"" + remoteAddr + "\", remoteHost=\"" + remoteHost + "\"", exception);
           }
         }
         break; // Only check the first Googlebot User-Agent header (there should normally only be one anyway)
@@ -981,69 +986,66 @@ public final class HttpServletUtil {
       String doDelete,
       Class<?>[] paramTypes
   ) {
-    boolean ALLOW_GET = false;
-    boolean ALLOW_HEAD = false;
-    boolean ALLOW_POST = false;
-    boolean ALLOW_PUT = false;
-    boolean ALLOW_DELETE = false;
-    boolean ALLOW_TRACE = true;
-    boolean ALLOW_OPTIONS = true;
-    for (
-      Method method
-      : getAllDeclaredMethods(stopClass, thisClass)
-    ) {
+    boolean allowGet = false;
+    boolean allowHead = false;
+    boolean allowPost = false;
+    boolean allowPut = false;
+    boolean allowDelete = false;
+    for (Method method : getAllDeclaredMethods(stopClass, thisClass)) {
       if (Arrays.equals(paramTypes, method.getParameterTypes())) {
         String methodName = method.getName();
         if (doGet.equals(methodName)) {
-          ALLOW_GET = true;
-          ALLOW_HEAD = true;
+          allowGet = true;
+          allowHead = true;
         } else if (doPost.equals(methodName)) {
-          ALLOW_POST = true;
+          allowPost = true;
         } else if (doPut.equals(methodName)) {
-          ALLOW_PUT = true;
+          allowPut = true;
         } else if (doDelete.equals(methodName)) {
-          ALLOW_DELETE = true;
+          allowDelete = true;
         }
       }
     }
     StringBuilder allow = new StringBuilder();
-    if (ALLOW_GET) {
+    if (allowGet) {
       // if (allow.length() != 0) {
       //   allow.append(", ");
       // }
       allow.append(METHOD_GET);
     }
-    if (ALLOW_HEAD) {
+    if (allowHead) {
       if (allow.length() != 0) {
         allow.append(", ");
       }
       allow.append(METHOD_HEAD);
     }
-    if (ALLOW_POST) {
+    if (allowPost) {
       if (allow.length() != 0) {
         allow.append(", ");
       }
       allow.append(METHOD_POST);
     }
-    if (ALLOW_PUT) {
+    if (allowPut) {
       if (allow.length() != 0) {
         allow.append(", ");
       }
       allow.append(METHOD_PUT);
     }
-    if (ALLOW_DELETE) {
+    if (allowDelete) {
       if (allow.length() != 0) {
         allow.append(", ");
       }
       allow.append(METHOD_DELETE);
     }
-    if (ALLOW_TRACE) {
+    boolean allowTrace = true;
+    if (allowTrace) {
       if (allow.length() != 0) {
         allow.append(", ");
       }
       allow.append(METHOD_TRACE);
     }
-    if (ALLOW_OPTIONS) {
+    boolean allowOptions = true;
+    if (allowOptions) {
       if (allow.length() != 0) {
         allow.append(", ");
       }

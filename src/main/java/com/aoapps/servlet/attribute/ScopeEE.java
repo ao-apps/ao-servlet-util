@@ -150,13 +150,24 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
     // </editor-fold>
 
     /**
-     * The set of allowed scope names.
+     * The set of allowed scope names: page scope.
      */
-    public static final String
-        SCOPE_PAGE = "page",
-        SCOPE_REQUEST = "request",
-        SCOPE_SESSION = "session",
-        SCOPE_APPLICATION = "application";
+    public static final String SCOPE_PAGE = "page";
+
+    /**
+     * The set of allowed scope names: request scope.
+     */
+    public static final String SCOPE_REQUEST = "request";
+
+    /**
+     * The set of allowed scope names: session scope.
+     */
+    public static final String SCOPE_SESSION = "session";
+
+    /**
+     * The set of allowed scope names: application scope.
+     */
+    public static final String SCOPE_APPLICATION = "application";
 
     private static final long serialVersionUID = 1L;
 

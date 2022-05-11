@@ -50,6 +50,8 @@ public class ServletRequestParameters implements URIParameters {
   }
 
   /**
+   * {@inheritDoc}
+   *
    * @see  URIParameters#toString()
    */
   @Override

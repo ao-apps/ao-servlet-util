@@ -50,11 +50,11 @@ public class EditableResourceServletFilter implements Filter {
 
   private static final ScopeEE.Request.Attribute<Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
       ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
-//  private static final ScopeEE.Attribute<ServletRequest, Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
-//    ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
-//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").request();
-//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ServletRequest.class);
-//    AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ScopeEE.REQUEST);
+  // private static final ScopeEE.Attribute<ServletRequest, Boolean> FILTER_ENABLED_REQUEST_ATTRIBUTE =
+  //   ScopeEE.REQUEST.attribute(EditableResourceServletFilter.class.getName() + ".enabled");
+  //   AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").request();
+  //   AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ServletRequest.class);
+  //   AttributeEE.<Boolean>attribute(EditableResourceServletFilter.class.getName() + ".enabled").scope(ScopeEE.REQUEST);
 
   private String role;
 
@@ -71,7 +71,7 @@ public class EditableResourceServletFilter implements Filter {
   ) throws IOException, ServletException {
     // Makes sure only one locale filter is applied per request
     AttributeEE.Request<Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
-//    AttributeEE<ServletRequest, Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
+    // AttributeEE<ServletRequest, Boolean> filterEnabledAttribute = FILTER_ENABLED_REQUEST_ATTRIBUTE.context(request);
     if (
         filterEnabledAttribute.get() == null
             && (request instanceof HttpServletRequest)
