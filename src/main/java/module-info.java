@@ -45,4 +45,4 @@ module com.aoapps.servlet.util {
   // Java SE
   requires java.logging;
   requires java.sql;
-} // TODO: Avoiding rewrite-maven-plugin-4.22.2 truncation
+}
