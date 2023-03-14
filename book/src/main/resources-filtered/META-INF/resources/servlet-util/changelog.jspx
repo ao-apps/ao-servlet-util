@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2023-03-14T02:36:50Z"
+    dateModified="2023-03-14T03:24:48Z"
   >
     <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
       <changelog:release
@@ -47,18 +47,27 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
         artifactId="@{documented.artifactId}"
         repository="@{nexusUrl}content/repositories/snapshots/"
         scmUrl="@{project.scm.url}"
-      >
-        <ul>
-          <li>
-            <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Includer.html">Includer</ao:a> will not
-            send redirect or send error when the
-            <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletResponse.html#isCommitted--">response has already been committed</ao:a>.
-            Page processing is still stopped by
-            <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/jsp/SkipPageException.html">SkipPageException</ao:a>.
-          </li>
-        </ul>
-      </changelog:release>
+      />
     </c:if>
+
+    <changelog:release
+      projectName="@{documented.name}"
+      version="5.2.1"
+      datePublished="2023-03-14T03:24:48Z"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>
+          <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Includer.html">Includer</ao:a> will not
+          send redirect or send error when the
+          <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletResponse.html#isCommitted--">response has already been committed</ao:a>.
+          Page processing is still stopped by
+          <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/jsp/SkipPageException.html">SkipPageException</ao:a>.
+        </li>
+      </ul>
+    </changelog:release>
 
     <changelog:release
       projectName="@{documented.name}"
