@@ -126,12 +126,21 @@ public final class Includer {
 
         // Call sendError from here if set in attributes
         Integer status = statusAttribute.get();
-        if (status != null && !response.isCommitted()) {
+        if (status != null) {
           String message = messageAttribute.get();
           if (message == null) {
-            response.sendError(status);
+            if (!response.isCommitted()) {
+              response.sendError(status);
+            } else {
+              logger.log(Level.FINE, "Not sending error due to response already committed: status = {0}", status);
+            }
           } else {
-            response.sendError(status, message);
+            if (!response.isCommitted()) {
+              response.sendError(status, message);
+            } else {
+              logger.log(Level.FINE, "Not sending error due to response already committed: status = {0}, message = {1}",
+                  new Object[] {status, message});
+            }
           }
         }
       }
@@ -176,11 +185,18 @@ public final class Includer {
   public static void sendError(HttpServletRequest request, HttpServletResponse response, int status, String message) throws IOException {
     if (IS_INCLUDED_REQUEST_ATTRIBUTE.context(request).get() == null) {
       // Not included, sendError directly
-      if (!response.isCommitted()) {
-        if (message == null) {
+      if (message == null) {
+        if (!response.isCommitted()) {
           response.sendError(status);
         } else {
+          logger.log(Level.FINE, "Not sending error due to response already committed: status = {0}", status);
+        }
+      } else {
+        if (!response.isCommitted()) {
           response.sendError(status, message);
+        } else {
+          logger.log(Level.FINE, "Not sending error due to response already committed: status = {0}, message = {1}",
+              new Object[] {status, message});
         }
       }
     } else {

@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2023-03-14T03:24:48Z"
+    dateModified="2023-03-14T11:36:35Z"
   >
     <c:if test="${fn:endsWith('@{project.version}', '-SNAPSHOT') and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')}">
       <changelog:release
@@ -47,7 +47,15 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
         artifactId="@{documented.artifactId}"
         repository="@{nexusUrl}content/repositories/snapshots/"
         scmUrl="@{project.scm.url}"
-      />
+      >
+        <ul>
+          <li>
+            Log FINE-level notice when <ao:a href="apidocs/com.aoapps.servlet.util/com/aoapps/servlet/http/Includer.html">Includer</ao:a>
+            does not send redirect or send error due to the
+            <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletResponse.html#isCommitted--">response already being committed</ao:a>.
+          </li>
+        </ul>
+      </changelog:release>
     </c:if>
 
     <changelog:release
