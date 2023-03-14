@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.SkipPageException;
@@ -90,6 +91,9 @@ public final class Includer {
 
   /**
    * Performs the actual include, supporting propagation of SkipPageException and sendError.
+   * <p>
+   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.
+   * </p>
    */
   public static void dispatchInclude(RequestDispatcher dispatcher, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SkipPageException {
     AttributeEE.Request<Boolean> isIncludedAttribute = IS_INCLUDED_REQUEST_ATTRIBUTE.context(request);
@@ -122,7 +126,7 @@ public final class Includer {
 
         // Call sendError from here if set in attributes
         Integer status = statusAttribute.get();
-        if (status != null) {
+        if (status != null && !response.isCommitted()) {
           String message = messageAttribute.get();
           if (message == null) {
             response.sendError(status);
@@ -165,14 +169,19 @@ public final class Includer {
   /**
    * Sends an error.  When not in an included page, calls sendError directly.
    * When inside of an include will set request attribute so outermost include can call sendError.
+   * <p>
+   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.
+   * </p>
    */
   public static void sendError(HttpServletRequest request, HttpServletResponse response, int status, String message) throws IOException {
     if (IS_INCLUDED_REQUEST_ATTRIBUTE.context(request).get() == null) {
       // Not included, sendError directly
-      if (message == null) {
-        response.sendError(status);
-      } else {
-        response.sendError(status, message);
+      if (!response.isCommitted()) {
+        if (message == null) {
+          response.sendError(status);
+        } else {
+          response.sendError(status, message);
+        }
       }
     } else {
       // Is included, set attributes so top level tag can perform actual sendError call
@@ -181,6 +190,13 @@ public final class Includer {
     }
   }
 
+  /**
+   * Sends an error.  When not in an included page, calls sendError directly.
+   * When inside of an include will set request attribute so outermost include can call sendError.
+   * <p>
+   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int)}.
+   * </p>
+   */
   public static void sendError(HttpServletRequest request, HttpServletResponse response, int status) throws IOException {
     sendError(request, response, status, null);
   }
