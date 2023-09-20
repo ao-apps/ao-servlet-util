@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2023-03-14T11:36:35Z"
+    dateModified="2023-09-20T00:18:05Z"
   >
     <c:set var="latestRelease" value="5.2.1" />
     <c:if test="${
@@ -497,7 +497,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
               coordinates when canonical URLs should be generated during <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/http/HttpServletResponse.html#encodeURL(java.lang.String)">response URL rewriting</ao:a>
               (such as not adding per-user information when cookies are disabled).
               These canonical URLs, without per-user settings, are used for things like
-              <ao:a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</ao:a>,
+              <ao:a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls">Canonical URLs</ao:a>,
               <ao:a href="https://schema.org/BreadcrumbList">BreadcrumbList</ao:a>,
               and <ao:a href="https://www.sitemaps.org/">Sitemaps</ao:a>.
             </li>

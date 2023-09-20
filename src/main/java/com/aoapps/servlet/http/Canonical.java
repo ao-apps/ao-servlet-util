@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Coordinates when canonical URLs should be generated during {@linkplain HttpServletResponse#encodeURL(java.lang.String) response URL rewriting} (such as
  * information added when cookies are disabled).  These URLs without per-user settings are used in things like
- * <a href="https://support.google.com/webmasters/answer/139066">Canonical URLs</a>,
+ * <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls">Canonical URLs</a>,
  * <a href="https://schema.org/BreadcrumbList">BreadcrumbList</a>,
  * and <a href="https://www.sitemaps.org/">Sitemaps</a>.
  * <p>
