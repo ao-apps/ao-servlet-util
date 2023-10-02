@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2022  AO Industries, Inc.
+ * Copyright (C) 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -50,10 +50,7 @@ public interface JspFunctionE<T, R, Ex extends Throwable> {
     return t -> after.apply(apply(t));
   }
 
-  /**
-   * @param  <Ex>  An arbitrary exception type that may be thrown
-   */
-  static <T, Ex extends Throwable> JspFunctionE<T, T, Ex> identity() {
+  static <T> JspFunctionE<T, T, RuntimeException> identity() {
     return t -> t;
   }
 }
