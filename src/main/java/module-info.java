@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2023  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,6 +23,7 @@
 module com.aoapps.servlet.util {
   exports com.aoapps.servlet;
   exports com.aoapps.servlet.attribute;
+  exports com.aoapps.servlet.el;
   exports com.aoapps.servlet.function;
   exports com.aoapps.servlet.http;
   exports com.aoapps.servlet.i18n;
@@ -38,6 +39,7 @@ module com.aoapps.servlet.util {
   requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
   requires com.aoapps.lang; // <groupId>com.aoapps</groupId><artifactId>ao-lang</artifactId>
   requires com.aoapps.net.types; // <groupId>com.aoapps</groupId><artifactId>ao-net-types</artifactId>
+  requires javax.el.api; // <groupId>javax.el</groupId><artifactId>javax.el-api</artifactId>
   requires javax.servlet.api; // <groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId>
   requires javax.servlet.jsp.api; // <groupId>javax.servlet.jsp</groupId><artifactId>javax.servlet.jsp-api</artifactId>
   requires static taglibs.standard.impl; // <groupId>org.apache.taglibs</groupId><artifactId>taglibs-standard-impl</artifactId>

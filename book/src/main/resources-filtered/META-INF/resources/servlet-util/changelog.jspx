@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2023-10-02T01:19:19Z"
+    dateModified="2023-10-02T14:48:12Z"
   >
     <c:set var="latestRelease" value="5.2.1" />
     <c:if test="${
@@ -60,6 +60,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
             <ao:a rel="nofollow" href="@{javadoc.link.javaee}javax/servlet/ServletResponse.html#isCommitted--">response already being committed</ao:a>.
           </li>
           <li>Functional <code>identity()</code> now declare throws <code>RuntimeException</code> instead of <code>Throwable</code>.</li>
+          <li>Moved <code>resolveValue</code> from <core:link book="/taglib" page="/index.jspx" /> to <core:link page="/index.jspx" />.</li>
         </ul>
       </changelog:release>
     </c:if>
