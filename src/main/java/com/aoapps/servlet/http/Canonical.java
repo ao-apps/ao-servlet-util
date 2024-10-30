@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -31,12 +31,11 @@ import javax.servlet.http.HttpServletResponse;
  * <a href="https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls">Canonical URLs</a>,
  * <a href="https://schema.org/BreadcrumbList">BreadcrumbList</a>,
  * and <a href="https://www.sitemaps.org/">Sitemaps</a>.
- * <p>
- * This is implemented as a {@linkplain ThreadLocal thread local}, so the state must be set by the thread
+ *
+ * <p>This is implemented as a {@linkplain ThreadLocal thread local}, so the state must be set by the thread
  * that will invoke {@link HttpServletResponse#encodeURL(java.lang.String)} (and related methods).
  * Thus, it would be inappropriate to set this in a broad, asynchronous scope where the thread
- * handling the request may change.
- * </p>
+ * handling the request may change.</p>
  */
 public abstract class Canonical implements AutoCloseable {
 

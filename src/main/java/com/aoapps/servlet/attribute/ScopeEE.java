@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -43,9 +43,8 @@ import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 /**
  * The most broad concept is scope, including page, request, session, and application.
- * <p>
- * {@link AttributeEE}: Has scope, still needs context and name.
- * </p>
+ *
+ * <p>{@link AttributeEE}: Has scope, still needs context and name.</p>
  *
  * @see  AttributeEE
  * @see  ContextEE

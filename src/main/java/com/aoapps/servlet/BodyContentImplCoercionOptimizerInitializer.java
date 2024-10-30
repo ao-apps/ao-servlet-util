@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -33,13 +33,12 @@ import java.util.logging.Logger;
 
 /**
  * Registers unwrapping of {@code BodyContentImpl} in {@link Coercion#registerOptimizer(com.aoapps.lang.CoercionOptimizer)}.
- * <p>
- * This is used to access the wrapped write for Catalina's implementation of
+ *
+ * <p>This is used to access the wrapped write for Catalina's implementation of
  * the servlet BodyContent.  This allows implementations of BufferResult to
  * more efficiently write their contents to recognized writer implementations.
  * This also allows strings to be written maintain their identity for in-context
- * translation tools.
- * </p>
+ * translation tools.</p>
  *
  * @author  AO Industries, Inc.
  */

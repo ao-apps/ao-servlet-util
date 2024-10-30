@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,9 +23,9 @@
 
 /**
  * Utilities for working with various attribute scopes.
- * <p>
- * This API has four concepts:
- * </p>
+ *
+ * <p>This API has four concepts:</p>
+ *
  * <ol>
  *   <li>{@link ScopeEE} - The most broad concept is scope, including page, request, session, and application.
  *                         Does not yet have a resolved context or attribute name.</li>
@@ -36,15 +36,13 @@
  *   <li>{@link AttributeEE} - An attribute has both context and name and is used for value access.</li>
  *   <li>{@link AttributeEE.Name} - A name without any specific scope or context.</li>
  * </ol>
- * <p>
- * Ultimately, the goal is to get to an attribute, which means having both a fully resolved context and a name.  The
+ *
+ * <p>Ultimately, the goal is to get to an attribute, which means having both a fully resolved context and a name.  The
  * API supports arriving at an attribute in any order, such as <code>scope → context → name</code> or
- * <code>name → context</code>.
- * </p>
- * <p>
- * There is also a set of static utility methods, to which the rest of the API ends up calling.
- * For one-off attribute access, these static methods may be more succinct.
- * </p>
+ * <code>name → context</code>.</p>
+ *
+ * <p>There is also a set of static utility methods, to which the rest of the API ends up calling.
+ * For one-off attribute access, these static methods may be more succinct.</p>
  *
  * @author  AO Industries, Inc.
  */

@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -91,9 +91,8 @@ public final class Includer {
 
   /**
    * Performs the actual include, supporting propagation of SkipPageException and sendError.
-   * <p>
-   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.
-   * </p>
+   *
+   * <p>When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.</p>
    */
   public static void dispatchInclude(RequestDispatcher dispatcher, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SkipPageException {
     AttributeEE.Request<Boolean> isIncludedAttribute = IS_INCLUDED_REQUEST_ATTRIBUTE.context(request);
@@ -178,9 +177,8 @@ public final class Includer {
   /**
    * Sends an error.  When not in an included page, calls sendError directly.
    * When inside of an include will set request attribute so outermost include can call sendError.
-   * <p>
-   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.
-   * </p>
+   *
+   * <p>When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int, java.lang.String)}.</p>
    */
   public static void sendError(HttpServletRequest request, HttpServletResponse response, int status, String message) throws IOException {
     if (IS_INCLUDED_REQUEST_ATTRIBUTE.context(request).get() == null) {
@@ -209,9 +207,8 @@ public final class Includer {
   /**
    * Sends an error.  When not in an included page, calls sendError directly.
    * When inside of an include will set request attribute so outermost include can call sendError.
-   * <p>
-   * When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int)}.
-   * </p>
+   *
+   * <p>When {@link ServletResponse#isCommitted() response is committed} will not call {@link HttpServletResponse#sendError(int)}.</p>
    */
   public static void sendError(HttpServletRequest request, HttpServletResponse response, int status) throws IOException {
     sendError(request, response, status, null);

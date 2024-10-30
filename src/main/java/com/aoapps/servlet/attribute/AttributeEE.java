@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -2200,9 +2200,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
   // <editor-fold desc="Name">
   /**
    * A name without any specific scope or context.
-   * <p>
-   * {@link AttributeEE}: Has name, still needs scope or context.
-   * </p>
+   *
+   * <p>{@link AttributeEE}: Has name, still needs scope or context.</p>
    */
   public static class Name<T> extends com.aoapps.lang.attribute.Attribute.Name<T> {
 
@@ -2443,9 +2442,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
   /**
    * A {@linkplain Config JSTL attribute name} without any specific scope or context.  Suffixes are automatically
    * added to be compatible with {@link Config#set(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
-   * <p>
-   * {@link AttributeEE}: Has name, still needs scope or context.
-   * </p>
+   *
+   * <p>{@link AttributeEE}: Has name, still needs scope or context.</p>
    */
   public static class Jstl<T> extends Name<T> {
 
@@ -2478,9 +2476,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     // <editor-fold desc="Scope">
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#APPLICATION_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#APPLICATION_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public ScopeEE.Application.Attribute<T> application() {
@@ -2489,9 +2486,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#REQUEST_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#REQUEST_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public ScopeEE.Request.Attribute<T> request() {
@@ -2500,9 +2496,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#SESSION_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#SESSION_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public ScopeEE.Session.Attribute<T> session() {
@@ -2511,9 +2506,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#PAGE_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#PAGE_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public ScopeEE.Page.Attribute<T> page() {
@@ -2525,9 +2519,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     // <editor-fold desc="Context">
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#APPLICATION_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#APPLICATION_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public Application<T> context(ServletContext servletContext) {
@@ -2536,9 +2529,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#REQUEST_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#REQUEST_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public Request<T> context(ServletRequest request) {
@@ -2547,9 +2539,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#SESSION_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#SESSION_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public Session<T> context(HttpSession session) {
@@ -2558,9 +2549,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
     /**
      * {@inheritDoc}
-     * <p>
-     * Automatically appends {@link Config#PAGE_SCOPE_SUFFIX} to name.
-     * </p>
+     *
+     * <p>Automatically appends {@link Config#PAGE_SCOPE_SUFFIX} to name.</p>
      */
     @Override
     public Page<T> context(JspContext jspContext) {
@@ -2604,9 +2594,8 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
   /**
    * A {@linkplain Config JSTL attribute name} without any specific scope or context.  Suffixes are automatically
    * added to be compatible with {@link Config#set(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
-   * <p>
-   * {@link AttributeEE}: Uses the given name, still needs scope or context.
-   * </p>
+   *
+   * <p>{@link AttributeEE}: Uses the given name, still needs scope or context.</p>
    */
   public static <T> Jstl<T> jstl(String name) {
     return new Jstl<>(name);
