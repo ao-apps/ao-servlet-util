@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-servlet-util - Miscellaneous Servlet and JSP utilities.
-Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
+Copyright (C) 2019, 2020, 2021, 2022, 2023, 2024, 2025  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2024-05-08T17:20:48Z"
+    dateModified="2025-02-12T02:29:49Z"
   >
     <c:set var="latestRelease" value="5.3.0" />
     <c:if test="${
@@ -52,7 +52,11 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
         artifactId="@{documented.artifactId}"
         repository="@{nexusUrl}content/repositories/snapshots/"
         scmUrl="@{project.scm.url}"
-      />
+      >
+        <ul>
+          <li>Minimum Java version changed from 1.8 to 11.</li>
+        </ul>
+      </changelog:release>
     </c:if>
 
     <changelog:release
