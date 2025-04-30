@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2018, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2018, 2020, 2021, 2022, 2025  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -399,30 +399,30 @@ public final class Dispatcher {
   ) throws SkipPageException, ServletException, IOException {
     // Resolve the dispatcher
     String contextRelativePath;
-      {
-        String currentPagePath = getCurrentPagePath(request);
-        if (logger.isLoggable(Level.FINE)) {
-          logger.log(
-              Level.FINE,
-              "request={0}, currentPagePath={1}",
-              new Object[]{
-                  request,
-                  currentPagePath
-              }
-          );
-        }
-        contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
-        if (logger.isLoggable(Level.FINE)) {
-          logger.log(
-              Level.FINE,
-              "request={0}, contextRelativePath={1}",
-              new Object[]{
-                  request,
-                  contextRelativePath
-              }
-          );
-        }
+    {
+      String currentPagePath = getCurrentPagePath(request);
+      if (logger.isLoggable(Level.FINE)) {
+        logger.log(
+            Level.FINE,
+            "request={0}, currentPagePath={1}",
+            new Object[]{
+                request,
+                currentPagePath
+            }
+        );
       }
+      contextRelativePath = URIResolver.getAbsolutePath(currentPagePath, page);
+      if (logger.isLoggable(Level.FINE)) {
+        logger.log(
+            Level.FINE,
+            "request={0}, contextRelativePath={1}",
+            new Object[]{
+                request,
+                contextRelativePath
+            }
+        );
+      }
+    }
     RequestDispatcher dispatcher = servletContext.getRequestDispatcher(contextRelativePath);
     if (dispatcher == null) {
       throw new LocalizedServletException(RESOURCES, "dispatcherNotFound", contextRelativePath);
