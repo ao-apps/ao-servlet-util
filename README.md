@@ -23,7 +23,7 @@ Miscellaneous Servlet and JSP utilities.
 * [Project Home](https://oss.aoapps.com/servlet-util/)
 * [Changelog](https://oss.aoapps.com/servlet-util/changelog)
 * [API Docs](https://oss.aoapps.com/servlet-util/apidocs/)
-* [Maven Central Repository](https://central.sonatype.com/artifact/com.aoapps/ao-servlet-util)
+* [Central Repository](https://central.sonatype.com/artifact/com.aoapps/ao-servlet-util)
 * [GitHub](https://github.com/ao-apps/ao-servlet-util)
 
 ## Contact Us
