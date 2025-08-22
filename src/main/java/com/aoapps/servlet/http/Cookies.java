@@ -233,9 +233,9 @@ public final class Cookies {
     String path;
     if (contextOnlyPath) {
       path = request.getContextPath() + "/";
-      //if (path.length() == 0) {
-      //  path = "/";
-      //}
+      // if (path.length() == 0) {
+      //   path = "/";
+      // }
     } else {
       path = "/";
     }

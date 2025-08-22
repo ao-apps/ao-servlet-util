@@ -59,7 +59,7 @@ public class SetResourceBundleValue extends HttpServlet {
       Locale locale = Locales.parseLocale(request.getParameter("locale"));
       String key = request.getParameter("key");
       String value = request.getParameter("value");
-      //for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
+      // for (int c=0;c<value.length();c++) System.out.println(Integer.toHexString(value.charAt(c)));
       boolean modified = Boolean.parseBoolean(request.getParameter("modified"));
 
       // Find the bundle
