@@ -37,6 +37,8 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     <project.build.outputTimestamp>${git.commit.time}</project.build.outputTimestamp>
     <subproject.subpath>devel/</subproject.subpath>
     <module.name>com.aoapps.servlet.util.devel</module.name>
+    <!-- SonarQube -->
+    <sonar.projectKey>${project.groupId}:${project.artifactId}:javaee</sonar.projectKey>
   </properties>
 
   <name>AO Servlet Util Devel</name>
