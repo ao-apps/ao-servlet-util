@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2022  AO Industries, Inc.
+ * Copyright (C) 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,9 +23,9 @@
 
 package com.aoapps.servlet.function;
 
+import jakarta.servlet.ServletException;
 import java.io.IOException;
 import java.util.function.Function;
-import javax.servlet.ServletException;
 
 /**
  * A function that is allowed to throw {@link ServletException} and {@link IOException}.

@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,21 +25,22 @@ package com.aoapps.servlet.attribute;
 
 import com.aoapps.lang.LocalizedIllegalArgumentException;
 import com.aoapps.lang.i18n.Resources;
+import jakarta.servlet.AsyncContext;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.Servlet;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.JspWriter;
+import jakarta.servlet.jsp.PageContext;
 import java.io.File;
 import java.util.List;
 import java.util.ResourceBundle;
-import javax.servlet.AsyncContext;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.PageContext;
-import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
+// TODO: Automatic name duplicates jstl-api, how to access?
+// import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 /**
  * The most broad concept is scope, including page, request, session, and application.
@@ -441,10 +442,11 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
   public static final class Session extends ScopeEE<HttpSession> {
 
     // <editor-fold desc="JSTL 1.2">
-    /**
-     * @see  RequestEncodingSupport#REQUEST_CHAR_SET
-     */
-    public static final Attribute<String> REQUEST_CHAR_SET = new Attribute<>("javax.servlet.jsp.jstl.fmt.request.charset");
+    // TODO: Automatic name duplicates jstl-api, how to access?
+    // /**
+    //  * @see  RequestEncodingSupport#REQUEST_CHAR_SET
+    //  */
+    public static final Attribute<String> REQUEST_CHAR_SET = new Attribute<>("jakarta.servlet.jsp.jstl.fmt.request.charset");
 
     // </editor-fold>
 

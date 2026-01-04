@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2019, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,13 +27,13 @@ import com.aoapps.collections.AoCollections;
 import com.aoapps.collections.EnumerationIterator;
 import com.aoapps.net.URIParameters;
 import com.aoapps.net.URIParametersUtils;
+import jakarta.servlet.ServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import javax.servlet.ServletRequest;
 
 /**
  * Gets unmodifiable parameters from the provided request.

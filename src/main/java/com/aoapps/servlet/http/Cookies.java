@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2009, 2010, 2011, 2016, 2019, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2009, 2010, 2011, 2016, 2019, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,9 +25,9 @@ package com.aoapps.servlet.http;
 
 import com.aoapps.net.URIDecoder;
 import com.aoapps.net.URIEncoder;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Helper utility to set, get, remove, encode, and decode cookies.
@@ -148,7 +148,11 @@ public final class Cookies {
    * @return  The encoded comment
    *
    * @see Cookie#setComment(java.lang.String)
+   *
+   * @deprecated This is no longer required with RFC 6265
    */
+  @Deprecated(since = "Servlet 6.0", forRemoval = true)
+  @SuppressWarnings("removal")
   public static String setComment(Cookie cookie, String comment) {
     String encodedComment = encodeComment(comment);
     cookie.setComment(encodedComment);
@@ -196,7 +200,11 @@ public final class Cookies {
    * @return  The decoded comment
    *
    * @see Cookie#getComment()
+   *
+   * @deprecated This is no longer required with RFC 6265
    */
+  @Deprecated(since = "Servlet 6.0", forRemoval = true)
+  @SuppressWarnings("removal")
   public static String getComment(Cookie cookie) {
     return decodeComment(cookie.getComment());
   }

@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2016, 2017, 2019, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,16 +27,16 @@ import com.aoapps.hodgepodge.cache.BackgroundCache;
 import com.aoapps.hodgepodge.cache.BackgroundCache.Refresher;
 import com.aoapps.hodgepodge.cache.BackgroundCache.Result;
 import com.aoapps.servlet.attribute.ScopeEE;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContextEvent;
+import jakarta.servlet.ServletContextListener;
+import jakarta.servlet.annotation.WebListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.logging.Logger;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-import javax.servlet.annotation.WebListener;
 
 /**
  * ServletContext methods can be somewhat slow, this offers a cache that refreshes
@@ -90,7 +90,7 @@ public final class ServletContextCache {
   }
 
   /**
-   * @deprecated  Please use {@link #getInstance(javax.servlet.ServletContext)}.
+   * @deprecated  Please use {@link #getInstance(jakarta.servlet.ServletContext)}.
    */
   @Deprecated
   public static ServletContextCache getCache(ServletContext servletContext) {

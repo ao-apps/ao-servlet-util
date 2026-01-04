@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2022  AO Industries, Inc.
+ * Copyright (C) 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,10 +23,10 @@
 
 package com.aoapps.servlet.jsp.function;
 
+import jakarta.servlet.jsp.JspException;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.function.Predicate;
-import javax.servlet.jsp.JspException;
 
 /**
  * A predicate that is allowed to throw {@link JspException} and {@link IOException}.

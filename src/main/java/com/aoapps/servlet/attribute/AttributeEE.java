@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,17 +27,17 @@ import com.aoapps.lang.attribute.Attribute;
 import com.aoapps.lang.attribute.Scope;
 import com.aoapps.lang.function.BiFunctionE;
 import com.aoapps.lang.function.FunctionE;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.servlet.jsp.jstl.core.Config;
+import jakarta.servlet.jsp.jstl.fmt.LocalizationContext;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.TimeZone;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
-import javax.servlet.jsp.jstl.core.Config;
-import javax.servlet.jsp.jstl.fmt.LocalizationContext;
 import javax.sql.DataSource;
 
 /**
@@ -2438,10 +2438,10 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
   // </editor-fold>
 
-  // <editor-fold desc="JSTL 1.2">
+  // <editor-fold desc="JSTL 3.0">
   /**
    * A {@linkplain Config JSTL attribute name} without any specific scope or context.  Suffixes are automatically
-   * added to be compatible with {@link Config#set(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
+   * added to be compatible with {@link Config#set(jakarta.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
    *
    * <p>{@link AttributeEE}: Has name, still needs scope or context.</p>
    */
@@ -2593,7 +2593,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
 
   /**
    * A {@linkplain Config JSTL attribute name} without any specific scope or context.  Suffixes are automatically
-   * added to be compatible with {@link Config#set(javax.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
+   * added to be compatible with {@link Config#set(jakarta.servlet.jsp.PageContext, java.lang.String, java.lang.Object, int)}.
    *
    * <p>{@link AttributeEE}: Uses the given name, still needs scope or context.</p>
    */

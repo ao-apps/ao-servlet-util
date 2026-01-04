@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2016, 2019, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2016, 2019, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -25,8 +25,8 @@ package com.aoapps.servlet.http;
 
 import com.aoapps.lang.io.NullPrintWriter;
 import com.aoapps.servlet.NullServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponseWrapper;
 
 /**
  * Discards all output.

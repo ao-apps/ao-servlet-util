@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2011, 2013, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2011, 2013, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,15 +26,15 @@ package com.aoapps.servlet.i18n;
 import com.aoapps.hodgepodge.i18n.EditableResourceBundle;
 import com.aoapps.hodgepodge.i18n.ModifiableResourceBundle;
 import com.aoapps.lang.i18n.Locales;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Sets the resource bundle value.  Used by ResourceEditorTag.

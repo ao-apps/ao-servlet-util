@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -26,11 +26,11 @@ package com.aoapps.servlet.jsp.tagext;
 import com.aoapps.lang.i18n.LocalizedSupplier;
 import com.aoapps.lang.i18n.Resources;
 import com.aoapps.servlet.jsp.LocalizedJspTagException;
+import jakarta.servlet.jsp.JspTagException;
+import jakarta.servlet.jsp.tagext.JspTag;
+import jakarta.servlet.jsp.tagext.SimpleTagSupport;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javax.servlet.jsp.JspTagException;
-import javax.servlet.jsp.tagext.JspTag;
-import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 /**
  * Static utilities for JSP taglibs.
@@ -64,7 +64,7 @@ public final class JspTagUtils {
    *
    * @return  the parent tag when found
    *
-   * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+   * @see  SimpleTagSupport#findAncestorWithClass(jakarta.servlet.jsp.tagext.JspTag, java.lang.Class)
    */
   public static <T> Optional<T> findAncestor(JspTag from, Class<? extends T> ancestorClass) {
     return Optional.ofNullable(
@@ -87,7 +87,7 @@ public final class JspTagUtils {
    *
    * @throws  Ex  if parent not found
    *
-   * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+   * @see  SimpleTagSupport#findAncestorWithClass(jakarta.servlet.jsp.tagext.JspTag, java.lang.Class)
    */
   public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws Ex {
     return findAncestor(from, ancestorClass).orElseThrow(
@@ -108,7 +108,7 @@ public final class JspTagUtils {
    *
    * @throws  JspTagException  if parent not found
    *
-   * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+   * @see  SimpleTagSupport#findAncestorWithClass(jakarta.servlet.jsp.tagext.JspTag, java.lang.Class)
    */
   public static <T> T requireAncestor(String fromName, JspTag from, String ancestorName, Class<? extends T> ancestorClass) throws JspTagException {
     return requireAncestor(LocalizedJspTagException::new, fromName, from, ancestorName, ancestorClass);
@@ -121,9 +121,9 @@ public final class JspTagUtils {
    *
    * @throws  Ex  if parent not found
    *
-   * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+   * @see  SimpleTagSupport#findAncestorWithClass(jakarta.servlet.jsp.tagext.JspTag, java.lang.Class)
    *
-   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
+   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, jakarta.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
    */
   @Deprecated
   public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws Ex {
@@ -139,9 +139,9 @@ public final class JspTagUtils {
    *
    * @throws  JspTagException  if parent not found
    *
-   * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
+   * @see  SimpleTagSupport#findAncestorWithClass(jakarta.servlet.jsp.tagext.JspTag, java.lang.Class)
    *
-   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
+   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, jakarta.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
    */
   @Deprecated
   public static <T> T requireAncestor(JspTag from, Class<? extends T> ancestorClass) throws JspTagException {

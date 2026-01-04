@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2013, 2016, 2020, 2021, 2022  AO Industries, Inc.
+ * Copyright (C) 2013, 2016, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -27,8 +27,8 @@ import com.aoapps.lang.EmptyArrays;
 import com.aoapps.lang.Throwables;
 import com.aoapps.lang.exception.LocalizedException;
 import com.aoapps.lang.i18n.Resources;
+import jakarta.servlet.jsp.JspTagException;
 import java.io.Serializable;
-import javax.servlet.jsp.JspTagException;
 
 /**
  * Extends <code>JspTagException</code> to provide exceptions with user locale error messages.

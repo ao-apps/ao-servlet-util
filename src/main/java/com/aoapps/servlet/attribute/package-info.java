@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -29,9 +29,9 @@
  * <ol>
  *   <li>{@link ScopeEE} - The most broad concept is scope, including page, request, session, and application.
  *                         Does not yet have a resolved context or attribute name.</li>
- *   <li>{@link ContextEE} - A specifically resolved context, such as {@link javax.servlet.jsp.JspContext},
- *                           {@link javax.servlet.ServletRequest}, {@link javax.servlet.http.HttpSession}, and
- *                           {@link javax.servlet.ServletContext}.
+ *   <li>{@link ContextEE} - A specifically resolved context, such as {@link jakarta.servlet.jsp.JspContext},
+ *                           {@link jakarta.servlet.ServletRequest}, {@link jakarta.servlet.http.HttpSession}, and
+ *                           {@link jakarta.servlet.ServletContext}.
  *                           Does not yet have an attribute name.</li>
  *   <li>{@link AttributeEE} - An attribute has both context and name and is used for value access.</li>
  *   <li>{@link AttributeEE.Name} - A name without any specific scope or context.</li>

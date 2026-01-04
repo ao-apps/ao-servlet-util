@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -23,13 +23,13 @@
 
 package com.aoapps.servlet.attribute;
 
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.JspContext;
+import jakarta.servlet.jsp.PageContext;
 import java.util.Collections;
 import java.util.Enumeration;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.servlet.jsp.JspContext;
-import javax.servlet.jsp.PageContext;
 
 /**
  * A specifically resolved context, such as {@link JspContext}, {@link ServletRequest},
