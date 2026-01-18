@@ -139,9 +139,12 @@ public class GetParallelDeploymentVersion extends HttpServlet {
       // text/plain response for both normal return and error message
       response.setContentType(ContentType.TEXT);
       response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+      // No caching
       response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
       response.setHeader("Pragma", "no-cache");
       response.setDateHeader("Expires", 0);
+      // Keep search engines out
+      response.setHeader("X-Robots-Tag", "noindex, nofollow");
       Optional<String> version = getParallelDeploymentVersion(getServletContext());
       if (version.isEmpty()) {
         // 500 error
@@ -153,7 +156,6 @@ public class GetParallelDeploymentVersion extends HttpServlet {
         }
       } else {
         // Normal return
-        response.setHeader("X-Robots-Tag", "noindex, nofollow");
         try (PrintWriter out = response.getWriter()) {
           // Intentionally responding with UNIX newline instead of platform-specific newlines
           out.append(version.get()).append(NEWLINE);
