@@ -56,11 +56,6 @@ public class GetParallelDeploymentVersion extends HttpServlet {
   private static final String SEPARATOR = "##";
 
   /**
-   * Intentionally responding with UNIX newline instead of platform-specific newlines.
-   */
-  private static final char NEWLINE = '\n';
-
-  /**
    * Gets the parallel deployment version by parsing the deploy directory observed by calling
    * {@link ServletContext#getRealPath(java.lang.String) ServletContext.getRealPath("/")}.
    *
@@ -150,15 +145,13 @@ public class GetParallelDeploymentVersion extends HttpServlet {
         // 500 error
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         try (PrintWriter out = response.getWriter()) {
-          // Intentionally responding with UNIX newline only
-          out.append("Unable to find parallel deployment version.  "
-              + "The specific cause has been logged with either WARNING or SEVERE log level." + NEWLINE);
+          out.write("Unable to find parallel deployment version.  "
+              + "The specific cause has been logged with either WARNING or SEVERE log level.");
         }
       } else {
         // Normal return
         try (PrintWriter out = response.getWriter()) {
-          // Intentionally responding with UNIX newline instead of platform-specific newlines
-          out.append(version.get()).append(NEWLINE);
+          out.write(version.get());
         }
       }
     } else {
