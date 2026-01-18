@@ -136,10 +136,13 @@ public class GetParallelDeploymentVersion extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     // Must have the required role
     if ("*".equals(role) || request.isUserInRole(role)) {
-      Optional<String> version = getParallelDeploymentVersion(getServletContext());
       // text/plain response for both normal return and error message
       response.setContentType(ContentType.TEXT);
       response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+      response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+      response.setHeader("Pragma", "no-cache");
+      response.setDateHeader("Expires", 0);
+      Optional<String> version = getParallelDeploymentVersion(getServletContext());
       if (version.isEmpty()) {
         // 500 error
         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
