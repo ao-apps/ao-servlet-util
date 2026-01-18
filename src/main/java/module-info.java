@@ -30,6 +30,7 @@ module com.aoapps.servlet.util {
   exports com.aoapps.servlet.jsp;
   exports com.aoapps.servlet.jsp.function;
   exports com.aoapps.servlet.jsp.tagext;
+  exports com.aoapps.servlet.tomcat;
   provides com.aoapps.lang.CoercionOptimizerInitializer with com.aoapps.servlet.BodyContentImplCoercionOptimizerInitializer;
   provides com.aoapps.lang.ThrowableSurrogateFactoryInitializer with com.aoapps.servlet.JakartaeeWebSurrogateFactoryInitializer;
   provides com.aoapps.lang.attribute.Attribute.Name.ContextFactory with com.aoapps.servlet.attribute.AttributeEE.Name.ContextEEFactory;
