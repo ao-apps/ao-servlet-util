@@ -150,6 +150,7 @@ public class GetParallelDeploymentVersion extends HttpServlet {
         }
       } else {
         // Normal return
+        response.setHeader("X-Robots-Tag", "noindex, nofollow");
         try (PrintWriter out = response.getWriter()) {
           // Intentionally responding with UNIX newline instead of platform-specific newlines
           out.append(version.get()).append(NEWLINE);
