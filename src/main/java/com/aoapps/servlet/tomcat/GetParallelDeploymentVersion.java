@@ -119,43 +119,30 @@ public class GetParallelDeploymentVersion extends HttpServlet {
     }
   }
 
-  private String role;
-
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    role = config.getInitParameter("role");
-  }
-
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // Must have the required role
-    if ("*".equals(role) || request.isUserInRole(role)) {
-      // text/plain response for both normal return and error message
-      response.setContentType(ContentType.TEXT);
-      response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-      // No caching
-      response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
-      response.setHeader("Pragma", "no-cache");
-      response.setDateHeader("Expires", 0);
-      // Keep search engines out
-      response.setHeader("X-Robots-Tag", "noindex, nofollow");
-      Optional<String> version = getParallelDeploymentVersion(getServletContext());
-      if (version.isEmpty()) {
-        // 500 error
-        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        try (PrintWriter out = response.getWriter()) {
-          out.write("Unable to find parallel deployment version.  "
-              + "The specific cause has been logged with either WARNING or SEVERE log level.");
-        }
-      } else {
-        // Normal return
-        try (PrintWriter out = response.getWriter()) {
-          out.write(version.get());
-        }
+    // text/plain response for both normal return and error message
+    response.setContentType(ContentType.TEXT);
+    response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+    // No caching
+    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    response.setHeader("Pragma", "no-cache");
+    response.setDateHeader("Expires", 0);
+    // Keep search engines out
+    response.setHeader("X-Robots-Tag", "noindex, nofollow");
+    Optional<String> version = getParallelDeploymentVersion(getServletContext());
+    if (version.isEmpty()) {
+      // 500 error
+      response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+      try (PrintWriter out = response.getWriter()) {
+        out.write("Unable to find parallel deployment version.  "
+            + "The specific cause has been logged with either WARNING or SEVERE log level.");
       }
     } else {
-      response.sendError(HttpServletResponse.SC_FORBIDDEN);
+      // Normal return
+      try (PrintWriter out = response.getWriter()) {
+        out.write(version.get());
+      }
     }
   }
 }

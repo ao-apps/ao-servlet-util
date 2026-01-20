@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2026-01-18T17:03:10Z"
+    dateModified="2026-01-20T06:16:20Z"
   >
     <c:set var="latestRelease" value="5.3.0" />
     <c:if test="${
@@ -63,10 +63,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
               which could have security implications.
             </p>
             <p>
-              The servlet supports a configurable role that limits who can access the version.
-              Similar to the *.i18n.* servlets, the role may be <code>"*"</code> to allow all roles.
-            </p>
-            <p>
               The version is parsed from <ao:a rel="nofollow" href="@{javadoc.link.javaee.7}javax/servlet/ServletContext.html#getRealPath-java.lang.String-"><code>ServletContext.getRealPath("/")</code></ao:a>,
               so it is likely not portable and requires <code><![CDATA[&lt;Host unpackWARs="true"&gt;]]></code> in <code>conf/server.xml</code>.
             </p>
@@ -82,10 +78,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
               It is recommended to load this servlet on start-up via <code>load-on-startup</code>.
               This has the best chances to read the file that represents the currently running application.
               Note: In non-parallel deployment scenarios, the WAR file can be replaced at any time.
-            </p>
-            <p>
-              The servlet supports a configurable role that limits who can access the fingerprint.
-              Similar to the *.i18n.* servlets, the role may be <code>"*"</code> to allow all roles.
             </p>
             <p>
               The WAR file is located by concatenating
