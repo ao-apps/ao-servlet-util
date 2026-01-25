@@ -44,11 +44,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Gets the WAR file MD5 fingerprint.  This is used to verify the final deployed artifact
+ * Gets the WAR file SHA-256 fingerprint.  This is used to verify the final deployed artifact
  * matches the expected content.
- *
- * <p>We choose MD5 over SHA-256 because Jenkins uses MD5 for fingerprints.  This allows
- * to directly search and find exactly which build deployed the running application.</p>
  *
  * <p>Find the WAR file based on the path the application is deployed to.
  * Uses {@link ServletContext#getRealPath(java.lang.String) ServletContext.getRealPath("/")}
@@ -67,10 +64,10 @@ public class GetWarFileFingerprint extends HttpServlet {
   private static final String WAR_EXTENSION = ".war";
 
   /**
-   * Computes the MD5 of the given file.
+   * Computes the SHA-256 of the given file.
    */
-  private static String md5(File file) throws IOException, NoSuchAlgorithmException {
-    MessageDigest digest = MessageDigest.getInstance("MD5");
+  private static String sha256(File file) throws IOException, NoSuchAlgorithmException {
+    MessageDigest digest = MessageDigest.getInstance("SHA-256");
     try (DigestInputStream dis = new DigestInputStream(new FileInputStream(file), digest)) {
       dis.transferTo(OutputStream.nullOutputStream());
     }
@@ -83,7 +80,7 @@ public class GetWarFileFingerprint extends HttpServlet {
   }
 
   /**
-   * Computes the MD5 sum of the WAR file, located by using
+   * Computes the SHA-256 sum of the WAR file, located by using
    * {@link ServletContext#getRealPath(java.lang.String) ServletContext.getRealPath("/")} concatenated with
    * {@link #WAR_EXTENSION}.
    *
@@ -127,7 +124,7 @@ public class GetWarFileFingerprint extends HttpServlet {
         logger.log(Level.WARNING, () -> "The WAR file is not a file: " + warFile);
         return Optional.empty();
       }
-      return Optional.of(md5(warFile));
+      return Optional.of(sha256(warFile));
     } catch (Throwable t) {
       logger.log(Level.SEVERE, "Unable to get WAR file fingerprint due to exception", t);
       return Optional.empty();
