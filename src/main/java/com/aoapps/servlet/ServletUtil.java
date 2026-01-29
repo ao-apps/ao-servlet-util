@@ -46,7 +46,7 @@ public final class ServletUtil {
   }
 
   /**
-   * @see #SKIP_PAGE_EXCEPTION
+   * @see ServletUtil#SKIP_PAGE_EXCEPTION
    */
   private static final class SingletonSkipPageException extends SkipPageException {
 

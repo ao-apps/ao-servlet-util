@@ -139,7 +139,7 @@ public final class HttpServletUtil {
    * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static String getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path) {
     try {
@@ -152,7 +152,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @deprecated  Please use {@link #getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String)} instead.
+   * @deprecated  Please use {@link HttpServletUtil#getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String)} instead.
    */
   @Deprecated
   public static String getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative) {
@@ -165,7 +165,7 @@ public final class HttpServletUtil {
    * No URL rewriting is performed.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static String getAbsoluteURL(HttpServletRequest request, String path) {
     return getAbsoluteURL(request, true, path);
@@ -179,7 +179,7 @@ public final class HttpServletUtil {
    * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static void getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path, Appendable out) throws IOException {
     // TODO: Use request.getScheme() instead?
@@ -196,7 +196,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @deprecated  Please use {@link #getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String, java.lang.Appendable)} instead.
+   * @deprecated  Please use {@link HttpServletUtil#getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String, java.lang.Appendable)} instead.
    */
   @Deprecated
   public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Appendable out) throws IOException {
@@ -209,7 +209,7 @@ public final class HttpServletUtil {
    * No URL rewriting is performed.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static void getAbsoluteURL(HttpServletRequest request, String path, Appendable out) throws IOException {
     getAbsoluteURL(request, true, path, out);
@@ -223,7 +223,7 @@ public final class HttpServletUtil {
    * @param  contextRelative  When {@code true}, includes {@link HttpServletRequest#getContextPath()} in the URL.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static void getAbsoluteURL(HttpServletRequest request, boolean contextRelative, String path, Encoder encoder, Appendable out) throws IOException {
     if (encoder == null) {
@@ -244,7 +244,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @deprecated  Please use {@link #getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String, com.aoapps.lang.io.Encoder, java.lang.Appendable)} instead.
+   * @deprecated  Please use {@link HttpServletUtil#getAbsoluteURL(jakarta.servlet.http.HttpServletRequest, boolean, java.lang.String, com.aoapps.lang.io.Encoder, java.lang.Appendable)} instead.
    */
   @Deprecated
   public static void getAbsoluteURL(HttpServletRequest request, String path, boolean contextRelative, Encoder encoder, Appendable out) throws IOException {
@@ -257,7 +257,7 @@ public final class HttpServletUtil {
    * No URL rewriting is performed.
    *
    * @param  path  The path appended to the URL verbatim.  To support page-relative paths, first use
-   *               {@link #getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
+   *               {@link HttpServletUtil#getAbsolutePath(jakarta.servlet.http.HttpServletRequest, java.lang.String)}
    */
   public static void getAbsoluteURL(HttpServletRequest request, String path, Encoder encoder, Appendable out) throws IOException {
     getAbsoluteURL(request, true, path, encoder, out);
@@ -290,7 +290,7 @@ public final class HttpServletUtil {
    *
    * @param  canonical The value to use for {@link Canonical} during {@link HttpServletResponse#encodeRedirectURL(java.lang.String)}
    *
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   @SuppressWarnings("try")
   public static String buildRedirectURL(
@@ -327,7 +327,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       HttpServletRequest request,
@@ -355,8 +355,8 @@ public final class HttpServletUtil {
    * with path resolved relative to the given request.
    *
    * @see  Dispatcher#getCurrentPagePath(jakarta.servlet.http.HttpServletRequest)
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       HttpServletRequest request,
@@ -380,7 +380,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       HttpServletRequest request,
@@ -402,8 +402,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       PageContext pageContext,
@@ -425,7 +425,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       PageContext pageContext,
@@ -445,8 +445,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       JspContext jspContext,
@@ -467,7 +467,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildRedirectURL(
       JspContext jspContext,
@@ -536,7 +536,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       HttpServletRequest request,
@@ -563,7 +563,7 @@ public final class HttpServletUtil {
    * Builds a URL with path resolved relative to the given request.
    *
    * @see  Dispatcher#getCurrentPagePath(jakarta.servlet.http.HttpServletRequest)
-   * @see  #buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       HttpServletRequest request,
@@ -587,7 +587,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       HttpServletRequest request,
@@ -609,7 +609,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       PageContext pageContext,
@@ -631,7 +631,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       PageContext pageContext,
@@ -651,7 +651,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       JspContext jspContext,
@@ -672,7 +672,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static String buildURL(
       JspContext jspContext,
@@ -696,7 +696,7 @@ public final class HttpServletUtil {
    * Encodes the location to US-ASCII format.
    * Response must not be {@linkplain HttpServletResponse#isCommitted() committed}.
    *
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    *
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
@@ -715,8 +715,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
    *
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
@@ -748,7 +748,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
       int status,
@@ -774,8 +774,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
    *
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
@@ -805,7 +805,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
       int status,
@@ -829,8 +829,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.http.HttpServletResponse, java.lang.String)
    *
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
@@ -858,7 +858,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
       int status,
@@ -880,8 +880,8 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #buildRedirectURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
-   * @see  #sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#buildRedirectURL(jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.jsp.PageContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    *
    * @throws  IllegalStateException  when the response is already {@linkplain HttpServletResponse#isCommitted() committed}
    */
@@ -906,7 +906,7 @@ public final class HttpServletUtil {
   }
 
   /**
-   * @see  #sendRedirect(int, jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
+   * @see  HttpServletUtil#sendRedirect(int, jakarta.servlet.jsp.JspContext, java.lang.String, com.aoapps.net.URIParameters, com.aoapps.servlet.http.HttpServletUtil.UrlModifier, boolean, boolean)
    */
   public static void sendRedirect(
       int status,

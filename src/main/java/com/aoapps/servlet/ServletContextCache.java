@@ -90,7 +90,7 @@ public final class ServletContextCache {
   }
 
   /**
-   * @deprecated  Please use {@link #getInstance(jakarta.servlet.ServletContext)}.
+   * @deprecated  Please use {@link ServletContextCache#getInstance(jakarta.servlet.ServletContext)}.
    */
   @Deprecated
   public static ServletContextCache getCache(ServletContext servletContext) {
@@ -133,7 +133,7 @@ public final class ServletContextCache {
   }
 
   /**
-   * @see  #getResource(java.lang.String)
+   * @see  ServletContextCache#getResource(java.lang.String)
    */
   public static URL getResource(ServletContext servletContext, String path) throws MalformedURLException {
     return getInstance(servletContext).getResource(path);
@@ -164,7 +164,7 @@ public final class ServletContextCache {
   }
 
   /**
-   * @see  #getRealPath(java.lang.String)
+   * @see  ServletContextCache#getRealPath(java.lang.String)
    */
   public static String getRealPath(ServletContext servletContext, String path) {
     return getInstance(servletContext).getRealPath(path);
@@ -215,9 +215,9 @@ public final class ServletContextCache {
    *
    * @return  The modified time or {@code 0L} when not known
    *
-   * @see  #getRealPath(java.lang.String)
+   * @see  ServletContextCache#getRealPath(java.lang.String)
    * @see  File#lastModified()
-   * @see  #getResource(java.lang.String)
+   * @see  ServletContextCache#getResource(java.lang.String)
    * @see  URLConnection#getLastModified()
    */
   public long getLastModified(String path) {
@@ -230,7 +230,7 @@ public final class ServletContextCache {
   }
 
   /**
-   * @see  #getLastModified(java.lang.String)
+   * @see  ServletContextCache#getLastModified(java.lang.String)
    */
   public static long getLastModified(ServletContext servletContext, String path) {
     return getInstance(servletContext).getLastModified(path);

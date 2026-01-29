@@ -73,7 +73,7 @@ public final class Dispatcher {
   /**
    * Gets the current request original page or null if not set.
    *
-   * @see  #getOriginalPagePath(jakarta.servlet.http.HttpServletRequest) for the version that uses current request as a default.
+   * @see  Dispatcher#getOriginalPagePath(jakarta.servlet.http.HttpServletRequest) for the version that uses current request as a default.
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#FORWARD_SERVLET_PATH
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
    * @see  HttpServletRequest#getServletPath()
@@ -105,7 +105,7 @@ public final class Dispatcher {
    * Gets the original page path corresponding to the original request before any forward/include.
    * If no original page available, uses the servlet path from the provided request.
    *
-   * @see  #getOriginalPage(jakarta.servlet.ServletRequest)
+   * @see  Dispatcher#getOriginalPage(jakarta.servlet.ServletRequest)
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#FORWARD_SERVLET_PATH
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
    * @see  HttpServletRequest#getServletPath()
@@ -124,7 +124,7 @@ public final class Dispatcher {
   /**
    * Gets the current request dispatched page or null if not set.
    *
-   * @see  #getCurrentPagePath(jakarta.servlet.http.HttpServletRequest) for the version that uses current request as a default.
+   * @see  Dispatcher#getCurrentPagePath(jakarta.servlet.http.HttpServletRequest) for the version that uses current request as a default.
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
    */
   public static String getDispatchedPage(ServletRequest request) {
@@ -180,7 +180,7 @@ public final class Dispatcher {
    * This will be the path of the current page on forward or include.
    * This may be used as a substitute for HttpServletRequest.getServletPath() when the current page is needed instead of the originally requested servlet.
    *
-   * @see  #getDispatchedPage(jakarta.servlet.ServletRequest)
+   * @see  Dispatcher#getDispatchedPage(jakarta.servlet.ServletRequest)
    * @see  com.aoapps.servlet.attribute.ScopeEE.Request#INCLUDE_SERVLET_PATH
    */
   public static String getCurrentPagePath(HttpServletRequest request) {
@@ -256,7 +256,7 @@ public final class Dispatcher {
   }
 
   /**
-   * @see  #forward(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see  Dispatcher#forward(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
       String contextRelativePath,
@@ -273,7 +273,7 @@ public final class Dispatcher {
    *
    * @param  args  The arguments for the page, make unmodifiable and accessible as request-scope var "arg"
    *
-   * @see #forward(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see Dispatcher#forward(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
       ServletContext servletContext,
@@ -292,7 +292,7 @@ public final class Dispatcher {
   }
 
   /**
-   * @see  #forward(jakarta.servlet.ServletContext, java.lang.String, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see  Dispatcher#forward(jakarta.servlet.ServletContext, java.lang.String, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void forward(
       ServletContext servletContext,
@@ -369,7 +369,7 @@ public final class Dispatcher {
   }
 
   /**
-   * @see  #include(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see  Dispatcher#include(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
       String contextRelativePath,
@@ -388,7 +388,7 @@ public final class Dispatcher {
    *
    * @throws SkipPageException when the included page has been skipped due to a redirect.
    *
-   * @see  #include(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see  Dispatcher#include(java.lang.String, jakarta.servlet.RequestDispatcher, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
       ServletContext servletContext,
@@ -431,7 +431,7 @@ public final class Dispatcher {
   }
 
   /**
-   * @see  #include(jakarta.servlet.ServletContext, java.lang.String, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
+   * @see  Dispatcher#include(jakarta.servlet.ServletContext, java.lang.String, jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse, java.util.Map)
    */
   public static void include(
       ServletContext servletContext,
