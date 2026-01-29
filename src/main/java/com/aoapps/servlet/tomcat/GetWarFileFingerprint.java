@@ -82,7 +82,7 @@ public class GetWarFileFingerprint extends HttpServlet {
   /**
    * Computes the SHA-256 sum of the WAR file, located by using
    * {@link ServletContext#getRealPath(java.lang.String) ServletContext.getRealPath("/")} concatenated with
-   * {@link #WAR_EXTENSION}.
+   * {@link GetWarFileFingerprint#WAR_EXTENSION}.
    *
    * <p>If unable to find or compute, the specific reason is logged with level {@link Level#WARNING} or
    * {@link Level#SEVERE}, depending on the nature of the failure.  This method is not expected

@@ -123,7 +123,7 @@ public final class JspTagUtils {
    *
    * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
    *
-   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
+   * @deprecated  Please provide tag names to {@link JspTagUtils#requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
    */
   @Deprecated
   public static <T, Ex extends Throwable> T requireAncestor(LocalizedSupplier<Ex> exceptionSupplier, JspTag from, Class<? extends T> ancestorClass) throws Ex {
@@ -141,7 +141,7 @@ public final class JspTagUtils {
    *
    * @see  SimpleTagSupport#findAncestorWithClass(javax.servlet.jsp.tagext.JspTag, java.lang.Class)
    *
-   * @deprecated  Please provide tag names to {@link #requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
+   * @deprecated  Please provide tag names to {@link JspTagUtils#requireAncestor(java.lang.String, javax.servlet.jsp.tagext.JspTag, java.lang.String, java.lang.Class)}.
    */
   @Deprecated
   public static <T> T requireAncestor(JspTag from, Class<? extends T> ancestorClass) throws JspTagException {
