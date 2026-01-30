@@ -37,9 +37,9 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2026-01-25T05:36:29Z"
+    dateModified="2026-01-30T16:42:47Z"
   >
-    <c:set var="latestRelease" value="5.3.0" />
+    <c:set var="latestRelease" value="5.4.0" />
     <c:if test="${
       fn:endsWith('@{project.version}', '-SNAPSHOT')
       and !fn:endsWith('@{project.version}', '-POST-SNAPSHOT')
@@ -54,41 +54,53 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
       >
         <ul>
           <li>Updated to <ao:a href="https://jakarta.ee/specifications/webprofile/10/">Jakarta EE Web Profile 10</ao:a> (Servlet 6.0, JSP 3.1, EL 5.0, and JSTL 3.0).</li>
-          <li>Minimum Java version changed from 1.8 to 11.</li>
-          <li>
-            <p>
-              New servlet to determine the (Tomcat-specific) parallel deployment application version.
-              This is used to verify the correct version of an application is running after deployment.
-              There are certain scenarios where the deployment can silently fail with the old version still active,
-              which could have security implications.
-            </p>
-            <p>
-              The version is parsed from <ao:a rel="nofollow" href="@{javadoc.link.javaee.7}javax/servlet/ServletContext.html#getRealPath-java.lang.String-"><code>ServletContext.getRealPath("/")</code></ao:a>,
-              so it is likely not portable and requires <code><![CDATA[&lt;Host unpackWARs="true"&gt;]]></code> in <code>conf/server.xml</code>.
-            </p>
-          </li>
-          <li>
-            <p>
-              New servlet that computes the SHA-256 fingerprint of the deployed application WAR file.
-              This is used to verify the binary correctness of an application after deployment.
-              There are certain scenarios where the deployment can silently fail with the old version still active,
-              which could have security implications.
-            </p>
-            <p>
-              It is recommended to load this servlet on start-up via <code>load-on-startup</code>.
-              This has the best chances to read the file that represents the currently running application.
-              Note: In non-parallel deployment scenarios, the WAR file can be replaced at any time.
-            </p>
-            <p>
-              The WAR file is located by concatenating
-              <ao:a rel="nofollow" href="@{javadoc.link.javaee.7}javax/servlet/ServletContext.html#getRealPath-java.lang.String-"><code>ServletContext.getRealPath("/")</code></ao:a>
-              with <code>".war"</code>,
-              so it is likely not portable and requires <code><![CDATA[&lt;Host unpackWARs="true"&gt;]]></code> in <code>conf/server.xml</code>.
-            </p>
-          </li>
         </ul>
       </changelog:release>
     </c:if>
+
+    <changelog:release
+      projectName="@{documented.name}"
+      version="5.4.0"
+      datePublished="2026-01-30T16:42:47Z"
+      groupId="@{project.groupId}"
+      artifactId="@{documented.artifactId}"
+      scmUrl="@{project.scm.url}"
+    >
+      <ul>
+        <li>Minimum Java version changed from 1.8 to 11.</li>
+        <li>
+          <p>
+            New servlet to determine the (Tomcat-specific) parallel deployment application version.
+            This is used to verify the correct version of an application is running after deployment.
+            There are certain scenarios where the deployment can silently fail with the old version still active,
+            which could have security implications.
+          </p>
+          <p>
+            The version is parsed from <ao:a rel="nofollow" href="@{javadoc.link.javaee.7}javax/servlet/ServletContext.html#getRealPath-java.lang.String-"><code>ServletContext.getRealPath("/")</code></ao:a>,
+            so it is likely not portable and requires <code><![CDATA[&lt;Host unpackWARs="true"&gt;]]></code> in <code>conf/server.xml</code>.
+          </p>
+        </li>
+        <li>
+          <p>
+            New servlet that computes the SHA-256 fingerprint of the deployed application WAR file.
+            This is used to verify the binary correctness of an application after deployment.
+            There are certain scenarios where the deployment can silently fail with the old version still active,
+            which could have security implications.
+          </p>
+          <p>
+            It is recommended to load this servlet on start-up via <code>load-on-startup</code>.
+            This has the best chances to read the file that represents the currently running application.
+            Note: In non-parallel deployment scenarios, the WAR file can be replaced at any time.
+          </p>
+          <p>
+            The WAR file is located by concatenating
+            <ao:a rel="nofollow" href="@{javadoc.link.javaee.7}javax/servlet/ServletContext.html#getRealPath-java.lang.String-"><code>ServletContext.getRealPath("/")</code></ao:a>
+            with <code>".war"</code>,
+            so it is likely not portable and requires <code><![CDATA[&lt;Host unpackWARs="true"&gt;]]></code> in <code>conf/server.xml</code>.
+          </p>
+        </li>
+      </ul>
+    </changelog:release>
 
     <changelog:release
       projectName="@{documented.name}"
