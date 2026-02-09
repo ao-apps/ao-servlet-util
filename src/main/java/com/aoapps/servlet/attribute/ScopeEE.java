@@ -39,8 +39,6 @@ import jakarta.servlet.jsp.PageContext;
 import java.io.File;
 import java.util.List;
 import java.util.ResourceBundle;
-// TODO: Automatic name duplicates jstl-api, how to access?
-// import org.apache.taglibs.standard.tag.common.fmt.RequestEncodingSupport;
 
 /**
  * The most broad concept is scope, including page, request, session, and application.
@@ -441,11 +439,10 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
    */
   public static final class Session extends ScopeEE<HttpSession> {
 
-    // <editor-fold desc="JSTL 1.2">
-    // TODO: Automatic name duplicates jstl-api, how to access?
-    // /**
-    //  * @see  RequestEncodingSupport#REQUEST_CHAR_SET
-    //  */
+    // <editor-fold desc="JSTL">
+    /**
+     * See <a href="https://github.com/javaee/jstl-api/blob/b3f3d7db6d94a8b43babce66418f8e295e822fcd/impl/src/main/java/org/apache/taglibs/standard/tag/common/fmt/RequestEncodingSupport.java#L40">RequestEncodingSupport.REQUEST_CHAR_SET</a>.
+     */
     public static final Attribute<String> REQUEST_CHAR_SET = new Attribute<>("jakarta.servlet.jsp.jstl.fmt.request.charset");
 
     // </editor-fold>

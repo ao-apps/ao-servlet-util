@@ -43,8 +43,6 @@ module com.aoapps.servlet.util {
   requires jakarta.el; // <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId>
   requires jakarta.servlet; // <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId>
   requires jakarta.servlet.jsp; // <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
-  // TODO: Automatic name duplicates jstl-api, how to access?
-  // requires static jakarta.servlet.jsp.jstl; // <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
   requires static jakarta.servlet.jsp.jstl; // <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
   // Java SE
   requires java.logging;

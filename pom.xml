@@ -29,7 +29,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     <relativePath>../parent/pom.xml</relativePath>
   </parent>
 
-  <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>6.0.0-POST-SNAPSHOT</version>
+  <groupId>com.aoapps</groupId><artifactId>ao-servlet-util</artifactId><version>6.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -115,17 +115,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
   <build>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId><artifactId>maven-dependency-plugin</artifactId>
-        <configuration>
-          <usedDependencies>
-            <!-- Javadoc-only -->
-            <!-- TODO: Automatic name duplicates jstl-api, how to access?
-            <dependency>org.glassfish.web:jakarta.servlet.jsp.jstl</dependency>
-            -->
-          </usedDependencies>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>com.github.spotbugs</groupId><artifactId>spotbugs-maven-plugin</artifactId>
         <configuration>
           <!-- TODO: Clean-up SpotBugs -->
@@ -171,13 +160,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
                     <!-- ao-javadoc-offline: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId><classifier>javadoc</classifier> -->
                     <!-- ao-javadoc-offline: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><classifier>javadoc</classifier> -->
                     <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
-                    <!-- TODO: Automatic name duplicates jstl-api, how to access?
-                    <artifactItem>
-                      <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId><classifier>javadoc</classifier>
-                      <includes>element-list, package-list</includes>
-                      <outputDirectory>${project.build.directory}/offlineLinks/org.glassfish.web/jakarta.servlet.jsp.jstl</outputDirectory>
-                    </artifactItem>
-                    -->
                     <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId><classifier>javadoc</classifier> -->
                   </artifactItems>
                 </configuration>
@@ -208,12 +190,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
                 <!-- ao-javadoc-offline: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId><classifier>javadoc</classifier> -->
                 <!-- ao-javadoc-offline: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId><classifier>javadoc</classifier> -->
                 <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId><classifier>javadoc</classifier> -->
-                <!-- TODO: Automatic name duplicates jstl-api, how to access?
-                <offlineLink>
-                  <url>https://javadoc.io/doc/org.glassfish.web/jakarta.servlet.jsp.jstl/${org.glassfish.web:jakarta.servlet.jsp.jstl:jar.version}/</url>
-                  <location>${project.build.directory}/offlineLinks/org.glassfish.web/jakarta.servlet.jsp.jstl</location>
-                </offlineLink>
-                -->
                 <!-- ao-javadoc-offline: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId><classifier>javadoc</classifier> -->
               </offlineLinks>
             </configuration>
@@ -241,9 +217,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId> -->
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId> -->
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId> -->
-      <!-- TODO: Automatic name duplicates jstl-api, how to access?
-      <!- - jakartaee-web-profile-bom: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId> - ->
-      -->
       <!-- jakartaee-web-profile-bom: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId> -->
       <!-- Transitive -->
       <dependency>
@@ -283,15 +256,6 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     </dependency>
     <dependency>
       <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
-      <!-- TODO: Automatic name duplicates jstl-api, how to access?
-      <scope>compile</scope>
-      -->
-      <scope>runtime</scope>
-      <!-- Only needed for compile-time constants and Javadoc links -->
-      <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId>

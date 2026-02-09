@@ -42,8 +42,6 @@ binding.setVariable('upstreamProjects', [
   // No Jenkins: <groupId>jakarta.el</groupId><artifactId>jakarta.el-api</artifactId>
   // No Jenkins: <groupId>jakarta.servlet</groupId><artifactId>jakarta.servlet-api</artifactId>
   // No Jenkins: <groupId>jakarta.servlet.jsp</groupId><artifactId>jakarta.servlet.jsp-api</artifactId>
-  // TODO: Automatic name duplicates jstl-api, how to access?
-  // // No Jenkins: <groupId>org.glassfish.web</groupId><artifactId>jakarta.servlet.jsp.jstl</artifactId>
   // No Jenkins: <groupId>jakarta.servlet.jsp.jstl</groupId><artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 
   // BOM
