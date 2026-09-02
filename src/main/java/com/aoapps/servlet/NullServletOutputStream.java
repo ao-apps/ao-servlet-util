@@ -150,11 +150,10 @@ public final class NullServletOutputStream extends ServletOutputStream implement
   @Override
   public void setWriteListener(WriteListener wl) {
     throw new IllegalStateException("Implement when first required");
-    /*
-    try {
-      wl.onWritePossible();
-    } catch (IOException e) {
-      wl.onError(e);
-    }*/
+    // try {
+    //   wl.onWritePossible();
+    // } catch (IOException e) {
+    //   wl.onError(e);
+    // }
   }
 }

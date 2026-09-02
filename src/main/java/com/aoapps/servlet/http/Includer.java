@@ -100,7 +100,7 @@ public final class Includer {
     if (logger.isLoggable(Level.FINER)) {
       logger.log(
           Level.FINER, "request={0}, isOutmostInclude={1}",
-          new Object[]{
+          new Object[] {
               request,
               isOutmostInclude
           }

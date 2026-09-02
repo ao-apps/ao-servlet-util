@@ -64,7 +64,7 @@ public final class ServletUtil {
       StackTraceElement[] stackTrace = getStackTrace();
       if (stackTrace != null && stackTrace.length > 1) {
         setStackTrace(
-            new StackTraceElement[]{
+            new StackTraceElement[] {
                 stackTrace[0]
             }
         );

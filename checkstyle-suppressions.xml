@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 ao-servlet-util - Miscellaneous Servlet and JSP utilities.
-Copyright (C) 2022, 2023  AO Industries, Inc.
+Copyright (C) 2022, 2023, 2026  AO Industries, Inc.
     support@aoindustries.com
     7262 Bull Pen Cir
     Mobile, AL 36695
@@ -38,12 +38,12 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
 
   <!-- Consistency with standard "HttpServletResponse.encodeURL" and "HttpServletResponse.encodeRedirectURL" -->
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]servlet[/\\]http[/\\]Canonical\.java$"
     message="'(encodeCanonicalURL|encodeCanonicalRedirectURL)'"
   />
   <suppress
-    checks="AbbreviationAsWordInName"
+    checks="(AbbreviationAsWordInName|GoogleMethodName)"
     files="[/\\]com[/\\]aoapps[/\\]servlet[/\\]http[/\\]HttpServletUtil\.java$"
     message="'(buildRedirectURL|buildURL|getAbsoluteURL)'"
   />
