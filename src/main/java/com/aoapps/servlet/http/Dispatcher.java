@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2018, 2020, 2021, 2022, 2025  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2018, 2020, 2021, 2022, 2025, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -134,7 +134,7 @@ public final class Dispatcher {
         logger.log(
             Level.FINE,
             "request={0}, dispatchedPage={1}",
-            new Object[]{
+            new Object[] {
                 request,
                 dispatchedPage
             }
@@ -147,7 +147,7 @@ public final class Dispatcher {
           logger.log(
               Level.FINE,
               "request={0}, " + ScopeEE.Request.INCLUDE_SERVLET_PATH.getName() + "={1}",
-              new Object[]{
+              new Object[] {
                   request,
                   dispatchedPage
               }
@@ -166,7 +166,7 @@ public final class Dispatcher {
       logger.log(
           Level.FINE,
           "request={0}, dispatchedPage={1}",
-          new Object[]{
+          new Object[] {
               request,
               dispatchedPage
           }
@@ -190,7 +190,7 @@ public final class Dispatcher {
         logger.log(
             Level.FINE,
             "request={0}, dispatched={1}",
-            new Object[]{
+            new Object[] {
                 request,
                 dispatched
             }
@@ -203,7 +203,7 @@ public final class Dispatcher {
         logger.log(
             Level.FINE,
             "request={0}. servletPath={1}",
-            new Object[]{
+            new Object[] {
                 request,
                 servletPath
             }
@@ -327,7 +327,7 @@ public final class Dispatcher {
           logger.log(
               Level.FINE,
               "request={0}, servletPath={1}",
-              new Object[]{
+              new Object[] {
                   request,
                   servletPath
               }
@@ -342,7 +342,7 @@ public final class Dispatcher {
           logger.log(
               Level.FINE,
               "request={0}, oldDispatchPage={1}",
-              new Object[]{
+              new Object[] {
                   request,
                   oldDispatchPage
               }
@@ -405,7 +405,7 @@ public final class Dispatcher {
         logger.log(
             Level.FINE,
             "request={0}, currentPagePath={1}",
-            new Object[]{
+            new Object[] {
                 request,
                 currentPagePath
             }
@@ -416,7 +416,7 @@ public final class Dispatcher {
         logger.log(
             Level.FINE,
             "request={0}, contextRelativePath={1}",
-            new Object[]{
+            new Object[] {
                 request,
                 contextRelativePath
             }

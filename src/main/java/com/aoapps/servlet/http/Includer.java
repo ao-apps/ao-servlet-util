@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024  AO Industries, Inc.
+ * Copyright (C) 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -100,7 +100,7 @@ public final class Includer {
     if (logger.isLoggable(Level.FINER)) {
       logger.log(
           Level.FINER, "request={0}, isOutmostInclude={1}",
-          new Object[]{
+          new Object[] {
               request,
               isOutmostInclude
           }
