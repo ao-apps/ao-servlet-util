@@ -54,6 +54,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
       >
         <ul>
           <li>Fixed bug in <code>AttributeEE.scope(…)</code> that would return <code>application()</code> instead of <code>page()</code>.</li>
+          <li>Improved docs for <code>ScopeEE.getScopeId(…)</code> to link to the actual constants matched.</li>
         </ul>
       </changelog:release>
     </c:if>
