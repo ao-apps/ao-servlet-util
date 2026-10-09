@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -2279,7 +2279,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     @SuppressWarnings("unchecked")
     public <C> ScopeEE.Attribute<C, T> scope(ScopeEE<C> scope) {
       if (scope == ScopeEE.PAGE) {
-        return (ScopeEE.Attribute<C, T>) application();
+        return (ScopeEE.Attribute<C, T>) page();
       }
       if (scope == ScopeEE.REQUEST) {
         return (ScopeEE.Attribute<C, T>) request();
