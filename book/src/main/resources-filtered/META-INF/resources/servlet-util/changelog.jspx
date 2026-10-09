@@ -37,7 +37,7 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
     shortTitle="Changelog"
     tocLevels="1"
     datePublished="2019-08-21T05:09:52-05:00"
-    dateModified="2026-02-09T15:42:00Z"
+    dateModified="2026-10-09T06:03:07Z"
   >
     <c:set var="latestRelease" value="6.0.1" />
     <c:if test="${
@@ -51,7 +51,11 @@ along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
         groupId="@{project.groupId}"
         artifactId="@{documented.artifactId}"
         scmUrl="@{project.scm.url}"
-      />
+      >
+        <ul>
+          <li>Fixed bug in <code>AttributeEE.scope(…)</code> that would return <code>application()</code> instead of <code>page()</code>.</li>
+        </ul>
+      </changelog:release>
     </c:if>
 
     <changelog:release

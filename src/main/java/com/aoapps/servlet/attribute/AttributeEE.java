@@ -2279,7 +2279,7 @@ public abstract class AttributeEE<C, T> extends com.aoapps.lang.attribute.Attrib
     @SuppressWarnings("unchecked")
     public <C> ScopeEE.Attribute<C, T> scope(ScopeEE<C> scope) {
       if (scope == ScopeEE.PAGE) {
-        return (ScopeEE.Attribute<C, T>) application();
+        return (ScopeEE.Attribute<C, T>) page();
       }
       if (scope == ScopeEE.REQUEST) {
         return (ScopeEE.Attribute<C, T>) request();
