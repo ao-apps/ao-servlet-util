@@ -1,6 +1,6 @@
 /*
  * ao-servlet-util - Miscellaneous Servlet and JSP utilities.
- * Copyright (C) 2021, 2022, 2024  AO Industries, Inc.
+ * Copyright (C) 2021, 2022, 2024, 2026  AO Industries, Inc.
  *     support@aoindustries.com
  *     7262 Bull Pen Cir
  *     Mobile, AL 36695
@@ -174,10 +174,10 @@ public abstract class ScopeEE<C> extends com.aoapps.lang.attribute.Scope<C> {
      * Gets the {@link PageContext} scope value for the textual scope name.
      *
      * @return <ul>
-     *           <li>{@code null} or {@code ""} or {@link Page#PAGE}: {@link PageContext#PAGE_SCOPE}</li>
-     *           <li>{@link Page#REQUEST}: {@link PageContext#REQUEST_SCOPE}</li>
-     *           <li>{@link Page#SESSION}: {@link PageContext#SESSION_SCOPE}</li>
-     *           <li>{@link Page#APPLICATION}: {@link PageContext#APPLICATION_SCOPE}</li>
+     *           <li>{@code null} or {@code ""} or {@link Page#SCOPE_PAGE}: {@link PageContext#PAGE_SCOPE}</li>
+     *           <li>{@link Page#SCOPE_REQUEST}: {@link PageContext#REQUEST_SCOPE}</li>
+     *           <li>{@link Page#SCOPE_SESSION}: {@link PageContext#SESSION_SCOPE}</li>
+     *           <li>{@link Page#SCOPE_APPLICATION}: {@link PageContext#APPLICATION_SCOPE}</li>
      *         </ul>
      *
      * @throws  LocalizedIllegalArgumentException  if invalid scope
