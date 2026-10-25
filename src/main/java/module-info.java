@@ -21,20 +21,6 @@
  * along with ao-servlet-util.  If not, see <https://www.gnu.org/licenses/>.
  */
 module com.aoapps.servlet.util {
-  exports com.aoapps.servlet;
-  exports com.aoapps.servlet.attribute;
-  exports com.aoapps.servlet.el;
-  exports com.aoapps.servlet.function;
-  exports com.aoapps.servlet.http;
-  exports com.aoapps.servlet.i18n;
-  exports com.aoapps.servlet.jsp;
-  exports com.aoapps.servlet.jsp.function;
-  exports com.aoapps.servlet.jsp.tagext;
-  exports com.aoapps.servlet.tomcat;
-  provides com.aoapps.lang.CoercionOptimizerInitializer with com.aoapps.servlet.BodyContentImplCoercionOptimizerInitializer;
-  provides com.aoapps.lang.ThrowableSurrogateFactoryInitializer with com.aoapps.servlet.JakartaeeWebSurrogateFactoryInitializer;
-  provides com.aoapps.lang.attribute.Attribute.Name.ContextFactory with com.aoapps.servlet.attribute.AttributeEE.Name.ContextEEFactory;
-  provides com.aoapps.lang.attribute.Attribute.Name.ScopeFactory with com.aoapps.servlet.attribute.AttributeEE.Name.ScopeEEFactory;
   // Direct
   requires com.aoapps.collections; // <groupId>com.aoapps</groupId><artifactId>ao-collections</artifactId>
   requires com.aoapps.hodgepodge; // <groupId>com.aoapps</groupId><artifactId>ao-hodgepodge</artifactId>
@@ -47,4 +33,20 @@ module com.aoapps.servlet.util {
   // Java SE
   requires java.logging;
   requires java.sql;
+
+  exports com.aoapps.servlet;
+  exports com.aoapps.servlet.attribute;
+  exports com.aoapps.servlet.el;
+  exports com.aoapps.servlet.function;
+  exports com.aoapps.servlet.http;
+  exports com.aoapps.servlet.i18n;
+  exports com.aoapps.servlet.jsp;
+  exports com.aoapps.servlet.jsp.function;
+  exports com.aoapps.servlet.jsp.tagext;
+  exports com.aoapps.servlet.tomcat;
+
+  provides com.aoapps.lang.CoercionOptimizerInitializer with com.aoapps.servlet.BodyContentImplCoercionOptimizerInitializer;
+  provides com.aoapps.lang.ThrowableSurrogateFactoryInitializer with com.aoapps.servlet.JakartaeeWebSurrogateFactoryInitializer;
+  provides com.aoapps.lang.attribute.Attribute.Name.ContextFactory with com.aoapps.servlet.attribute.AttributeEE.Name.ContextEEFactory;
+  provides com.aoapps.lang.attribute.Attribute.Name.ScopeFactory with com.aoapps.servlet.attribute.AttributeEE.Name.ScopeEEFactory;
 }
