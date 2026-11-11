@@ -24,7 +24,6 @@
 package com.aoapps.servlet.tomcat;
 
 import com.aoapps.lang.io.ContentType;
-import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
